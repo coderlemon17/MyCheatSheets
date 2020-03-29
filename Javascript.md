@@ -1994,20 +1994,345 @@ $('div.testing>li.lang-javascript'); // [], 无法选出，因为<div>和<li>不
 
 ##### KOA
 
+- 路由管理
 
+    - 增加路由：
 
-- 
+      - ```
+      // add url-route:
+        router.get('/hello/:name', async (ctx, next) => {
+            var name = ctx.params.name;
+            ctx.response.body = `<h1>Hello, ${name}!</h1>`;
+      });
+        ```
 
-- 在合适的位置加上：
+    - 处理POST请求：
 
-  ```
-  app.use(bodyParser());
-  ```
+      ```
+      app.use(bodyParser());
+      ```
 
-  由于middleware的顺序很重要，这个`koa-bodyparser`必须在`router`之前被注册到`app`对象上。
+      由于middleware的顺序很重要，这个`koa-bodyparser`必须在`router`之前被注册到`app`对象上。
 
-  
+- TODO：模板渲染
+
+- MVC
+
+    - ![image](https://www.liaoxuefeng.com/files/attachments/1100575804488000/l)
+
+    - ```
+        异步函数是C：Controller，Controller负责业务逻辑，比如检查用户名是否存在，取出用户信息等等；
+        
+        包含变量{{ name }}的模板就是V：View，View负责显示逻辑，通过简单地替换一些变量，View最终输出的就是用户看到的HTML。
+        
+        MVC中的Model在哪？Model是用来传给View的，这样View在替换变量的时候，就可以从Model中取出相应的数据。
+        ```
+
+    - 静态文件：
+
+        - `View`等
+
+            > - 我们用[Bootstrap](http://getbootstrap.com/)这个CSS框架。从首页下载zip包后解压，我们把所有静态资源文件放到`/static`目录下
+
+        - ```
+            <link rel="stylesheet" href="/static/css/bootstrap.css">
+            //rel 属性规定当前文档与被链接文档之间的关系, 上面rel 属性指示被链接的文档是一个样式表
+            ```
+
+        - 处理静态资源：
+
+            - 处理静态资源的middleware：
+
+                - ```
+                    const path = require('path');
+                    const mime = require('mime');
+                    const fs = require('mz/fs');
+                    
+                    // url: 类似 '/static/'
+                    // dir: 类似 __dirname + '/static'
+                    function staticFiles(url, dir) {
+                        return async (ctx, next) => {
+                            let rpath = ctx.request.path;
+                            // 判断是否以指定的url开头:
+                            if (rpath.startsWith(url)) {
+                                // 获取文件完整路径:
+                                let fp = path.join(dir, rpath.substring(url.length));
+                                // 判断文件是否存在:
+                                if (await fs.exists(fp)) {
+                                    // 查找文件的mime:
+                                    ctx.response.type = mime.getType(rpath);
+                                    // 读取文件内容并赋值给response.body:
+                                    ctx.response.body = await fs.readFile(fp);
+                                } else {
+                                    // 文件不存在:
+                                    ctx.response.status = 404;
+                                }
+                            } else {
+                                // 不是指定前缀的URL，继续处理下一个middleware:
+                                await next();
+                            }
+                        };
+                    }
+                    
+                    module.exports = staticFiles;
+                    ```
+
+            - `mz`提供的API和Node.js的`fs`模块完全相同，但`fs`模块使用回调，而`mz`封装了`fs`对应的函数，并改为Promise。这样，我们就可以非常简单的用`await`调用`mz`的函数，而不需要任何回调。
+
+            - 最后，这个middleware使用起来也很简单，在`app.js`里加一行代码：
+
+                ```
+                let staticFiles = require('./static-files');
+                app.use(staticFiles('/static/', __dirname + '/static'));
+                ```
+
+            - *注意*：也可以去npm搜索能用于koa2的处理静态文件的包并直接使用。
+
+##### Mysql
+
+- ```
+    sudo apt updata
+    sudo apt install mysql-server
+    sudo mysql_secure_installation
+    ```
+
+    - 我的密码'Passwd17'
+    - `ERROR 1698 (28000): Access denied for user 'root'@'localhost'` => 要用sudo
+    
+- 使用`sequelize`
+
+    - 这就是传说中的ORM技术：Object-Relational Mapping，把关系数据库的表结构映射到对象上。
+
+    - ```
+        connection.query('SELECT * FROM users WHERE id = ?', ['123'], function(err, rows) {
+            if (err) {
+                // error
+            } else {
+                for (let row in rows) {
+                    processRow(row);
+                }
+            }
+        });
+        
+        to
+        
+        Pet.findAll()
+           .then(function (pets) {
+               for (let pet in pets) {
+                   console.log(`${pet.id}: ${pet.name}`);
+               }
+           }).catch(function (err) {
+               // error
+           });//因为Sequelize返回的对象是Promise
+           
+        to
+        
+        (async () => {
+            var pets = await Pet.findAll();
+        })();
+        ```
+
+    - 注意npm install 的 mysql是驱动，我们不直接使用，但是sequelize会用。
+
+    - 使用配置文件：
+
+        - `config.js`实际上是一个简单的配置文件：
+
+            ```
+            var config = {
+                database: 'test', // 使用哪个数据库
+                username: 'www', // 用户名
+                password: 'www', // 口令
+                host: 'localhost', // 主机名
+                port: 3306 // 端口号，MySQL默认3306
+            };
+            
+            module.exports = config;
+            ```
+
+    - 我们把通过`Pet.findAll()`返回的一个或一组对象称为Model实例，每个实例都可以直接通过`JSON.stringify`序列化为JSON字符串
+
+    - **sequelize 连接表的时候，会默认给你传进去的表名加上s, 所以需要手动配置参数 freezeTableName: true**
+
+- 建立`Model`
+
+##### TODO: mocha
+
+##### TODO: WebSocket
+
+##### REST(Representational State Transfer）)
+
+- 编写**REST API**:
+
+    - 编写REST API，实际上就是编写处理HTTP请求的async函数，不过，REST请求和普通的HTTP请求有几个特殊的地方：
+
+        1. REST请求仍然是标准的HTTP请求，但是，除了GET请求外，POST、PUT等请求的body是JSON数据格式，请求的`Content-Type`为`application/json`；
+        2. REST响应返回的结果是JSON数据格式，因此，响应的`Content-Type`也是`application/json`。
+
+    - ```
+        GET /api/products/123/reviews?page=2&size=10&sort=time
+        ```
+
+    - 这个POST请求无法在浏览器中直接测试。但是我们可以通过`curl`命令在命令提示符窗口测试这个API。我们输入如下命令：
+
+        ```
+        curl -H 'Content-Type: application/json' -X POST -d '{"name":"XBox","price":3999}' http://localhost:3000/api/products
+        ```
+
+    - 可见，在koa中处理REST请求是非常简单的。`bodyParser()`这个middleware可以解析请求的JSON数据并绑定到`ctx.request.body`上，输出JSON时我们先指定`ctx.response.type = 'application/json'`，然后把JavaScript对象赋值给`ctx.response.body`就完成了REST请求的处理。
+
+        - ```
+            module.exports = {
+                'GET /api/products': async (ctx, next) => {
+                    // 设置Content-Type:
+                    ctx.response.type = 'application/json';
+                    // 设置Response Body:
+                    ctx.response.body = {
+                        products: products
+                    };
+                }
+            }
+            ```
+
+            
+
+- 开发**REST API**:
+
+    - 如果API路径带有参数，参数必须用`:`表示，例如，`DELETE /api/products/:id`，客户端传递的URL可能就是`/api/products/A001`，参数`id`对应的值就是`A001`，要获得这个参数，我们用`ctx.params.id`。
+
+        类似的，如果API路径有多个参数，例如，`/api/products/:pid/reviews/:rid`，则这两个参数分别用`ctx.params.pid`和`ctx.params.rid`获取。
+
+        这个功能由koa-router这个middleware提供。
+
+    - 
 
 ##### MVVM
 
-- 
+- 发展历史：
+
+    > - 如果要针对不同的用户显示不同的页面，显然不可能给成千上万的用户准备好成千上万的不同的html文件，所以，服务器就需要针对不同的用户，动态生成不同的html文件。一个最直接的想法就是利用C、C++这些编程语言，直接向浏览器输出拼接后的字符串。这种技术被称为CGI：Common Gateway Interface。
+    >
+    > - 很显然，像新浪首页这样的复杂的HTML是不可能通过拼字符串得到的。于是，人们又发现，其实拼字符串的时候，大多数字符串都是HTML片段，是不变的，变化的只有少数和用户相关的数据，所以，又出现了新的创建动态HTML的方式：ASP、JSP和PHP——分别由微软、SUN和开源社区开发。
+    >
+    > - 一旦浏览器显示了一个HTML页面，要更新页面内容，唯一的方法就是重新向服务器获取一份新的HTML内容。如果浏览器想要自己修改HTML页面的内容，就需要等到1995年年底，JavaScript被引入到浏览器。
+    >
+    > - 用JavaScript在浏览器中操作HTML，经历了若干发展阶段：
+    >
+    >     - 第一阶段，直接用JavaScript操作DOM节点，使用浏览器提供的原生API：
+    >
+    >     - 第二阶段，由于原生API不好用，还要考虑浏览器兼容性，jQuery横空出世，以简洁的API迅速俘获了前端开发者的芳心：
+    >
+    >     - 第三阶段，MVC模式，需要服务器端配合，JavaScript可以在前端修改服务器渲染后的数据。
+    >
+    >     - MVVM最早由微软提出来，它借鉴了桌面应用程序的MVC思想，在前端页面中，把Model用纯JavaScript对象表示，View负责显示，两者做到了最大限度的分离。
+    >
+    >         把Model和View关联起来的就是ViewModel。ViewModel负责把Model的数据同步到View显示出来，还负责把View的修改同步回Model
+
+- 单项绑定：
+
+    - *要特别注意的是*，在``内部编写的JavaScript代码，需要用jQuery把MVVM的初始化代码推迟到页面加载完毕后执行，否则，直接在``内执行MVVM代码时，DOM节点尚未被浏览器加载，初始化将失败。
+
+    - $(function() {}) 是$(document).ready(function()的简写。
+
+        这个函数什么时候执行的呢？
+
+        答案：DOM加载完毕之后执行。
+
+    - **另一种**单向绑定的方法是使用Vue的指令`v-text`，写法如下：
+
+        ```
+        <p>Hello, <span v-text="name"></span>!</p>
+        ```
+
+- 双向绑定：
+
+    - 然后，编写一个HTML FORM表单，并用`v-model`指令把某个``和Model的某个属性作双向绑定：
+
+        ```html
+        <form id="vm" action="#">
+            <p><input v-model="email"></p>
+            <p><input v-model="name"></p>
+        </form>
+        ```
+
+    - 响应`onsubmit`事件也可以放到VM中。我们在``元素上使用指令：
+
+        ```
+        <form id="vm" v-on:submit.prevent="register">
+        ```
+
+        其中，`v-on:submit="register"`指令就会自动监听表单的`submit`事件，并调用`register`方法处理该事件。使用`.prevent`表示阻止事件默认行为，这样，浏览器不再处理``的`submit`事件。
+
+        ```
+        //1、prevent是preventDefault,阻止标签默认行为，有些标签有默认行为，例如a标签的跳转链接属性href等。 2、submit点击默认行为是提交表单，这里并不需要它提交，只需要执行register方法，故阻止为妙。 3、stop是stopPropagation，阻止事件冒泡，点击哪个元素，就只响应这个元素，父级就不会响应了
+        ```
+
+        因为我们指定了事件处理函数是`register`，所以需要在创建VM时添加一个`register`函数：
+
+        ```
+        var vm = new Vue({
+            el: '#vm',
+            data: {
+                ...
+            },
+            methods: {
+                register: function () {
+                    // 显示JSON格式的Model:
+                    alert(JSON.stringify(this.$data));
+                    // TODO: AJAX POST...
+                }
+            }
+        });
+        ```
+
+        在`register()`函数内部，我们可以用AJAX把JSON格式的Model发送给服务器，就完成了用户注册的功能。
+
+- #### 同步DOM结构
+
+    - 在Vue中，可以使用v-for指令来实现：
+
+        <ol>
+            <li v-for="t in todos">
+                <dl>
+                    <dt>{{ t.name }}</dt>
+                    <dd>{{ t.description }}</dd>
+                </dl>
+            </li>
+        </ol>
+
+    - 需要注意的是，Vue之所以能够监听Model状态的变化，是因为JavaScript语言本身提供了[Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)或者[Object.observe()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe)机制来监听对象状态的变化。但是，对于数组元素的赋值，却没有办法直接监听，因此，如果我们直接对数组元素赋值：
+
+        ```
+        vm.todos[0] = {
+            name: 'New name',
+            description: 'New description'
+        };
+        ```
+
+        会导致Vue无法更新View。
+
+        正确的方法是不要对数组元素赋值，而是更新：
+
+        ```
+        vm.todos[0].name = 'New name';
+        vm.todos[0].description = 'New description';
+        ```
+
+        或者，通过`splice()`方法，删除某个元素后，再添加一个元素，达到“赋值”的效果：
+
+        ```
+        var index = 0;
+        var newElement = {...};
+        vm.todos.splice(index, 1, newElement);
+        ```
+
+        Vue可以监听数组的`splice`、`push`、`unshift`等方法调用，所以，上述代码可以正确更新View。
+
+- #### 集成API
+    - 准备好API后，在Vue中，我们如何把Model的更新同步到服务器端？
+
+        有两个方法，一是直接用jQuery的AJAX调用REST API，不过这种方式比较麻烦。
+
+        第二个方法是使用[vue-resource](https://github.com/vuejs/vue-resource)这个针对Vue的扩展，它可以给VM对象加上一个`$resource`属性，通过`$resource`来方便地操作API。
+
+    - 
