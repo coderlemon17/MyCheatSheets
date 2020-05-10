@@ -109,34 +109,57 @@
   ```
 
   - `-i`:  打开标准输入
-  - `-d`: 在后台运行
-  - `-t`:  分配一个伪终端
-  - `-v [HOST-DIR:CONTAINER-DIR]`: 挂载主机上的文件卷到容器内
-  - `-p`: 指定如何映射到本地主机端口，e.g. `-p 11234-12234:1234:2234`
-  - `--link=[<name or id>:alias]`: 链接到其他容器(可以使用`alias`表示被链接的容器)
-  - `--rm=true|false`: 容器退出后是否自动删除（不能与`-d`共用）
-- `--name=""`：容器的别名
   
+  - `-d`: 在后台运行
+  
+  - `-t`:  分配一个伪终端
+  
+  - `-v [HOST-DIR:CONTAINER-DIR]`: 挂载主机上的文件卷到容器内
+  
+  - `-p hostPort:containerPort` : 指定如何映射到本地主机端口，e.g. `-p 11234-12234:1234:2234`
+  
+      - 如果一个参数的选项格式是[],比如
+          -H=[]host
+          -p=[]portdirection
+          这都意味着这个flag可以多次出现，所以此处可以多次指定端口映射规则。
+  
+          例：docker run -d -p 80:80 -p 22:22
+  
+  - `--link=[<name or id>:alias]`: 链接到其他容器(可以使用`alias`表示被链接的容器)
+  
+  - `--rm=true|false`: 容器退出后是否自动删除（不能与`-d`共用）
+  
+- `--name=""`：容器的别名
+
 - ```
-  docker start
+  docker start [options] container [container...]
   or
-  docker run
+  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
   ```
 
   - `run = create + start`
   - `docker run -it ubuntu:18.04 /bin/bash`: 启动一个终端并可以交互
-
-- ```
+- start:
+      - `--attach, -a` 连接容器 
+      -  `--interactive, -i` 连接容器终端
+  - 容器自动退出:
+      - https://blog.csdn.net/fengqing5578/article/details/94554897
+  - 为了防止容器总是自动退出:
+      - 创建时即选用-itd和/bin/bash
+          - `docker run -idt --name="torcs" ubuntu:18.04 /bin/bash`:这样容器中就始终有一个`bash`在运行.
+          - 接入是选取`exec`而非`attach`,否则`attach`的那个就是原来的终端,当你退出时容器也就退出了
+          - 接入`exec`时不要选取`-d`
+  
+  ```
   docker container wait CONTAINER
   ```
-
+  
   - 等待容器退出并打印结果
-
+  
 - ```
-  docker ps
+  docker ps //查看正在运行的容器
+  docker ps -a //查看所有的容器
   ```
-
-  - 查看正在运行的容器
 
 - ```
   docker [container] logs
@@ -213,3 +236,95 @@
 
   - 导入的文件会生成**镜像**
   - e.g. `docker import test_for_fun.tar - ./ubuntu:18.04`
+
+### 文件拷贝
+
+- 都是在宿主机内操作:
+    - 从容器拷贝到宿主机:
+        -  **docker cp 容器名：要拷贝的文件在容器里面的路径    要拷贝到宿主机的相应路径**
+    - 从宿主机拷贝到容器:
+        - **docker cp 要拷贝的文件路径 容器名：要拷贝到容器里面对应的路径**
+- e.g.:`docker cp /etc/apt/sources.list torcs:/etc/apt`
+
+### 修改容器的端口映射:(!容器可能会丢失)
+
+- https://blog.csdn.net/u010046887/article/details/90406271
+    - 注意要先sudo su之后再操作,不然连cd和ls都没有权限,也没法自动提示
+    - 要先停止容器和Docker的服务,不然修改完了还是会变回去
+    - ...尝试失败,重启之后容器**不见了**
+
+### ssh登录容器:
+
+- 个人设置:
+
+    - ```
+        // passwd root
+        root: Passwd17
+        
+        //主机端口10001 -> 容器端口 22
+        
+        ```
+
+    - //最开始ssh是禁止root登录的,修改方法:
+
+        - https://www.cnblogs.com/sunzebo/articles/9609457.html
+        - 修改的是**sshd_config**而不是**ssh_config**
+            - PermitRootLogin: yes
+            - PasswordAuthentication: yes
+
+    - 创建新用户:
+
+        - `sudo adduser lemon`
+
+- https://blog.csdn.net/weixin_41845533/article/details/88803471
+
+- 安装ssh:
+
+    - sudo apt install openssh-server
+
+- 启动服务:
+
+    - service ssh start
+
+- 创建用户:
+
+    - `sudo adduser lemon`
+
+    - [给用户添加sudo权限]: https://blog.csdn.net/lemonzone2010/article/details/5998502
+
+        
+
+        
+
+### 初始化操作:
+
+```
+apt install build-essential openssh-server vim zsh
+```
+
+- zsh设置:
+
+    - `chsh -s $(which zsh)`
+
+    - zsh和on-my-zsh是两个东西:
+
+        - 安装on-my-zsh:
+
+        - ```
+            sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+            ```
+
+    - 对于oh-my-zsh的plugin:
+
+        - 要么直接在plugin里写:
+
+        - 要么先:
+
+            - ```
+                git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+                ```
+
+            - 然后再在~/.zshrc的plugin里写
+
+- **没有sudo就安装!**
+    - apt install sudo

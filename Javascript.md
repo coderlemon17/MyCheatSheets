@@ -230,6 +230,8 @@
 
   *请注意*，`for ... in`对`Array`的循环得到的是`String`而不是`Number`。
 
+- [for of 和 for in的区别](https://blog.csdn.net/cominglately/article/details/78083638)
+
 #### Map和Set
 
 - JavaScript的对象有个小问题，就是键必须是字符串。
@@ -913,8 +915,10 @@
 
   - 箭头函数看上去是匿名函数的一种简写，但实际上，箭头函数和匿名函数有个明显的区别：箭头函数内部的`this`是词法作用域
 
-  - **由于`this`在箭头函数中已经按照词法作用域绑定了**，所以，用`call()`或者`apply()`调用箭头函数时，无法对`this`进行绑定，**即传入的第一个参数被忽略**：
+      保险起见，只有在函数内部没有使用this时再用箭头，否则可以用匿名函数
 
+  - **由于`this`在箭头函数中已经按照词法作用域绑定了**，所以，用`call()`或者`apply()`调用箭头函数时，无法对`this`进行绑定，**即传入的第一个参数被忽略**：
+  
     ```
     var obj = {
         birth: 1990,
@@ -2335,4 +2339,4 @@ $('div.testing>li.lang-javascript'); // [], 无法选出，因为<div>和<li>不
 
         第二个方法是使用[vue-resource](https://github.com/vuejs/vue-resource)这个针对Vue的扩展，它可以给VM对象加上一个`$resource`属性，通过`$resource`来方便地操作API。
 
-    - 
+    - 但现在使用AXIOS更加方便
