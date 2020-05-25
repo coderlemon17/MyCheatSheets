@@ -100,6 +100,13 @@
   docker [image] push NAME[:TAG] | [REGISTRY_HOS[:REGISTRY_PORT]/]NAME[:TAG]
   ```
 
+## 镜像重命名
+
+- https://blog.csdn.net/cs_sword2000/article/details/98453495
+- docker images 找到image_id
+- 用docker tag <image_id> 重新命名(注意它虽然叫tag但是其实并不是tag,就是重命名)
+- 然后将原来的image删除
+
 # Container（容器）
 
 ### 创建容器
@@ -211,6 +218,8 @@
   - `-t`：分配伪终端
   - `-u`：执行命令的用户名或ID
   - **NOTE**: `docker exec -it ubuntu /bin/bash`是最常用的命令
+  - **想执行多条命令**:
+      - docker exec ubuntu bash -c "cd hh && cd jj"
 
 ### 删除容器
 
@@ -255,6 +264,14 @@
 
 ### ssh登录容器:
 
+- 创建容器:
+
+    - ```
+    docker run -idt -p 10001:22 -v /home/lemon/Workspace/Playground/Docker/Pytorch:/docker_mnt --name="pytorch" myubuntu bash -c "service ssh start && /bin/bash"
+        ```
+        
+        
+    
 - 个人设置:
 
     - ```
@@ -262,20 +279,19 @@
         root: Passwd17
         
         //主机端口10001 -> 容器端口 22
-        
         ```
-
-    - //最开始ssh是禁止root登录的,修改方法:
-
-        - https://www.cnblogs.com/sunzebo/articles/9609457.html
+        
+- //最开始ssh是禁止root登录的,修改方法:
+    
+    - https://www.cnblogs.com/sunzebo/articles/9609457.html
         - 修改的是**sshd_config**而不是**ssh_config**
             - PermitRootLogin: yes
             - PasswordAuthentication: yes
-
-    - 创建新用户:
-
-        - `sudo adduser lemon`
-
+    
+- 创建新用户:
+    
+    - `sudo adduser lemon`
+    
 - https://blog.csdn.net/weixin_41845533/article/details/88803471
 
 - 安装ssh:
@@ -292,9 +308,17 @@
 
     - [给用户添加sudo权限]: https://blog.csdn.net/lemonzone2010/article/details/5998502
 
-        
+    - **ssh 登录的是lemon, 容器自动登录的是root**
 
-        
+- 使用方式
+
+    - `docker start torcs `
+        - 不要加`-i`, 因为一旦加了, 你就相当于进入了容器启动时自带的那个bash, 这样你再退出, 那么唯一的那个前台bash也就退出了
+        - 容器只有启动起来才能看到端口映射
+        - 查看挂载目录:
+            - `docker inspect container_name | grep Mounts -A 20`
+    - `docker exec torcs service ssh start`
+    - 然后`ssh -p 10001 lemon@localhot`, 密码Passwd17即可工作
 
 ### 初始化操作:
 
@@ -327,4 +351,7 @@ apt install build-essential openssh-server vim zsh
             - 然后再在~/.zshrc的plugin里写
 
 - **没有sudo就安装!**
+    
     - apt install sudo
+    
+- Anaconda安装
