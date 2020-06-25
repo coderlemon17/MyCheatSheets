@@ -168,3 +168,10 @@ tr [OPTION]... SET1 [SET2]
 - `ctrl+s`锁定shell，`ctrl+q`退出锁定
 - `ctrl+.`可以在中文模式下使用英文标点.
 
+# `wget`
+
+- `wget -P [dir] -O [filename] [url]`
+    - `-P`指定保存路径
+    - `-O`重命名下载文件名
+    - `-P`在有`-O`时会失效:
+        - 如果想同时指定保存路径和文件名 `-O [dir/filename]`
