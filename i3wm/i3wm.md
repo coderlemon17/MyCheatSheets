@@ -90,3 +90,16 @@
 
 - `fn+上/下 = Page_Up/Page_Down`
 - `shift+Page_Up/Down = 鼠标滚动 (在zsh里), 一般只要fn + 方向键/ 直接方向键`
+
+## feh
+
+- 注意装包的时候(`<lib>imlib2-<dev>`)
+
+- `feh --bg-scale PIC_DIR`
+
+## compton
+
+- settings 在 `~/.config/compton/compton.conf`\
+- mdzz: 在opacity rule里面不透明度最高是99, 设置为100会失效
+- xprop可以查找`class_g`
+- 关于层叠窗口的透明化问题: https://www.reddit.com/r/unixporn/comments/330zxl/webmi3_no_more_overlaying_shadows_and_windows_in/
