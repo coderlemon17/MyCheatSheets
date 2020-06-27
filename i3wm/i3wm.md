@@ -12,10 +12,12 @@
 
 - `<mod+NUMBER>`: 切换工作区间
 - `<mod+shift+NUMBRE>`:将窗口移动到不同工作区
-
 - `<mod+ARROW>`:切换窗口  // `mode + 左下上右=jkl;
 - `<mod+shift+ARROW>`:移动窗口 // `<mode + shift + jkl;>`
 - `<mod+shift+q>`:关闭窗口
+- 自定义:
+    - `<mod+z/x>`:切换工作区
+    - `<mod+shift+z/x>`:将当前工作区移动到左边/右边的output(屏幕)上
 
 #### 切分工作区
 
@@ -103,3 +105,23 @@
 - mdzz: 在opacity rule里面不透明度最高是99, 设置为100会失效
 - xprop可以查找`class_g`
 - 关于层叠窗口的透明化问题: https://www.reddit.com/r/unixporn/comments/330zxl/webmi3_no_more_overlaying_shadows_and_windows_in/
+- `<mod+ctrl+shift+j/k/l>`:不透明度降低/增加/重置
+
+## 设置自动熄屏幕
+
+- https://blog.csdn.net/xiang_shao344/article/details/84557547
+- gsettings
+
+## 电源
+
+- 要使用`dmenu`才行
+- mate-power-perferences
+
+## 控制dmenu字体
+
+- bindsym $mod+d exec dmenu_run -fn monaco-17
+    字体变为17
+
+## 图形化文件管理
+
+- `nautilus`
