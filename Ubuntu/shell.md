@@ -33,6 +33,11 @@ https://blog.csdn.net/denghaibo/article/details/6524293
 
 管道命令`|`传递的只是前一个任务的标准输出。`$?`存储上一次命令返回的结果
 
+
+
+- `cat hh.txt | vim - `
+    - `-`代指管道传输的内容
+
 ### xsel
 
 - 一款软件
