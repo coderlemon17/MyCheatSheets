@@ -55,8 +55,8 @@ bindsym $mod+d exec dmenu_run -fn monaco-24
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-#bindsym $mod+j focus left
-#bindsym $mod+k focus down
+bindsym $mod+j exec xbacklight -dec 20 # increase screen brightness
+bindsym $mod+k exec xbacklight -inc 20 # increase screen brightness
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
 
@@ -66,7 +66,7 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# move focused window
+# change opacity
 bindsym $mod+Shift+j exec transset -a --dec 0.1
 bindsym $mod+Shift+k exec transset -a --inc 0.1
 bindsym $mod+Shift+l exec transset -a --inc 1.4

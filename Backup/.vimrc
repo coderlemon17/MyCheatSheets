@@ -7,7 +7,12 @@ filetype plugin on
 syntax on
 "let g:mapleader = "\<space>"
 
-"Plygins will be downloaded under the specified directory.
+" Tab and space
+set ts=4
+set expandtab
+set autoindent
+
+"Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
@@ -19,6 +24,12 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 
 Plug 'preservim/nerdtree'
+    " mapping
+    nmap <C-t> :NERDTreeToggle<CR>
+    " open nerdtree automatically
+    autocmd VimEnter * NERDTree
+    " close if no files open
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 Plug 'junegunn/fzf'
 
@@ -52,14 +63,58 @@ Plug 'KeitaNakamura/tex-conceal.vim'
     inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " Using plug
-Plug 'dylanaraps/wal.vim'
+" Plug 'dylanaraps/wal.vim'
+"   set background=darki
+
+Plug 'altercation/vim-colors-solarized'
     set background=dark
+    let g:solarized_termcolors=256
 
 Plug 'vimwiki/vimwiki'
+
+Plug 'junegunn/goyo.vim'
+    nmap <C-g> : Goyo<CR>
+
+Plug 'junegunn/limelight.vim'
+    autocmd! User GoyoEnter Limelight
+    autocmd! User GoyoLeave Limelight!
+    nnoremap <Leader>l : Limelight<CR>
+    nnoremap <Leader>ql : Limelight!<CR>
+    let g:limelight_default_coefficient = 0.7
+    let g:limelight_paragraph_span = 2
+
+Plug 'itchyny/lightline.vim'
+set laststatus=2
+if !has('gui_running')
+  set t_Co=256
+endif
+" hide original line
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
 
 " Line ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-colorscheme wal
+" for colorscheme
+colorscheme solarized
+
+" Vim Key Binding
+
+" windown navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+
 
