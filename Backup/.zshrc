@@ -1,5 +1,4 @@
-##########################################################
-#Setting from bashrc
+########################################################## #Setting from bashrc
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/lemon/Code_apps/Anaconda/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -160,6 +159,8 @@ conda activate self-driving
 # exports
 export EDITOR=vim
 
+# for vim
+export TERM=xterm-256color
 
 # useful alias
 alias cls="clear"
@@ -201,11 +202,17 @@ alias cl='mcdls'
 alias xc="xsel --clipboard"
 
 # for i3wm
-alias lk="i3lock"
+alias lk="i3lock-fancy"
 alias f="ranger"
 alias net="nmtui"
-alias sound="alsamixer"
+#alias sound="alsamixer"
+alias psound="alsamixer"
+alias sound="pavucontrol"
 alias xm="xmodmap ~/Workspace/myCheatSheet/i3wm/Scripts/Xmodmap"
+alias minit="bash ~/Workspace/myCheatSheet/i3wm/Scripts/startup.sh"
+alias ldown="sudo light -U 20"
+alias lup="sudo light -A 20"
+
 
 eval 
             fuck () {
