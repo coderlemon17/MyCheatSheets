@@ -9,4 +9,3 @@ cp ~/.config/ranger/scope.sh ./Backup
 cp ~/.config/ranger/rifle.conf ./Backup
 cp ~/.config/ranger/commands.py ./Backup
 cp ~/.config/ranger/commands_full.py ./Backup
-cp ~/.vimrc ./Backup

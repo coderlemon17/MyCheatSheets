@@ -1,4 +1,4 @@
-# KOA学习草稿
+[#](#) KOA学习草稿
 
 ## [入门指南](https://chenshenhai.github.io/koa2-note/)
 
