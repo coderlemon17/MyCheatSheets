@@ -1,10 +1,12 @@
-# Vimtutor
+# Useful pluggings
 
 - `:Goyo`
-    - `\gy`
+    - `<C-g>`
 - `LimeLight`
     - `\l`
     - `\ql`
+
+# Vimtutor
 
 ## cheat sheet
 
@@ -118,4 +120,35 @@
 
 ## 从shell打开
 
+```
+vim [option] [FILES]
+```
+
+- `-o/O`: 水平/垂直分割
+
 ## 从vim打开
+
+- `:new` open a blank window
+- 打开当前文件
+    - `<C-w>s`水平; `<C-w>v` 垂直
+    - 水平打开当前文件的时候会触发锁定`<C-s>`, 若解锁需要`<C-q>`
+- 打开任意文件
+    - `:sp FILENAME` ; `:vs FILENAME`  (split / vsplit)
+
+- 关闭分屏
+    - `:q` 可退出当前选中分屏
+    - `:only` 只保留当前分屏
+- `<C-w>+/-`可以调整分屏大小
+
+# Vim tab
+
+- `:tabc`: close current tab (mapping with `<tc>`) (or just `:q`)
+- `:tas`: list all tabs' status
+- `:tabo`: close all but current
+- `:tabn`: next tab  (mapping with `<tn>`)
+- `:tabp`: previous tab (mapping with `<tp>`)
+
+- `:tabm INDEX` : move current tab to INDEX (start from 0)
+- `:ts` split current tab (like make a copy) (mapping with `<ts>`)`
+- `:tabnew` new tab (mapping with `<tt>`)
+- `

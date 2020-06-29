@@ -5,7 +5,10 @@ set guifont=Courier_new:h20:b:cDEFAULT
 set nocompatible
 filetype plugin on
 syntax on
+set encoding=utf-8
 "let g:mapleader = "\<space>"
+
+"set shell=sh
 
 " Tab and space
 set ts=4
@@ -24,12 +27,16 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 
 Plug 'preservim/nerdtree'
+    let g:NERDTreeDirArrows=0
     " mapping
     nmap <C-t> :NERDTreeToggle<CR>
-    " open nerdtree automatically
-    autocmd VimEnter * NERDTree
+    " open nerdtree automatically except for a directory
+    " autocmd VimEnter * if argc() != 1 || !isdirectory(argv()[0]) | NERDTree | endif
     " close if no files open
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'jistr/vim-nerdtree-tabs'
 
 Plug 'junegunn/fzf'
 
@@ -115,6 +122,15 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+map <C-+> <C-w>+
+map <C--> <C-w>-
 
+" tab navigation
+" new tab // next tab // pre tab // split tab
+nmap tt :tabnew<CR>
+nmap tn :tabn<CR>
+nmap tp :tabp<CR>
+nmap ts :tab split<CR>
+nmap tc :tabc<CR>
 
 

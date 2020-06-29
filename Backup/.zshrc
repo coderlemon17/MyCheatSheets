@@ -156,6 +156,10 @@ source $ZSH/oh-my-zsh.sh
 
 conda activate self-driving
 
+# encoding
+export LC_ALL=en_US.utf-8 
+export LANG="$LC_ALL" 
+
 # exports
 export EDITOR=vim
 
