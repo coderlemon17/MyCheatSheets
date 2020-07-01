@@ -57,4 +57,4 @@ normal 模式:\<Leader>
 
 - `:Vimwiki2HTML` -- 将当前 wiki 文件转换成 HTML 网页
 - `:VimwikiAll2HTML` -- 把所有 wiki 文件转换成 HTML 网页
-- `:help vimwiki-commands` -- 显示全部命令
+- `:help vimwiki-commands` -- 显示全部命令 
