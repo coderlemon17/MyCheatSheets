@@ -186,4 +186,24 @@ vim [option] [FILES]
 
 - 其实是terminal的缩放 (`<C+shift+>` && `<C+->`)
 
+# 边框
+
+- 首先需要分清: `console`, `terminal`, 和`shell`
+
+> To Summarize my answer :
+>
+> **Shell** is a program which `processes` commands and `returns` output , like **bash** in Linux .
+>
+> **Terminal** is a program that `run` a **shell** , in the past it was a **physical device** (Before terminals were monitors with keyboards, they were **teletypes**) and then its concept was transferred into **software** , like **Gnome-Terminal** .
+>
+> So I open **Gnome-Terminal** , a black windows appear that run **Shell** so i can run my commands.
+>
+> Console is a **special sort of terminal** , it was also a Physical device . example in Linux we have `virtual console` which i can access them by combination of Ctrl + Alt + F1 to F7 .
+>
+> **Console** sometimes means the keyboard and monitor **physically** attached to this computer.
+
+- 而`zsh`, `bash`都是`shell`, 使用的terminal则是`gnome-ternimal`, 因此使用vim是产生的边框其实是terminal和vim之间产生的 (具体原因没有深挖,好像是二者对于pixel的处理方式)
+- 解决方法: 取消terminal自带的transparent, 仅使用`compton`
+    - 之后在preference中修改背景色, 使之与vim中的背景色相近
+
 # Buffers
