@@ -12,6 +12,10 @@
 
 # [UltiSnips](https://castel.dev/post/lecture-notes-1/#latex-snippets)
 
+## NOTE
+
+- Unfortunately, it's **impossible** to jump back after you reach `$0` placeholder because of performance reasons. UltiSnips finishes snippet as soon as you reach last placeholder to keep things fast.
+
 ## Utils
 
 - `sign / today / box`
