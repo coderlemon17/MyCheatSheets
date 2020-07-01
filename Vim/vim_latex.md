@@ -8,4 +8,27 @@
 
 # vimautosave
 
-- `:`
+- `:AutoSaveToogle`
+
+# [UltiSnips](https://castel.dev/post/lecture-notes-1/#latex-snippets)
+
+## Utils
+
+- `sign / today / box`
+
+## Environment
+
+- `beg`: begin environment
+
+    - ```latex
+        snippet beg "begin{} / end{}" bA
+        \begin{$1}
+        	$0
+        \end{$1}
+        endsnippet
+        ```
+
+        - `b`: only be ex­pand­ed at the be­gin­ning of a line
+        - `A`: automatically expanded (no need for `Tab`)
+
+- 
