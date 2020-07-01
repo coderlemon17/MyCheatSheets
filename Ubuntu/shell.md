@@ -172,6 +172,7 @@ tr [OPTION]... SET1 [SET2]
 - `ctrl+z`后台；`fg %任务序号`调回前台（不是PID，是jobs中的序号，注意有%）
 - `ctrl+s`锁定shell，`ctrl+q`退出锁定
 - `ctrl+.`可以在中文模式下使用英文标点.
+- `cd -`: 可以回到之前的目录中
 
 # `wget`
 
