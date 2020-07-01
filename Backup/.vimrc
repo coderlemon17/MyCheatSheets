@@ -8,7 +8,6 @@ syntax on
 set encoding=utf-8
 "let g:mapleader = "\<space>"
 
-"set shell=sh
 
 " Tab and space
 set ts=4
@@ -21,21 +20,22 @@ call plug#begin('~/.vim/plugged')
 " Declare the list of plugins.
 " Use release branch (Recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:coc_disable_startup_warning = 1
 
 "Plug 'liuchengxu/vim-which-key'
 
 Plug 'tpope/vim-fugitive'
 
 Plug 'preservim/nerdtree'
-    let g:NERDTreeDirArrows=0
     " mapping
     nmap <C-t> :NERDTreeToggle<CR>
     " open nerdtree automatically except for a directory
-    " autocmd VimEnter * if argc() != 1 || !isdirectory(argv()[0]) | NERDTree | endif
+    autocmd VimEnter * if argc() != 1 || !isdirectory(argv()[0]) | NERDTree | endif
+    autocmd VimEnter * if argc() != 1 || !isdirectory(argv()[0]) | wincmd l | call lightline#update() | endif
     " close if no files open
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'jistr/vim-nerdtree-tabs'
 
 Plug 'junegunn/fzf'
@@ -58,7 +58,7 @@ Plug 'sirver/ultisnips'
     let g:UltiSnipsExpandTrigger = '<tab>'
     let g:UltiSnipsJumpForwardTrigger = '<tab>'
     let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-    let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
+    let g:UltiSnipsSnippetDirectories=['UltiSnips']
 
 Plug 'KeitaNakamura/tex-conceal.vim'
     set conceallevel=1
@@ -73,9 +73,11 @@ Plug 'KeitaNakamura/tex-conceal.vim'
 " Plug 'dylanaraps/wal.vim'
 "   set background=darki
 
-Plug 'altercation/vim-colors-solarized'
-    set background=dark
-    let g:solarized_termcolors=256
+"Plug 'altercation/vim-colors-solarized'
+"   set background=light
+"   let g:solarized_termcolors=256
+
+Plug 'sickill/vim-monokai'
 
 Plug 'vimwiki/vimwiki'
 
@@ -91,7 +93,9 @@ Plug 'junegunn/limelight.vim'
     let g:limelight_paragraph_span = 2
 
 Plug 'itchyny/lightline.vim'
+" always has status line
 set laststatus=2
+set shortmess+=F
 if !has('gui_running')
   set t_Co=256
 endif
@@ -108,12 +112,24 @@ let g:lightline = {
       \ },
       \ }
 
+Plug 'junegunn/fzf.vim'
+nnoremap <Leader>ff :Files $PWD<CR>
+nnoremap <Leader>fb :Buffers<CR>
+nnoremap <Leader>fl :Lines<CR>
+nnoremap <Leader>fcl :BLines<CR>
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+"Plug 'ervandew/supertab'
+"let g:SuperTabDefaultCompletionType = "<c-n>"
+
 
 " Line ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
 " for colorscheme
-colorscheme solarized
+"colorscheme solarized
+colorscheme monokai
 
 " Vim Key Binding
 
@@ -132,5 +148,7 @@ nmap tn :tabn<CR>
 nmap tp :tabp<CR>
 nmap ts :tab split<CR>
 nmap tc :tabc<CR>
+
+
 
 
