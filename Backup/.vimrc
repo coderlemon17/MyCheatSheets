@@ -73,9 +73,9 @@ Plug 'KeitaNakamura/tex-conceal.vim'
 " Plug 'dylanaraps/wal.vim'
 "   set background=darki
 
-"Plug 'altercation/vim-colors-solarized'
-"   set background=light
-"   let g:solarized_termcolors=256
+Plug 'altercation/vim-colors-solarized'
+   set background=dark
+   let g:solarized_termcolors=256
 
 Plug 'sickill/vim-monokai'
 
@@ -123,6 +123,10 @@ let g:fzf_buffers_jump = 1
 "Plug 'ervandew/supertab'
 "let g:SuperTabDefaultCompletionType = "<c-n>"
 
+Plug 'KabbAmine/vullScreen.vim'
+
+
+
 
 " Line ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -130,6 +134,9 @@ call plug#end()
 " for colorscheme
 "colorscheme solarized
 colorscheme monokai
+"colorscheme onedark
+
+
 
 " Vim Key Binding
 
