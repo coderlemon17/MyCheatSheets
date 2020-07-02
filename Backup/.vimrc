@@ -1,5 +1,9 @@
 "settings
-set number
+" absolute numbsr
+" set number
+nnoremap <Leader>an : set number!<CR>
+" relative number
+set relativenumber
 colorscheme desert
 set guifont=Courier_new:h20:b:cDEFAULT
 set nocompatible
@@ -13,6 +17,9 @@ set encoding=utf-8
 set ts=4
 set expandtab
 set autoindent
+" For << and >>
+set softtabstop=4
+set shiftwidth=4
 
 "Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
@@ -80,6 +87,8 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'sickill/vim-monokai'
 
 Plug 'vimwiki/vimwiki'
+let g:vimwiki_list = [{'path': '/home/lemon/Workspace/myCheatSheet/Wiki', 'path_html': '/home/lemon/Workspace/myCheatSheet/Wiki/html', 'syntax': 'markdown', 'ext': '.md'}]
+
 
 Plug 'junegunn/goyo.vim'
     nmap <C-g> : Goyo<CR>
