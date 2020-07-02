@@ -1,18 +1,19 @@
 ########################################################## #Setting from bashrc
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/lemon/Code_apps/Anaconda/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/lemon/Code_apps/Anaconda/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/lemon/Code_apps/Anaconda/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/lemon/Code_apps/Anaconda/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+#__conda_setup="$('/home/lemon/Code_apps/Anaconda/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+#if [ $? -eq 0 ]; then
+#    eval "$__conda_setup"
+#else
+#    if [ -f "/home/lemon/Code_apps/Anaconda/anaconda3/etc/profile.d/conda.sh" ]; then
+#        . "/home/lemon/Code_apps/Anaconda/anaconda3/etc/profile.d/conda.sh"
+#    else
+#        export PATH="/home/lemon/Code_apps/Anaconda/anaconda3/bin:$PATH"
+#    fi
+#fi
+#unset __conda_setup
 # <<< conda initialize <<<
+
 export PATH="/home/lemon/Code_apps/Anaconda/anaconda3/bin:$PATH"
 
 # for sudo not to reset env
@@ -154,7 +155,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-conda activate self-driving
+#conda activate self-drivingi
+export VVENV="/home/lemon/Environments"
+source $VVENV/basic_env/bin/activate
+#source $VVENV/ugvr_env/bin/activate
+
 
 # encoding
 export LC_ALL=en_US.utf-8 
@@ -217,6 +222,20 @@ alias minit="bash ~/Workspace/myCheatSheet/i3wm/Scripts/startup.sh"
 alias ldown="sudo light -U 20"
 alias lup="sudo light -A 20"
 
+# vritualenvironment
+alias vv="virtualenv"
+
+msvv() {
+    source $VVENV/$1/bin/activate;
+}
+# !no space
+alias svv="msvv"
+alias dvv="deactivate"
+
+alias bilibili="mbilibili"
+mbilibili () {
+    echo "GO TO STUDY!!!";
+}
 
 eval 
             fuck () {

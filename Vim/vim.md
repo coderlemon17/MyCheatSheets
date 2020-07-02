@@ -206,4 +206,7 @@ vim [option] [FILES]
 - 解决方法: 取消terminal自带的transparent, 仅使用`compton`
     - 之后在preference中修改背景色, 使之与vim中的背景色相近
 
+# 缩进
+- `<<`和`>>`可以控制缩进
+
 # Buffers
