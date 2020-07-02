@@ -55,9 +55,9 @@ let g:auto_save = 0
 let g:auto_save_events = ["InsertLeave", "TextChanged"]
 
 Plug 'sirver/ultisnips'
-    let g:UltiSnipsExpandTrigger = '<tab>'
-    let g:UltiSnipsJumpForwardTrigger = '<tab>'
-    let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+    let g:UltiSnipsExpandTrigger='<tab>'
+    let g:UltiSnipsJumpForwardTrigger='<tab>'
+    let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
     let g:UltiSnipsSnippetDirectories=['UltiSnips']
 
 Plug 'KeitaNakamura/tex-conceal.vim'
