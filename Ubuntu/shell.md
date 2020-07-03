@@ -181,3 +181,7 @@ tr [OPTION]... SET1 [SET2]
     - `-O`重命名下载文件名
     - `-P`在有`-O`时会失效:
         - 如果想同时指定保存路径和文件名 `-O [dir/filename]`
+
+# oh-my-zsh
+- `alias hh="mhh"`: 注意等号两边是不可以有空格的, vim中的很多赋值也是这样
+

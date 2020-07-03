@@ -3,9 +3,12 @@
     - [ ] UGVR阅读 
     - [ ] UGVR First Meeting
     - [ ] vimwhichkey && vimbuffer
+
+# Everyday Schedule
+Week1: [0703](0703)
+
 # Finished DDL
     - [X] HCI文本处理和模型生成
-
 
 
 # [我的随手记]
