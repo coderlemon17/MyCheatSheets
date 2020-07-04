@@ -19,3 +19,5 @@ export PATH="/home/lemon/Code_apps/Anaconda/anaconda3/bin:$PATH"
 
 # for sudo not to reset env
 alias sudo='sudo env PATH=$PATH' 
+
+source /home/lemon/.config/broot/launcher/bash/br

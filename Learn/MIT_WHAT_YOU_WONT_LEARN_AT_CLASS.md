@@ -103,6 +103,7 @@
 - ![image-20200703124436328](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200703124436328.png)
 
 - `ls project?`:
+    
     - `?` will expand to one (not zero, not more) character.
 - `convert image.png image.jpg` == `convert image.{png, jpg}`
     - `touch foo{,1}` == `touch foo foo1`
@@ -114,8 +115,10 @@
     - `#!/usr/local/bin/python`
     - `#!/usr/bin/env python`: run process `env` with argument `python`, which will call the `python` in current environment
 - `shellcheck mcd.sh`:
+    
     - a tool for checking your script
 - `source myscript.sh`: will add the content of this file to your shell
+    
     - run the script is different from source/load the script
 -  **USEFUL** `tldr` and `man`:
     - `tldr`: some useful **examples** regarding the program (all store in `~/.tldr`)
@@ -156,3 +159,29 @@
         - `c/STRING`: **search for file content**
         - `: move / cp` or `:cp_to_panel / move_to_panel`
             - `<C-LEFT> / <C-RIGHT>` for create / focus on different pane
+
+## Lecture 3: vim
+
+- `mode editor`: 
+    - *normal*, *insert*, *replace*, *visual (`<S-v>,<C-v>`) -- line/block mode*, *command*
+    - `^v = Ctrl-v = <C-v>`
+
+-  `buffers | windows | tabs`:
+    - ![image-20200704131634780](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200704131634780.png)
+    - one buffer can be related to multiple windows (e.g. working on different sections of a file)
+    - `:q` is not actually quit, it's just quit window. (no window then vim will quit)
+        - `:qa`
+- The interface (`vim`) is actually a programming language.
+    - `^U / ^D`: up / down
+    - `w / b`
+    - `H M L`: move to the **highest, middle, lowest** line **on the screen**.
+    - `fc`: find(move to) the first `c` in this line (after your cursor)
+        - `Fc`: reverse find `c`. (before your cursor)
+- `ce / de`: change will not only delete to the end, but also put you into insert mode.
+- `ci[`: **change inside [**:
+    - `[hello]`: will delete hello, and switches to insert mode.
+- `ca[`: **change around/including [**
+    - `[hello]`: will delete hello and `[]`, and switches to insert mode.
+    - `ci' / da"` ....
+- `.`: in normal mode, repeat **previous editing command**
+- 

@@ -45,8 +45,6 @@ export PATH="${PATH}:${JAVA_HOME}/bin"
 
 ##########################################################
 
-# for docker
-#alias docker="sudo docker"
 
 
 # If you come from bash you might have to change your $PATH.
@@ -160,7 +158,6 @@ export VVENV="/home/lemon/Environments"
 source $VVENV/basic_env/bin/activate
 #source $VVENV/ugvr_env/bin/activate
 
-
 # encoding
 export LC_ALL=en_US.utf-8 
 export LANG="$LC_ALL" 
@@ -170,6 +167,36 @@ export EDITOR=vim
 
 # for vim
 export TERM=xterm-256color
+
+#For vim 
+bindkey -v
+export KEYTIMEOUT=1
+# So delete will always work
+bindkey "^?" backward-delete-char
+
+# Change cursor shape for different vi modes.
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] ||
+     [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'
+  elif [[ ${KEYMAP} == main ]] ||
+       [[ ${KEYMAP} == viins ]] ||
+       [[ ${KEYMAP} = '' ]] ||
+       [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'
+  fi
+}
+zle -N zle-keymap-select
+
+zle-line-init() {
+    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    echo -ne "\e[5 q"
+}
+zle -N zle-line-init
+
+echo -ne '\e[5 q' # Use beam shape cursor on startup.
+preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
 
 # useful alias
 alias cls="clear"
@@ -211,7 +238,7 @@ alias cl='mcdls'
 alias xc="xsel --clipboard"
 
 # for i3wm
-alias lk="i3lock-fancy"
+alias lk="i3lock-fancy 2>/dev/null"
 alias f="ranger"
 alias net="nmtui"
 #alias sound="alsamixer"
@@ -237,6 +264,8 @@ mbilibili () {
     echo "GO TO STUDY!!!";
 }
 
+alias dk="du -h --max-depth=1"
+
 eval 
             fuck () {
                 TF_PYTHONIOENCODING=$PYTHONIOENCODING;
@@ -255,3 +284,5 @@ eval
                 test -n "$TF_CMD" && print -s $TF_CMD
             }
         
+# for broot
+source /home/lemon/.config/broot/launcher/bash/br

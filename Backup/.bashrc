@@ -167,3 +167,5 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 export PATH="/home/lemon/Code_apps/Anaconda/anaconda3/bin:$PATH"
+
+source /home/lemon/.config/broot/launcher/bash/br

@@ -1,6 +1,6 @@
 "settings
 " absolute numbsr
-" set number
+set number
 nnoremap <Leader>an : set number!<CR>
 " relative number
 set relativenumber
@@ -12,7 +12,6 @@ syntax on
 set encoding=utf-8
 "let g:mapleader = "\<space>"
 
-
 " Tab and space
 set ts=4
 set expandtab
@@ -20,6 +19,8 @@ set autoindent
 " For << and >>
 set softtabstop=4
 set shiftwidth=4
+
+
 
 "Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
@@ -37,8 +38,8 @@ Plug 'preservim/nerdtree'
     " mapping
     nmap <C-t> :NERDTreeToggle<CR>
     " open nerdtree automatically except for a directory
-    autocmd VimEnter * if argc() != 1 || !isdirectory(argv()[0]) | NERDTree | endif
-    autocmd VimEnter * if argc() != 1 || !isdirectory(argv()[0]) | wincmd l | call lightline#update() | endif
+    " autocmd VimEnter * if argc() != 1 || !isdirectory(argv()[0]) | NERDTree | endif
+    " autocmd VimEnter * if argc() != 1 || !isdirectory(argv()[0]) | wincmd l | call lightline#update() | endif
     " close if no files open
     " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -71,6 +72,8 @@ Plug 'KeitaNakamura/tex-conceal.vim'
     set conceallevel=1
     let g:tex_conceal='abdmg'
     hi Conceal ctermbg=none
+    " Latex
+    autocmd Filetype tex setlocal spell | set spelllang=en_us | AutoSaveToggle
     "setlocal spell
     "set spelllang=en_us
     " <Ctrl + l> is the shortcuts for auto-correction
@@ -89,6 +92,8 @@ Plug 'sickill/vim-monokai'
 Plug 'vimwiki/vimwiki'
 let g:vimwiki_list = [{'path': '/home/lemon/Workspace/myCheatSheet/Wiki', 'path_html': '/home/lemon/Workspace/myCheatSheet/Wiki/html', 'syntax': 'markdown', 'ext': '.md'}]
 
+" disable the <tab> mapping provided by vimwiki, which interferes with SuperTab
+let g:vimwiki_table_mappings = 0
 
 Plug 'junegunn/goyo.vim'
     nmap <C-g> : Goyo<CR>
@@ -129,8 +134,9 @@ nnoremap <Leader>fcl :BLines<CR>
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 
-"Plug 'ervandew/supertab'
-"let g:SuperTabDefaultCompletionType = "<c-n>"
+Plug 'ervandew/supertab'
+let g:SuperTabDefaultCompletionType = "<c-n>"
+"let g:SuperTabMappingForward = "<T>"
 
 Plug 'KabbAmine/vullScreen.vim'
 
@@ -158,13 +164,18 @@ map <C-+> <C-w>+
 map <C--> <C-w>-
 
 " tab navigation
-" new tab // next tab // pre tab // split tab
+" new tab // next tab // pre tab // split tab // close tab // move
+" forward/backward
 nmap tt :tabnew<CR>
 nmap tn :tabn<CR>
 nmap tp :tabp<CR>
 nmap ts :tab split<CR>
 nmap tc :tabc<CR>
+nmap tl :tabm -1<CR>
+nmap tr :tabm +1<CR>
 
 
-
+" for copy / paste to system clipboard
+nnoremap <Leader>y "+yy
+nnoremap <Leader>p "+p
 

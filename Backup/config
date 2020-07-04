@@ -28,6 +28,8 @@ font pango:monospace 12
 
 # exec with i3 start
 exec_always bash /home/lemon/Workspace/myCheatSheet/i3wm/Scripts/startup.sh
+bindsym $mod+Shift+a exec --no-startup-id flameshot gui
+
 #exec_always mclashy 1>/dev/null 2>&1 &
 #exec_always feh --randomize --bg-fill /home/lemon/Pictures/Wallpapers/my/*
 #exec_always compton --config ~/.config/compton/compton.conf
@@ -55,10 +57,11 @@ bindsym $mod+d exec dmenu_run -fn monaco-24
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+#bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -80,7 +83,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -187,8 +190,8 @@ bar {
 	font pango:Inconsolata 16
 	position bottom
 	tray_output none
-	status_command ~/.local/bin/bumblebee-status -m disk:root cpu \
-		memory battery date time pasink pasource dnf \
+	status_command ~/.local/bin/bumblebee-status -m disk:root \
+		memory cpu sensors battery date time pasink pasource  \
 		-p root.path=/ time.format="%H:%M CW %V" date.format="%a, %b %d %Y" \
 		-t solarized-powerline
 }
