@@ -89,7 +89,16 @@
 
     - `cat $(ls)`: will cat every file is this folder
 
-    - `cat <(ls)`: will simply display what's ls returns
+    - `cat <(ls)`: will simply display what's ls returns (think of `<(ls)` as a file)
+
+    - keep in mind that `STDIN` is completely different from command line arguments:
+
+        - [stackoverflow](https://unix.stackexchange.com/questions/46372/whats-the-difference-between-stdin-and-arguments-passed-to-command)
+        - there are just two different things, you can image `STDIN` as a special file, and command line arguments as something you type in cmd. And the process will read from `STDIN` or command lists and react (if it's programed to do so). So `$(ls)` is actually like a string (`h j.txt b.txt`), and will expand before execution.
+        - so `cat $(ls)` actually is like `cat h j.txt b.txt` 
+        - `<(ls)` will only treat the `STDOUT` as file, not `STRERR` (but you can use `2>&1`)
+            - `2` is a `[FILE_DESCRIPTOR]`, and `&2 means the value of the file discriptor`
+            - In redirecting, the correct format should be `FILE_DESCRIPTOR > FILE(FILE_DESCRIPTOR Value)` 
 
 - ![image-20200703124436328](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200703124436328.png)
 
@@ -112,24 +121,25 @@
     - `tldr`: some useful **examples** regarding the program (all store in `~/.tldr`)
     - `man`:  the full capacity regarding the program
 - TODO: [ls](https://unix.stackexchange.com/questions/62660/the-result-of-ls-ls-and-ls)
+- **Finders**:
+    - `find/locate/fzf` for find filename, `rg/grep` for find file content.
+    - `find DIR -name scr -type d`:
+        - `find . -path '**/test/*/py' -type f`: `**` stands for any level of directory
+        - `find . -name 'a' -exec rm {} \;`: exec need a command line end with`;`, or `\;` in cmd.
+    - `locate STRING`
+    -  `grep`: (more useful concerning std/file)
+        - `grep hh hh.txt`
+        - `grep -R hh tmpt`
 
-- `find DIR -name scr -type d`:
-    - `find . -path '**/test/*/py' -type f`: `**` stands for any level of directory
-    - `find . -name 'a' -exec rm {} \;`: exec need a command line end with`;`, or `\;` in cmd.
-- `locate STRING`
--  `grep`: (more useful concerning std/file)
-    - `grep hh hh.txt`
-    - `grep -R hh tmpt`
-
-- `rg`: a more useful tool (*use pip/conda to install*)
-    - `rg "function" -t py -C 5 ./project`
-        - `-t` file type; `-C 5`: length of context provided
-        - **search for where the function is used in your project**
-    - `rg -u --files-without-match "^#\!" --stats -t sh`:
-        - `-u`: include hidden files
-        - `--files-without-match`: show files not match
-        - `--stats` show counted match results
-- `fzf`
+    - `rg`: a more useful tool (*use pip/conda to install*)
+        - `rg "function" -t py -C 5 ./project`
+            - `-t` file type; `-C 5`: length of context provided
+            - **search for where the function is used in your project**
+        - `rg -u --files-without-match "^#\!" --stats -t sh`:
+            - `-u`: include hidden files
+            - `--files-without-match`: show files not match
+            - `--stats` show counted match results
+    - `fzf`
 
 - `hifstory 1`: print all your cmd history.
 - `tree` and `broot`:
