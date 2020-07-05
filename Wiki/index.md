@@ -6,6 +6,7 @@
     - [ ] 李宏毅ML 2020(7月)
 # Everyday Schedule
 Week1: [0703](0703); [0704](0704)
+Wekk2: [0705](0705)
 
 # Finished DDL
     - [X] HCI文本处理和模型生成

@@ -1,17 +1,19 @@
 ########################################################## #Setting from bashrc
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('/home/lemon/Code_apps/Anaconda/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-#if [ $? -eq 0 ]; then
-#    eval "$__conda_setup"
-#else
-#    if [ -f "/home/lemon/Code_apps/Anaconda/anaconda3/etc/profile.d/conda.sh" ]; then
-#        . "/home/lemon/Code_apps/Anaconda/anaconda3/etc/profile.d/conda.sh"
-#    else
-#        export PATH="/home/lemon/Code_apps/Anaconda/anaconda3/bin:$PATH"
-#    fi
-#fi
-#unset __conda_setup
+
+__conda_setup="$('/home/lemon/Code_apps/Anaconda/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/lemon/Code_apps/Anaconda/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/lemon/Code_apps/Anaconda/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/lemon/Code_apps/Anaconda/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+
 # <<< conda initialize <<<
 
 export PATH="/home/lemon/Code_apps/Anaconda/anaconda3/bin:$PATH"
@@ -196,6 +198,16 @@ zle -N zle-line-init
 
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+# _fix_cursor() {
+#   echo -ne '\e[5 q'
+#}
+#precmd_functions+=(zle-keymap-select)
+
+
+# Edit line in vim with ctrl-e:
+#autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
+
 
 
 # useful alias

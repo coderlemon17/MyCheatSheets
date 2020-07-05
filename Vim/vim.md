@@ -211,3 +211,29 @@ vim [option] [FILES]
 - `<<`和`>>`可以控制缩进
 
 # Buffers
+- Note:
+    - Open **Vertical**: means the new window is vertically as high as original.
+    - Open **Horizontal**: means the new window is horizontally as long as the original.
+- Basic control:
+    - Open new window/buffers:
+        - `new / vnew`: open new window horizontally/vertically.
+        - `e /path/file` open new buffer in current window
+            - you have to save current buffer first to do so.
+            - won't close other buffers.
+    - Delete buffer:
+        - `bd`: delete current buffer (won't affect files in the disk)
+        - `bd2`: delete buffer2
+    - Buffer navigation:
+        - `ls / buffers`: list all buffer
+            - 在展示的列表中有一些 buffer 的状态：
+            ```
+            非活动的缓冲区
+            a 光标所在缓冲区
+            h 隐藏缓冲区
+            % 当前的缓冲区
+            # 交换缓冲区， 可以使用 Ctrl + ^
+            = 只读缓冲区
+            + 已经更改的缓冲区
+            ```
+        - `<C-^>` change between current and previous buffer.
+        - `bn[ext] bp[revious]`

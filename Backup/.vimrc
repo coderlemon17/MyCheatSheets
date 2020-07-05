@@ -5,7 +5,7 @@ nnoremap <Leader>an : set number!<CR>
 " relative number
 set relativenumber
 colorscheme desert
-set guifont=Courier_new:h20:b:cDEFAULT
+"set guifont=Courier_new:h20:b:cDEFAULT
 set nocompatible
 filetype plugin on
 syntax on
@@ -20,7 +20,8 @@ set autoindent
 set softtabstop=4
 set shiftwidth=4
 
-
+" For cursor
+"autocmd VimEnter * silent exec \"!echo -ne '\e[1 q'"
 
 "Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
@@ -94,6 +95,8 @@ let g:vimwiki_list = [{'path': '/home/lemon/Workspace/myCheatSheet/Wiki', 'path_
 
 " disable the <tab> mapping provided by vimwiki, which interferes with SuperTab
 let g:vimwiki_table_mappings = 0
+" donot treat all md files as vimwiki
+let g:vimwiki_global_ext = 0
 
 Plug 'junegunn/goyo.vim'
     nmap <C-g> : Goyo<CR>
@@ -104,7 +107,7 @@ Plug 'junegunn/limelight.vim'
     nnoremap <Leader>l : Limelight<CR>
     nnoremap <Leader>ql : Limelight!<CR>
     let g:limelight_default_coefficient = 0.7
-    let g:limelight_paragraph_span = 2
+    let g:limelight_paragraph_span = 5
 
 Plug 'itchyny/lightline.vim'
 " always has status line
@@ -131,6 +134,7 @@ nnoremap <Leader>ff :Files $PWD<CR>
 nnoremap <Leader>fb :Buffers<CR>
 nnoremap <Leader>fl :Lines<CR>
 nnoremap <Leader>fcl :BLines<CR>
+nnoremap <Leader>fc :Ag<CR>
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 
@@ -138,7 +142,23 @@ Plug 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "<c-n>"
 "let g:SuperTabMappingForward = "<T>"
 
-Plug 'KabbAmine/vullScreen.vim'
+Plug 'easymotion/vim-easymotion'
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-fuzzy.vim'
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+
+map z/ <Plug>(incsearch-fuzzy-/)
+map z? <Plug>(incsearch-fuzzy-?)
+
 
 
 
