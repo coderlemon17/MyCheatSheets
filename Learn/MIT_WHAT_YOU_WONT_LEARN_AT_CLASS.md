@@ -99,11 +99,21 @@
         - `<(ls)` will only treat the `STDOUT` as file, not `STRERR` (but you can use `2>&1`)
             - `2` is a `[FILE_DESCRIPTOR]`, and `&2 means the value of the file discriptor`
             - In redirecting, the correct format should be `FILE_DESCRIPTOR > FILE(FILE_DESCRIPTOR Value)` 
+        
+    - one useful command: preview the output in vim (e.g. the `--help`)
+
+    - ```
+        # for preview help information in vim
+        mvp() {
+            vim <($@ 2>&1);
+        }
+        alias vp=mvp
+        ```
 
 - ![image-20200703124436328](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200703124436328.png)
 
 - `ls project?`:
-    
+  
     - `?` will expand to one (not zero, not more) character.
 - `convert image.png image.jpg` == `convert image.{png, jpg}`
     - `touch foo{,1}` == `touch foo foo1`
@@ -115,10 +125,10 @@
     - `#!/usr/local/bin/python`
     - `#!/usr/bin/env python`: run process `env` with argument `python`, which will call the `python` in current environment
 - `shellcheck mcd.sh`:
-    
+  
     - a tool for checking your script
 - `source myscript.sh`: will add the content of this file to your shell
-    
+  
     - run the script is different from source/load the script
 -  **USEFUL** `tldr` and `man`:
     - `tldr`: some useful **examples** regarding the program (all store in `~/.tldr`)
@@ -132,8 +142,9 @@
     - `locate STRING`
     -  `grep`: (more useful concerning std/file)
         - `grep hh hh.txt`
-        - `grep -R hh tmpt`
-
+        - `grep -R hh tmpt` (recursively match)
+- `grep -v hh tmpt` do not match
+        
     - `rg`: a more useful tool (*use pip/conda to install*)
         - `rg "function" -t py -C 5 ./project`
             - `-t` file type; `-C 5`: length of context provided
@@ -142,8 +153,8 @@
             - `-u`: include hidden files
             - `--files-without-match`: show files not match
             - `--stats` show counted match results
-    - `fzf`
-
+- `fzf`
+    
 - `hifstory 1`: print all your cmd history.
 - `tree` and `broot`:
     - `broot`: https://dystroy.org/broot/install/  (vim like browser)
@@ -184,4 +195,52 @@
     - `[hello]`: will delete hello and `[]`, and switches to insert mode.
     - `ci' / da"` ....
 - `.`: in normal mode, repeat **previous editing command**
+
+## Lecture 4: Data wrangling
+
+- convert data from one form to another.
+- `journalctl`: show real time Linux log.
+
+- `less` : open a file for interactive reading, kinda like low-end vim (do not forget my `vp` command in zsh)
+- `tail` <--> `head`
+- `sed`:
+    - a stream editor: make change to the stream.
+    - ![image-20200705154126693](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200705154126693.png)
+    - Better use `sed -e "{{regex}}"` for it to support modern regex (otherwise it will only match **literal parenthesis**)
+        - `"(ab)*"` means `(ab` and `)*`
+        - if you want it to act like modern regex: use `\(ab\)*` or `-e "(ab)*"`
+        - (PS： `？` for non-greedy match)
+        - also try to use `''` instead of `""`, because `*` will be expand in `""` in cmd.
+    -  the catch group:
+        - `"users (.*)"`: `()` stands for a catch group (start from 1)
+        - use `\NUMBER` to refer to any catch group
+    - `*` won't stand for anything in regex (different from `shell`)
+        - `.*` will do the job.
+    - [regex debugger](https://regex101.com/):
+- `sort`:
+    - `sort -nk1,1`: 
+        - `n`: numeric sort
+        - `k`: each line of the input stream will be automatically separate with \<space> (different columns, start from 1) (can be a list, e.g. -k1,2)
+- `uniq`:
+    - `uniq -c`： count as well
+- `awk`:
+    - ![image-20200705161758626](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200705161758626.png)
+    - e.g. `awk '$1 == 1 && $2 ~ /^hh.*e$/' '{print $1}'`
+        - `~` means match regex expression 
+        - `!=` for unmatch
+    - `awk 'BEGIN {hit=0} '$1 == 1 {hit+=1} END {print hit}' `
+        - `BEGIN`: hit=0 will execute only at line 0.
+        - can also use `wc -l` (count lines)
+- `paste`:
+    - `paste -sd,` : paste input (lines) into a single file(`-s`) with delimiter(`-d`) comma.
+- `bc`: (calculator)
+    - ![image-20200705162809583](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200705162809583.png)
+    - better use `bc -l`
+- command line arguments wrangling:
+    - `xargs`: take input (lines) and change them into arguments.
+    -  `echo "h.txt" | xargs rm`
+        - like `rm $(ls)`, but you can do more wrangling with stream
+- `-`: tell the program to use standard input rather than a file. (can be used as the last argument)
+- `feh`: can be used to display image / image stream
+    - `feh -`
 - 
