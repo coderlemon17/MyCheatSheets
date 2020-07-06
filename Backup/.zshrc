@@ -263,7 +263,6 @@ alias lup="sudo light -A 20"
 
 # vritualenvironment
 alias vv="virtualenv"
-
 msvv() {
     source $VVENV/$1/bin/activate;
 }
@@ -298,3 +297,10 @@ eval
         
 # for broot
 source /home/lemon/.config/broot/launcher/bash/br
+
+# for preview help information in vim
+mvp() {
+    vim <($@ 2>&1);
+}
+alias vp=mvp
+

@@ -26,9 +26,6 @@ font pango:monospace 12
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
-# exec with i3 start
-exec_always bash /home/lemon/Workspace/myCheatSheet/i3wm/Scripts/startup.sh
-bindsym $mod+Shift+a exec --no-startup-id flameshot gui
 
 #exec_always mclashy 1>/dev/null 2>&1 &
 #exec_always feh --randomize --bg-fill /home/lemon/Pictures/Wallpapers/my/*
@@ -191,7 +188,7 @@ bar {
 	position bottom
 	tray_output none
 	status_command ~/.local/bin/bumblebee-status -m disk:root \
-		memory cpu sensors battery date time pasink pasource  \
+		memory cpu sensors battery date time pasink pasource \
 		-p root.path=/ time.format="%H:%M CW %V" date.format="%a, %b %d %Y" \
 		-t solarized-powerline
 }
@@ -209,7 +206,14 @@ bindsym XF86AudioMute exec amixer -q set Master mute
 # flash
 bindsym $mod+Tab exec --no-startup-id bash /home/lemon/Workspace/myCheatSheet/i3wm/Scripts/flash.sh
 
-# screen shot
-# bindsym $mod+Shift+a shot
+# shortcut
+bindsym $mod+Shift+a exec --no-startup-id flameshot gui
 
+# exec with i3 start
+# exec bash /home/lemon/Workspace/myCheatSheet/i3wm/Scripts/startup.sh
+exec_always mclashy 1>/dev/null 2>&1 &
+exec_always feh --randomize --bg-fill /home/lemon/Pictures/Wallpapers/my/* &
+exec_always compton --config /home/lemon/.config/compton/compton.conf
+exec_always xrandr --output eDP-1-1 --left-of DP-1-1 --auto
+exec_always xmodmap /home/lemon/Workspace/myCheatSheet/i3wm/Scripts/Xmodmap
 

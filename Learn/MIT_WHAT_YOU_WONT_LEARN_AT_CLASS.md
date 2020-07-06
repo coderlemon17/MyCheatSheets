@@ -228,7 +228,7 @@
         - `k`: each line of the input stream will be automatically separate with \<space> (different columns, start from 1) (can be a list, e.g. -k1,2)
     
 - `uniq`:
-    
+  
     - `uniq -c`： count as well
     
 - `awk`:
@@ -241,7 +241,7 @@
         - can also use `wc -l` (count lines)
     
 - `paste`:
-    
+  
     - `paste -sd,` : paste input (lines) into a single file(`-s`) with delimiter(`-d`) comma.
     
 - `bc`: (calculator)
@@ -252,11 +252,13 @@
     - `xargs`: take input (lines) and change them into arguments.
     -  `echo "h.txt" | xargs rm`
         - like `rm $(ls)`, but you can do more wrangling with stream
+    - `{{argument_source}} | xargs -I _ {{commnad}} _`: here `_` is a placeholder (if not specified, default placeholder is `R`), it will be replaced with one line from the argument_source, and the command will be executed multiple times (same as lines number of argument_source)
+    - `echo "Summary.md" | xargs -I _ bash -c "touch _ && ty _"`  (不能直接xargs -I _ touch _ && ty _, 因为会被拆成两个单独的命令)
     
 - `-`: tell the program to use standard input rather than a file. (can be used as the last argument)
 
 - `feh`: can be used to display image / image stream
-    
+  
     - `feh -`
     
 - Random pick lines:
@@ -270,4 +272,27 @@
         awk 'BEGIN {srand()} !/^$/ { if (rand() <= .01) print $0}'
         ```
 
-        
+## Lecture 5: Command-line Environment
+
+- **Job Control**
+    - `<C-c>`: `SIGINT`
+    - `<C-\>` `SIGQUIT`
+    - `<C-z>`: `SIGSTOP`
+        - `bg %NUMBER`: restart in the background  (`NUMBER` is job number, not pid)
+        - `fg %NUMBER`: recover to the foreground.
+        - `kill -STOP %NUMBER` : send `SIGSTOP` (pause)
+    - ![image-20200706150919672](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200706150919672.png)
+    - ![image-20200706151035581](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200706151035581.png)
+        - if the program does not have a method for dealing with signals, default function will be executed.
+        - `SIGKILL`: cannot be captured by captured. (force quit, might have uncontrollable result)
+    - `nohup` and` &`:
+        - `&`: in background (ignore `<C-c`)
+        - `nohup`
+            - when you log out, process will received a `SIGHUP`, usually it will terminate (unless use `nohup`
+
+- **Terminal Multiplexers**
+    - `tmux`: session / window / panel
+    - 
+- **Dot-files**
+- 
+- **Remote Machine**

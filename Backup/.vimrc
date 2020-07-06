@@ -10,7 +10,7 @@ set nocompatible
 filetype plugin on
 syntax on
 set encoding=utf-8
-"let g:mapleader = "\<space>"
+let g:mapleader = "\<space>"
 
 " Tab and space
 set ts=4
@@ -21,7 +21,11 @@ set softtabstop=4
 set shiftwidth=4
 
 " For cursor
-"autocmd VimEnter * silent exec \"!echo -ne '\e[1 q'"
+autocmd VimEnter * silent exec "!echo -ne '\e[1 q'"
+
+" For opacity
+autocmd VimEnter * silent exec "!transset -a --inc 0.19"
+autocmd VimLeave * silent exec "!transset -a --dec 0.19"
 
 "Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
@@ -95,8 +99,8 @@ let g:vimwiki_list = [{'path': '/home/lemon/Workspace/myCheatSheet/Wiki', 'path_
 
 " disable the <tab> mapping provided by vimwiki, which interferes with SuperTab
 let g:vimwiki_table_mappings = 0
-" donot treat all md files as vimwiki
-let g:vimwiki_global_ext = 0
+" whether to treat all md files as vimwiki
+let g:vimwiki_global_ext = 1
 
 Plug 'junegunn/goyo.vim'
     nmap <C-g> : Goyo<CR>
@@ -158,7 +162,6 @@ map ?  <Plug>(incsearch-backward)
 
 map z/ <Plug>(incsearch-fuzzy-/)
 map z? <Plug>(incsearch-fuzzy-?)
-
 
 
 
