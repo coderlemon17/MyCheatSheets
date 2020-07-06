@@ -21,11 +21,11 @@ set softtabstop=4
 set shiftwidth=4
 
 " For cursor
-autocmd VimEnter * silent exec "!echo -ne '\e[1 q'"
+autocmd VimEnter * silent exec "!echo -ne '\e[1 q'" | redraw!
 
 " For opacity
-autocmd VimEnter * silent exec "!transset -a --inc 0.19"
-autocmd VimLeave * silent exec "!transset -a --dec 0.19"
+"autocmd VimEnter * silent exec "!transset -a --inc 0.13"
+"autocmd VimLeave * silent exec "!transset -a --dec 0.13"
 
 "Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')

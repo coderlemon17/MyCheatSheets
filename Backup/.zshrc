@@ -304,3 +304,6 @@ mvp() {
 }
 alias vp=mvp
 
+# ask before overwrite
+alias mv="mv -i"
+

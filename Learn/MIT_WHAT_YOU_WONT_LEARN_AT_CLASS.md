@@ -292,7 +292,9 @@
 
 - **Terminal Multiplexers**
     - `tmux`: session / window / panel
-    - 
+    - Session:
+        - `tmux a -t NUMBER`, `tmunx kill-server`
+        - 
 - **Dot-files**
 - 
 - **Remote Machine**
