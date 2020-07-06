@@ -76,6 +76,9 @@
 
 - `https://askubuntu.com/questions/896140/how-to-connect-to-wifi-network-with-i3wm`
 - 使用`nmtui` (空格是选中)
+- `nmcli device wifi rescan`
+- `nmcli device wifi list`
+
 
 ## 声音
 

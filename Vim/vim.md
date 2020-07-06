@@ -217,9 +217,10 @@ vim [option] [FILES]
 - Basic control:
     - Open new window/buffers:
         - `new / vnew`: open new window horizontally/vertically.
-        - `e /path/file` open new buffer in current window
+        - `e /path/file` open new buffer in current window (read file)
             - you have to save current buffer first to do so.
             - won't close other buffers.
+        - `r /path/file`: just load the buffer, not link to the file (cannot save)
     - Delete buffer:
         - `bd`: delete current buffer (won't affect files in the disk)
         - `bd2`: delete buffer2
@@ -237,3 +238,7 @@ vim [option] [FILES]
             ```
         - `<C-^>` change between current and previous buffer.
         - `bn[ext] bp[revious]`
+# Visual mode
+- `v / <S-v> / <C-v>` 可以进入visual/visual(line)/visual(block) mode, 在这些mode中一般按键都只需要一次了.
+    - e.g. `y`在visual mode中就可以对选中的文本完成复制,而不用`yy`
+    - e.g. `>`在visual mode中就可以对选中的文本完成缩进,使用`>>`反而会有问题

@@ -115,7 +115,7 @@
 - `ls project?`:
   
     - `?` will expand to one (not zero, not more) character.
-- `convert image.png image.jpg` == `convert image.{png, jpg}`
+- `convert image.png image.jpg` == `convert image.{png,jpg}`(no sapce!, {png, jpg} X)
     - `touch foo{,1}` == `touch foo foo1`
     - `touch project{1,2}\code{1,2}` (will create four files)
     - `cp vim.{md, wiki}`
@@ -129,7 +129,7 @@
     - a tool for checking your script
 - `source myscript.sh`: will add the content of this file to your shell
   
-    - run the script is different from source/load the script
+    - run the script is different [from](from) source/load the script
 -  **USEFUL** `tldr` and `man`:
     - `tldr`: some useful **examples** regarding the program (all store in `~/.tldr`)
     - `man`:  the full capacity regarding the program
@@ -154,7 +154,7 @@
             - `--files-without-match`: show files not match
             - `--stats` show counted match results
 - `fzf`
-    
+  
 - `hifstory 1`: print all your cmd history.
 - `tree` and `broot`:
     - `broot`: https://dystroy.org/broot/install/  (vim like browser)
@@ -188,6 +188,7 @@
     - `H M L`: move to the **highest, middle, lowest** line **on the screen**.
     - `fc`: find(move to) the first `c` in this line (after your cursor)
         - `Fc`: reverse find `c`. (before your cursor)
+        - `t / T`: move cursor to the character, but not on the cursor
 - `ce / de`: change will not only delete to the end, but also put you into insert mode.
 - `ci[`: **change inside [**:
     - `[hello]`: will delete hello, and switches to insert mode.
@@ -199,10 +200,13 @@
 ## Lecture 4: Data wrangling
 
 - convert data from one form to another.
+
 - `journalctl`: show real time Linux log.
 
 - `less` : open a file for interactive reading, kinda like low-end vim (do not forget my `vp` command in zsh)
+
 - `tail` <--> `head`
+
 - `sed`:
     - a stream editor: make change to the stream.
     - ![image-20200705154126693](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200705154126693.png)
@@ -217,12 +221,16 @@
     - `*` won't stand for anything in regex (different from `shell`)
         - `.*` will do the job.
     - [regex debugger](https://regex101.com/):
+    
 - `sort`:
     - `sort -nk1,1`: 
         - `n`: numeric sort
         - `k`: each line of the input stream will be automatically separate with \<space> (different columns, start from 1) (can be a list, e.g. -k1,2)
+    
 - `uniq`:
+    
     - `uniq -c`： count as well
+    
 - `awk`:
     - ![image-20200705161758626](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200705161758626.png)
     - e.g. `awk '$1 == 1 && $2 ~ /^hh.*e$/' '{print $1}'`
@@ -231,16 +239,35 @@
     - `awk 'BEGIN {hit=0} '$1 == 1 {hit+=1} END {print hit}' `
         - `BEGIN`: hit=0 will execute only at line 0.
         - can also use `wc -l` (count lines)
+    
 - `paste`:
+    
     - `paste -sd,` : paste input (lines) into a single file(`-s`) with delimiter(`-d`) comma.
+    
 - `bc`: (calculator)
     - ![image-20200705162809583](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200705162809583.png)
     - better use `bc -l`
+    
 - command line arguments wrangling:
     - `xargs`: take input (lines) and change them into arguments.
     -  `echo "h.txt" | xargs rm`
         - like `rm $(ls)`, but you can do more wrangling with stream
+    
 - `-`: tell the program to use standard input rather than a file. (can be used as the last argument)
+
 - `feh`: can be used to display image / image stream
+    
     - `feh -`
-- 
+    
+- Random pick lines:
+
+    - ```
+        sort -R input | head -n 100 >output
+        
+        shuf -n N input > output
+        
+        # random pick 10% lines
+        awk 'BEGIN {srand()} !/^$/ { if (rand() <= .01) print $0}'
+        ```
+
+        
