@@ -238,6 +238,10 @@ vim [option] [FILES]
             ```
         - `<C-^>` change between current and previous buffer.
         - `bn[ext] bp[revious]`
+- Reload current file:
+    -`:e` incase the file has changed 
+        
+        
 # Visual mode
 - `v / <S-v> / <C-v>` 可以进入visual/visual(line)/visual(block) mode, 在这些mode中一般按键都只需要一次了.
     - e.g. `y`在visual mode中就可以对选中的文本完成复制,而不用`yy`

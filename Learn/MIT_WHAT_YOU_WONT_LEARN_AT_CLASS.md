@@ -1,5 +1,9 @@
 # The Missing Semester of Your CS Education
 
+## TODO
+
+- 课程官网里的references material 和 homework其实比课程本身还要重要，推荐阅读
+
 ## Lecture 1: Course Overview + The Shell
 
 - `Terminal`: application for display `shell`.
@@ -115,25 +119,32 @@
 - `ls project?`:
   
     - `?` will expand to one (not zero, not more) character.
+    
 - `convert image.png image.jpg` == `convert image.{png,jpg}`(no sapce!, {png, jpg} X)
     - `touch foo{,1}` == `touch foo foo1`
     - `touch project{1,2}\code{1,2}` (will create four files)
     - `cp vim.{md, wiki}`
     - `touch {a..d}`: will create `a` to `d`
     - `diff <(ls foo) <(ls bar)`
+    
 - `the magic line`: the first line in the script, specified what program to run this script (when using `./script.py` instead of `python script.py`)
     - `#!/usr/local/bin/python`
     - `#!/usr/bin/env python`: run process `env` with argument `python`, which will call the `python` in current environment
+    
 - `shellcheck mcd.sh`:
   
     - a tool for checking your script
+    
 - `source myscript.sh`: will add the content of this file to your shell
   
     - run the script is different [from](from) source/load the script
+    
 -  **USEFUL** `tldr` and `man`:
     - `tldr`: some useful **examples** regarding the program (all store in `~/.tldr`)
     - `man`:  the full capacity regarding the program
+    
 - TODO: [ls](https://unix.stackexchange.com/questions/62660/the-result-of-ls-ls-and-ls)
+
 - **Finders**:
     - `find/locate/fzf` for find filename, `rg/grep` for find file content.
     - `find DIR -name scr -type d`:
@@ -143,9 +154,11 @@
     -  `grep`: (more useful concerning std/file)
         - `grep hh hh.txt`
         - `grep -R hh tmpt` (recursively match)
-- `grep -v hh tmpt` do not match
+        
+        - `grep -v hh tmpt` do not match
         
     - `rg`: a more useful tool (*use pip/conda to install*)
+    
         - `rg "function" -t py -C 5 ./project`
             - `-t` file type; `-C 5`: length of context provided
             - **search for where the function is used in your project**
@@ -153,9 +166,16 @@
             - `-u`: include hidden files
             - `--files-without-match`: show files not match
             - `--stats` show counted match results
+    
+- **What if search for a string with `-`**
+
+    - [read](https://unix.stackexchange.com/questions/11376/what-does-double-dash-mean/11382#11382)
+    - `grep -- -f file`: `--` in bash denotes the end of the `option`
+
 - `fzf`
   
 - `hifstory 1`: print all your cmd history.
+
 - `tree` and `broot`:
     - `broot`: https://dystroy.org/broot/install/  (vim like browser)
         - can just download pre-compiled bin
@@ -274,27 +294,208 @@
 
 ## Lecture 5: Command-line Environment
 
-- **Job Control**
-    - `<C-c>`: `SIGINT`
-    - `<C-\>` `SIGQUIT`
-    - `<C-z>`: `SIGSTOP`
-        - `bg %NUMBER`: restart in the background  (`NUMBER` is job number, not pid)
-        - `fg %NUMBER`: recover to the foreground.
-        - `kill -STOP %NUMBER` : send `SIGSTOP` (pause)
-    - ![image-20200706150919672](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200706150919672.png)
-    - ![image-20200706151035581](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200706151035581.png)
-        - if the program does not have a method for dealing with signals, default function will be executed.
-        - `SIGKILL`: cannot be captured by captured. (force quit, might have uncontrollable result)
-    - `nohup` and` &`:
-        - `&`: in background (ignore `<C-c`)
-        - `nohup`
-            - when you log out, process will received a `SIGHUP`, usually it will terminate (unless use `nohup`
+### **Job Control**
 
-- **Terminal Multiplexers**
-    - `tmux`: session / window / panel
-    - Session:
-        - `tmux a -t NUMBER`, `tmunx kill-server`
-        - 
-- **Dot-files**
+- `<C-c>`: `SIGINT`
+- `<C-\>` `SIGQUIT`
+- `<C-z>`: `SIGSTOP`
+    - `bg %NUMBER`: restart in the background  (`NUMBER` is job number, not pid)
+    - `fg %NUMBER`: recover to the foreground.
+    - `kill -STOP %NUMBER` : send `SIGSTOP` (pause)
+- ![image-20200706150919672](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200706150919672.png)
+- ![image-20200706151035581](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200706151035581.png)
+    - if the program does not have a method for dealing with signals, default function will be executed.
+    - `SIGKILL`: cannot be captured by captured. (force quit, might have uncontrollable result)
+- `nohup` and` &`:
+    - `&`: in background (ignore `<C-c>`)
+    - `nohup`
+        - when you log out, process will received a `SIGHUP`, usually it will terminate (unless use `nohup`
+
+### **Terminal Multiplexers**
+
+- `tmux`: session / window / panel
+- Session:
+    - `tmux a -t NUMBER`, `tmunx kill-server`
+
+### **Dot-files**
+
+- it's better to use version control
+
+### **Remote Machine**
+
+- `ssh-copy-id lemon@111.111.111.111`:
+
+    - can do the following things automatically (so you won't need to enter password anymore)
+
+    - generate a pub and secret key: 
+        - pub key to remote machine (`.ssh/authorized_keys`)
+        - key the secret key in your `~/.ssh`
+
+- use `rsync` rather than `scp`:
+
+    - `rsync` can restart at where it stops, and can transfer multiple files without entering password each time
+    - ![image-20200706165907471](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200706165907471.png)
+
+- `use ~/.ssh/config`, so you can just `ssh lemon` instead of `ssh lemon@111.111.111.111` (at 51 min)
+- `htop` more readable than `top`
+
+## Lecture 6: Version Control
+
+### Some basic idea about git
+
+-  `tree : folder`; `file ：　blob`
+
+- O <- O <- O  (`<-` point to the parent)
+
+- ```
+    # basic elements
+    type blob = array<byte>
+    type tree = map<String, tree | blob>
+    type commit = struct {
+    	parents: array<commit>,
+    	author: String,
+    	message: String,
+    	snapshot: tree
+    } # actually they are reference
+    
+    type object = blob | tree | commit 
+    objects = map<String, object>
+    
+    # store object : in git all objects are addressed by their hash
+    def store(o):
+    	id = hash(o) # sha1 for example
+    	objects[id] = o
+    	
+    	
+    type references = map<String, String> # map human readable name to hash id
+    ```
+
+- [git工作区和版本库(暂存区 +历史)](https://www.liaoxuefeng.com/wiki/896043488029600/897271968352576)
+
+- 这堂课的其他 [info](https://missing.csail.mit.edu/2020/version-control/)
+
+### **Oh-shit-git**
+
+- `reset` && `revert`:
+
+    - Annotations: `working-dir:工作区`,`index/stage: 暂存区`, `history: 历史`
+    - 想要完成一个提交分三步:
+        - `change` make some changes in `working-dir`
+        - `add`: changes from `working-dir` to `index`
+        - `commit`: changes from `index` to history
+    - e.g. A <- B <- C(HEAD)
+    - `git reset --soft B`:
+        - just clean the `commit` step for C
+        - `HEAD` will be reseted to `B`(actually branch master will be reseted)
+        - which means your index will be like exactly the time before you type `git commit -m "C"`
+        - which means all the changes in C will be staged in index, and your `working-dir` won't be affected.
+    - `git reset (--mixed) B`:
+        - clean `add ` && `commit`
+        - `HEAD` will be reseted to `B`
+        - you index will be changed so that it matches `B` in history.
+        - your `working-dir` won't be affected.
+    - `git reset --hard B`:
+        - your `working-dir`, `index`, `history` will **all** reseted.
+
+- `git --amend`
+
+    - `git add newfile && git commit --amend --no-edit` : forget a file for last commit
+    - `git commit --amend`: change commit message
+
+- `git reflog`:
+
+    - show everything you have done for this repo.
+
+- `git stash`:
+
+    - 将当前工作区/暂存区保存在工作栈, **reset**当前的working-tree到`HEAD`, 在需要的时候恢复
+
+    - stash is actually a stash bag hanged to commit.
+
+    - ```
+        # push current working-dir and index into stash (stash@{num})
+        git stash (--keep-index)
+        //--keep-index: the index will be left intact
+        
+        # DONOT USE
+        # recover the latest stash and drop it!!! (recommend `git statsh apply`)
+        git stash pop
+        
+        git stash list
+        git stash show 
+        
+        git stash apply stash(@{N}) (--index)
+        //N: 倒数第几次stash, start from 1
+        //--index: will try to recover the exact working-dir && index states brfore stash (which files have been added, and which are not)
+        
+        git stash drop stash(@{N})
+        ```
+
+- undo changes to a file:
+
+    - ```python
+        # find a hash for a commit before the file was changed
+        git log
+        # use the arrow keys to scroll up and down in history
+        # once you've found your commit, save the hash
+        git checkout [saved hash] -- path/to/file
+        # the old version of the file will be in your index
+        git commit -m "Wow, you don't have to copy-paste to undo"
+        ```
+
+## Lecture 7: Debugging and Profiling
+
+### Debugging
+
+- use `Log`
+    - different lever, and format output
+    - using colors
+- logs usually: `/var/log`
+    - one useful tool `lnav`: `cat /var/log/system.log | lnav -q` 
+        - `-q`: do not print the logs
+- `ipdb`: (a syntax highlight for `pdb`) ([see](https://www.cnblogs.com/wanghui-garcia/p/10644935.html))
+    - a python debugger, please just ignore the warning now.
+    - `l`: list code
+    - `s`: take a step // `n`: next, 如果下一步有函数调用,不会进入(step会)
+    - `c`: auto continue
+    - `p/pp something`: print the value of something (pp用的是pprint)
+        - `p locals()`
+    - `a`: print current function's argument
+    - `until NUMBER`: continue until a line number greater or equal is reached.
+    - `q`: quit
+    - ``: 直接回车会执行上一步的命令
+    - `u/d`: 跳回上一层的调用, 调回之前的调用位置
+    - `!变量名称/ 变量名称`:查看名称(因为变量名可能和指令冲突, 加一个!说明是变量)
+    - `r(eturn)`执行至函数结束
+    - `x=100`:修改变量值
+    - `b NUMBER`: 在某一行加入断点(无数字则打印所有断点信息)
+    - `c(ontinue)`
+    - `l(ist) / ll`: l可以制定查看源码行数, 默认是往后11行, ll看所有
+    - `run/restart args`: 给脚本提供参数运行
+
+- `gdb`
+- track `syscalls`:
+    - `sudo strace ls`: trace all syscalls used in `ls`
+- use `pylint / pyflakes` to check your code
+    - `:CocCommand`: python.selectLinter
+
+### Profiling
+
+- `real time, user time, `
+    - real time: real time
+    - user time: the real time spent on your program on user level (时间片)
+    - sys time: the real time spent on your program on kernel level
+    - `time ls`: to check the time spent on `ls`
+- `tracing profiles` && `sampling profiles`
+- `perf`
+    - ![image-20200707161407913](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200707161407913.png)
+
+- `htop`: a more readable version of `top`
+- `du -h .`: disk usage
+    - `ncdu` a interactive version to check disk usage
+    - ![image-20200707161827048](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200707161827048.png)
+
+- `lsof`: check which program is using the port / file
+    - ![image-20200707162012711](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200707162012711.png)
+- `hyperfine`: compare two program's preformance
 - 
-- **Remote Machine**
