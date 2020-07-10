@@ -1,0 +1,9 @@
+# how to configure my i3wm
+- workspace 1
+    - left: 1 panel (for main work); right: w panels (time + vimwiki)
+- 2:
+    - tmux: for open session (can detach and let it run)
+- 5(外接显示屏):
+    - main window: for google / typora ...
+- 6:
+    - a single terminal, for terminal commands

@@ -498,4 +498,149 @@
 - `lsof`: check which program is using the port / file
     - ![image-20200707162012711](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200707162012711.png)
 - `hyperfine`: compare two program's preformance
-- 
+
+## Lecture 8: Metaprogrammning
+
+### Build system:
+
+- dependencies -> rules -> target output
+- one useful tool: `make` (not necessary C++)
+    - [Makefile Syntax](https://makefiletutorial.com/)
+
+### Dependency management
+
+- `repository`: apt, npm...
+    - open, controlled
+- `semantic versioning`:
+    - `1.2.3`: 
+        - 1 : the major version
+            - a backwards **incompatible** update.
+        - 2 : minor version
+            - `add` something to the library. (and set the patch version to zero)
+        - 3 : patch version
+            - the change is entirely backwards **compatiable**. 
+
+- `lock file`:
+    - the version of the denpendency you use. (in case accidentally use dependency with wrong version)
+
+### Continuous intergration systems
+
+- `event trigger actions`
+    - e.g. Github CI
+    - hooks and event
+- `dependable bot on Github`
+- Github pages
+
+### Testing
+
+- Test suite: a **collective term** for all the tests
+- Unit test: a “micro-test” that tests a **specific feature** in isolation
+- Integration test: a “macro-test” that runs a larger part of the system to check that different feature or components work **together**.
+- Regression test: a test that implements a particular pattern that *previously* caused a bug to ensure that the **bug does not resurface**.
+- Mocking: to replace a function, module, or type with a fake implementation to **avoid testing unrelated functionality**. For example, you might “mock the network” or “mock the disk”
+
+## Lecture 9: Security and Cryptography
+
+### Entropy
+
+- $log_2(possibility)$ = $-log_2(probability)$
+- the strongness of your password.
+    - assumption: the attacker knows the model of your password, but not the randomness.
+- 40 bits of entropy is pretty good, but 80 bits or more is stronger.
+
+### Hash function
+
+- `SHA1`: arbitrary-sized inputs -> 160-bit output. (has been broken)
+
+    - ```
+        echo "hh" | sha1sum
+        ```
+
+- properties for hash functions:
+
+    - `deterministic`: same input, same output.
+    - `non-invertible`: given output, cannot find input.
+    - `target collision resistant`: given one input, cannot find another input, with the same output.
+    - `collision resistant`: cannot find two inputs, with same outputs.
+
+- [hash methods lifetime](https://valerieaurora.org/hash.html)
+
+- applications:
+
+    - git; software signature; commitment schemes (say a commitment, but only reveal the sha results in advance).
+
+### Key derivation functions (KDFs)
+
+- will work slow: in case violent break.
+- check whether the password is right by comparing the hash results.
+    - `KDP(passowrd + salt)`
+
+### Symmetric cryptography
+
+### Asymmetric cryptography
+
+- RSA
+
+- public key; private key
+- key distribution (how to get the public key safely)
+- usually symmetric cryptography is fast and asymmeric cryptography is slow:
+    - so usually we use asymmetric cryptography to transfer symmetric key, and use symmetric key for encryption. 
+    - we can send those two together to others.
+
+### Case studies
+
+- password managers; two-factor authentication; full disk encryption; private messaging; ssh (the server uses the client's public key to encrypt a random number)
+
+## Lecture 10: Potpourri
+
+### Keyboard remapping
+
+- xmodmap or autohotkey
+
+### Daemons
+
+- process working in the background.
+
+- `systemd`: the system daemon
+
+- `systemctl status`: list all daemons (which daemons are required by others)
+
+    - `systemctl enable/ disable/ start/ stop/ restart/ status`
+
+- ```shell
+    # /etc/systemd/system/myapp.service
+    [Unit]
+    Description=My Custom App
+    After=network.target   # dependencies
+    
+    [Service]
+    User=foo
+    Group=foo
+    WorkingDirectory=/home/foo/projects/mydaemon
+    ExecStart=/usr/bin/local/python3.7 app.py
+    Restart=on-failure
+    
+    [Install]
+    WantedBy=multi-user.target
+    ```
+
+### FUSE
+
+- `touch hh.txt` <- userlevel
+
+- `interaction with VFS` <- vitrual file system (kernel level)
+
+- `dinteraction with your hard drive`
+
+- so what if we want modify behavior concerning file system? But we should not modify the kernal code --> `FUSE (Filesystem in User Space)`
+
+- FUSE: allows filesystems to be implemented by a user program. (usercode -> FUSE -> VFS -> hard drive)
+
+    - so you can mount virtual filesystem throught ssh (e.g. to a remote machine)
+
+- `sshfs`: Open locally remote files/folder through an SSH connection.
+
+    - mount remote filesystem: `sshfs [user@]hostname:[directory] mountpoint `
+    - to unmount them: `fusermount -u mountpoint`
+
+    

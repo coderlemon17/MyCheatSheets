@@ -43,7 +43,8 @@
     - `u`: 撤销最后一次命令
     - `U`: 撤销对整行的操作
     - `Ctrl+r`: 恢复上一次撤销
-
+- `3igo` and then `Esc`, this will let you insert "go" 3 times.
+- `.` repeat previous command.
 ## 第三讲
 
 - `p`: 粘贴光标所在行的**下一行**
