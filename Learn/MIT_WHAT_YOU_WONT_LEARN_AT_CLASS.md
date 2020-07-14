@@ -157,7 +157,8 @@
         
         - `grep -v hh tmpt` do not match
         
-    - `rg`: a more useful tool (*use pip/conda to install*)
+    - `rg`: a more useful tool (*can not use pip/conda to install, not support on ubuntu18.04, use pre compiled binary*)
+        - called `ripgrep` in Github
     
         - `rg "function" -t py -C 5 ./project`
             - `-t` file type; `-C 5`: length of context provided

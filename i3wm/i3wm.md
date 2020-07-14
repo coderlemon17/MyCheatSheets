@@ -118,7 +118,8 @@
 ## 电源
 
 - 要使用`dmenu`才行
-- mate-power-perferences
+- mate-power-preference
+    - need open mate-power-manager first.
 
 ## 控制dmenu字体
 
