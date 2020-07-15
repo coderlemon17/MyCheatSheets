@@ -5,6 +5,7 @@
     - [ ] vimwhichkey && vimbuffer
     - [ ] 李宏毅ML 2020(7月)
     - [ ] 每晚整理李老师的课程总结(summary)
+    - [ ] NYU Machine Learning
     - [ ] 三次UGVR Meet (一次这周)
     - [ ] Shanghai Meeting
     - [ ] Vim学习官方repo

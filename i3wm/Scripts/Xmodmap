@@ -5,6 +5,6 @@ keycode 133 = Alt_L
 add mod1 = Alt_L Alt_R Meta_L
 add mod4 = Super_L Super_R Super_L Hyper_L
 
-keycode 66 = Escape
+keycode 66 = Escape Caps_Lock
 clear lock
 
