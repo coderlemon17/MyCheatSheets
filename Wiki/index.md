@@ -2,17 +2,17 @@
     - [ ] 找苏老师
     - [ ] UGVR阅读 
     - [ ] [UGVR Meeting](UGVR Meeting)
-    - [ ] vimwhichkey && vimbuffer
+    - [ ] 学校中期汇报(周五DDL)
     - [ ] 李宏毅ML 2020(7月)
     - [ ] 每晚整理李老师的课程总结(summary)
-    - [ ] NYU Machine Learning
+    - [ ] NYU Machine Learning || Stanford cs231n
     - [ ] 三次UGVR Meet (一次这周)
     - [ ] Shanghai Meeting
-    - [ ] Vim学习官方repo
+    - [ ] Vim学习官方repo vimwhichkey && vimbuffer
 # Everyday Schedule
 Week1: [0703](0703); [0704](0704)
 Wekk2: [0705](0705); [0706](0706); [0707](0707); [0708](0708);[0709](0709); [0710](0710); [0711](0711)
-Week3: [0712](0712); [0713](0713), [0714](0714)
+Week3: [0712](0712); [0713](0713), [0714](0714), [0715](0715), [0716](0716)
 # Finished DDL
     - [X] HCI文本处理和模型生成
 
