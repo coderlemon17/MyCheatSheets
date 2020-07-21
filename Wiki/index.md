@@ -8,11 +8,13 @@
     - [ ] NYU Machine Learning || Stanford cs231n
     - [ ] 三次UGVR Meet (一次这周)
     - [ ] Shanghai Meeting
-    - [ ] Vim学习官方repo vimwhichkey && vimbuffer
+    - [ ] numpy学习
+    - [ ] 给学姐发安卓的model
 # Everyday Schedule
 Week1: [0703](0703); [0704](0704)
 Wekk2: [0705](0705); [0706](0706); [0707](0707); [0708](0708);[0709](0709); [0710](0710); [0711](0711)
-Week3: [0712](0712); [0713](0713), [0714](0714), [0715](0715), [0716](0716)
+Week3: [0712](0712); [0713](0713), [0714](0714), [0715](0715), [0716](0716); [0717](0717)
+Week4: [0719](0719), [0721](0721)
 # Finished DDL
     - [X] HCI文本处理和模型生成
 
@@ -25,10 +27,16 @@ Week3: [0712](0712); [0713](0713), [0714](0714), [0715](0715), [0716](0716)
     - [ ] Missing Semaster's Exercises
     - [ ] 李宏毅; 助教的补充课程
     - [ ] n+e在采访中提到的课:吴恩达, Stanford cs231n, silver.
+    - [ ] UBC ML
+    - [ ] Python廖雪峰
+    - [ ] 邓老师DSA
+    - [ ] Pytorch文档 & pytorch style guide
+    - [ ] Vim学习官方repo vimwhichkey && vimbuffer
 
 # [我的随手记]
     - [如何保持 **高效** 的工作状态](如何保持 **高效** 的工作状态)
     - [桌面使用"大师"](桌面使用"大师")
+    - [Valuable Class from UGVR](Valuable Class from UGVR)
 
 
 

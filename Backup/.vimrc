@@ -22,6 +22,9 @@ set shiftwidth=4
 
 " For cursor
 autocmd VimEnter * silent exec "!echo -ne '\e[1 q'" | redraw!
+autocmd InsertEnter * silent exec "!echo -ne '\e[5 q'" | redraw!
+autocmd InsertLeave * silent exec "!echo -ne '\e[1 q'" | redraw!
+
 
 " For opacity
 "autocmd VimEnter * silent exec "!transset -a --inc 0.13"

@@ -2,17 +2,17 @@
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 
-__conda_setup="$('/home/lemon/Code_apps/Anaconda/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/lemon/Code_apps/Anaconda/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/lemon/Code_apps/Anaconda/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/lemon/Code_apps/Anaconda/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+#__conda_setup="$('/home/lemon/Code_apps/Anaconda/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+#if [ $? -eq 0 ]; then
+#    eval "$__conda_setup"
+#else
+#    if [ -f "/home/lemon/Code_apps/Anaconda/anaconda3/etc/profile.d/conda.sh" ]; then
+#        . "/home/lemon/Code_apps/Anaconda/anaconda3/etc/profile.d/conda.sh"
+#    else
+#        export PATH="/home/lemon/Code_apps/Anaconda/anaconda3/bin:$PATH"
+#    fi
+#fi
+#unset __conda_setup
 
 # <<< conda initialize <<<
 
@@ -157,8 +157,8 @@ source $ZSH/oh-my-zsh.sh
 
 #conda activate self-drivingi
 export VVENV="/home/lemon/Environments"
-source $VVENV/basic_env/bin/activate
-#source $VVENV/ugvr_env/bin/activate
+#source $VVENV/basic_env/bin/activate
+source $VVENV/ugvr_env/bin/activate
 
 # encoding
 export LC_ALL=en_US.utf-8 
@@ -307,3 +307,5 @@ alias vp=mvp
 # ask before overwrite
 alias mv="mv -i"
 
+# file explorer
+alias fileexplore="nautilus"

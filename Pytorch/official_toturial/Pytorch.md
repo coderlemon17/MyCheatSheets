@@ -32,7 +32,7 @@ x + y || torch.add(x, y) || torch.add(x, y, out=tensor_for_result)
 
 - Indexing `print(x[:, 1])`
 
-#### Resizing:
+#### 1.1.2.1. Resizing:
 
 - ```python
     x = torch.randn(4, 4)
@@ -41,7 +41,7 @@ x + y || torch.add(x, y) || torch.add(x, y, out=tensor_for_result)
     print(x.size(), y.size(), z.size())
     ```
 
-#### Get Python value
+#### 1.1.2.2. Get Python value
 
 - ```python
     x = torch.randn(1)
@@ -106,8 +106,9 @@ x + y || torch.add(x, y) || torch.add(x, y, out=tensor_for_result)
     - `.grad`
 - To stop a tensor from tracking history, you can call `.detach()` to detach it from the computation history, and to prevent future computation from being tracked.
 - To prevent tracking history (and using memory), you can also wrap the code block in `with torch.no_grad():`.
+    - 即使之前`requires_grad == True`, 在这个code block里也会变为`False`
 
-### Vector-Jacobian product
+### 1.2.1. Vector-Jacobian product
 
 - very nice [illustration](https://suzyahyah.github.io/calculus/pytorch/2018/07/01/Pytorch-Autograd-Backprop.html)
 - Basically, give function $\mathop{y}\limits^{\rightarrow} = f(\mathop{x}\limits^{\rightarrow})$, the autograd computes **the product of a vector and the Jacobian**. $J^T\times v$
@@ -153,5 +154,104 @@ $$
 
 ##  1.3. Neural Networks
 
-- 
+### 1.3.1. Define the network
 
+- ```python
+    import torch
+    import torch.nn as nn
+    import torch.nn.functional as F
+    
+    
+    class Net(nn.Module):
+    
+        def __init__(self):
+            super(Net, self).__init__()
+            # 1 input image channel, 6 output channels, 3x3 square convolution
+            # kernel
+            self.conv1 = nn.Conv2d(1, 6, 3)
+            self.conv2 = nn.Conv2d(6, 16, 3)
+            # an affine operation: y = Wx + b
+            self.fc1 = nn.Linear(16 * 6 * 6, 120)  # 6*6 from image dimension
+            self.fc2 = nn.Linear(120, 84)
+            self.fc3 = nn.Linear(84, 10)
+    
+        def forward(self, x):
+            # Max pooling over a (2, 2) window
+            x = F.max_pool2d(F.relu(self.conv1(x)), (2, 2))
+            # If the size is a square you can only specify a single number
+            x = F.max_pool2d(F.relu(self.conv2(x)), 2)
+            x = x.view(-1, self.num_flat_features(x))
+            x = F.relu(self.fc1(x))
+            x = F.relu(self.fc2(x))
+            x = self.fc3(x)
+            return x
+    
+        def num_flat_features(self, x):  # a util function
+            size = x.size()[1:]  # all dimensions except the batch dimension
+            num_features = 1
+            for s in size:
+                num_features *= s
+            return num_features
+    ```
+
+- You have to define the `forward` function, and the `backward` function will be constructed automatically.
+
+- `net.parameters()` will get you all learnable parameters.
+
+### 1.3.2. Loss function
+
+```python
+output = net(input)
+target = torch.randn(10)  # a dummy target, for example
+target = target.view(1, -1)  # make it the same shape as output
+criterion = nn.MSELoss()
+
+loss = criterion(output, target)
+print(loss)
+```
+
+### 1.3.3. Backprop
+
+- To backpropagate the error all we have to do is to `loss.backward()`. You need to **clear the existing gradients though**, else gradients will be accumulated to existing gradients.
+    - :warning: Call `net.zero_grad()` before call `loss.backward()`
+
+### 1.3.4. Update the weights
+
+- The most naive one 
+
+    - ```python
+        learning_rate = 0.01
+        for f in net.parameters():
+            f.data.sub_(f.grad.data * learning_rate)  
+        # tensor_data.data will return tenspr
+        # tensor_data.item will return Python value
+        ```
+
+- Use `torch.optim`
+
+    - ```python
+        import torch.optim as optim
+        
+        # create your optimizer
+        optimizer = optim.SGD(net.parameters(), lr=0.01)
+        
+        # in your training loop:
+        optimizer.zero_grad()   # zero the gradient buffers
+        output = net(input)
+        loss = criterion(output, target)
+        loss.backward()
+        optimizer.step()    # Does the update
+        ```
+
+    - :warning: **call `zero_grad()` before `backward()`**
+
+## 1.4. Training a classifier
+
+- Move parameters to CUDA **before** constructing optimizer. ([see](https://pytorch.org/docs/stable/optim.html))
+
+> If you need to move a model to GPU via `.cuda()`, please do so before constructing optimizers for it. Parameters of a model after `.cuda()` will be different objects with those before the call.
+>
+> In general, you should make sure that optimized parameters live in consistent locations when optimizers are constructed and used.
+
+- How to use CUDA correctly:
+    - ![image-20200716094423316](/home/lemon/Workspace/myCheatSheet/Pytorch/pic/tensor_tutorial.ipynb)

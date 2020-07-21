@@ -185,3 +185,7 @@ tr [OPTION]... SET1 [SET2]
 # oh-my-zsh
 - `alias hh="mhh"`: 注意等号两边是不可以有空格的, vim中的很多赋值也是这样
 
+# chmod
+- -rwxrwxrwx: 第一个表示是文件还是文件夹, 之后分别是对当前用户(u);对当前用户用户组(g);对其他所有用户的权限(o)
+- chmod u-w; 减少当前用户的write权限 ; chmod g+w ; chmod o=---
+- or 用数字表示: rwx == 111; 故r=4; w=2; x=1; 故777=rwxrwxrwx

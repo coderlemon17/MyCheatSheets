@@ -1,2 +1,2 @@
 # Useful keymappings
-- `<C-o><C-f>`: open file folders.
+- `<C-e><C-o>`: open file folders.
