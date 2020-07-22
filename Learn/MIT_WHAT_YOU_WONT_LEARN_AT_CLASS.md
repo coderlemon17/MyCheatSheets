@@ -338,6 +338,14 @@
     - ![image-20200706165907471](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200706165907471.png)
 
 - `use ~/.ssh/config`, so you can just `ssh lemon` instead of `ssh lemon@111.111.111.111` (at 51 min)
+    ```
+        Host vm
+            User jjgo
+            HostName 182.92.86.236
+            IdentityFile ~/.ssh/id
+            RemoteForward 9999 localhost:8888
+            
+    ```
 - `htop` more readable than `top`
 
 ## Lecture 6: Version Control
