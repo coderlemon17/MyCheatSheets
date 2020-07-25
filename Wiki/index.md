@@ -40,6 +40,7 @@ Week4: [0719](0719), [0721](0721), [0722](0722); [0723](0723)
     - [如何保持 **高效** 的工作状态](如何保持 **高效** 的工作状态)
     - [桌面使用"大师"](桌面使用"大师")
     - [Valuable Class from UGVR](Valuable Class from UGVR)
+    - [Me, or slaver](Me, or slaver) 
 
 
 
