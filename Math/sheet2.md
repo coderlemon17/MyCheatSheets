@@ -1,9 +1,9 @@
-# [Gaussian Process](https://www.youtube.com/watch?v=4vGiHC35j9s&feature=emb_logo)
+# [Introduction to Gaussian Process](https://www.youtube.com/watch?v=4vGiHC35j9s&feature=emb_logo)
 
 ## Gaussian Basics
 
 - $x \sim N(\mu, \Sigma)$ 
-    
+  
     - ![Image for post](/home/lemon/Workspace/myCheatSheet/Math/pic/1_qUy5tdKD3JF8SBpGfN9TpQ.png)
     
     - $\Sigma$: covariance <-> $\rho$ : correlation 
@@ -15,9 +15,9 @@
     - For Gaussian, $\Sigma$ is **symmetric** and **positive definite**. 
     
 - <img src="/home/lemon/Workspace/myCheatSheet/Math/pic/123123.png" alt="image-20200716111425199" style="zoom:50%;" />
-    
+  
 - From joint distribution to conditional distribution :arrow_up_small:
-    
+  
 - How to sample Gaussian data from uniform distribution:
 
     - `Inverse Cumulative Sampling`:
@@ -65,7 +65,27 @@
 - $p(y|D) = \frac{p(D|f)p(f)}{P(D)}$
 - Prior Knowledge: $y_i \text{ and } y_j$ are close when $x_i$ and $x_j$ are close.
 
-## Noiseless GP regression
+## Noiseless GP Regression
 
 <img src="/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200716155438926.png" alt="image-20200716155438926" style="zoom:67%;" />
 
+# Gaussian Process
+
+## Active Learning with GPs
+
+- The key in GP is the belief that `Most functions are smooth`
+- Noiseless GP regression:
+    - $\mathcal{k}(x,x') = \sigma^2_fexp(-\frac{1}{2l^2}(x-x')^2)$
+
+## Effect of Kernel with Parameters
+
+<img src="./pic/image-20200726152800951.png" alt="image-20200726152800951" style="zoom:67%;" />
+
+- `the red one is the fitting function, ane the blue is the truth`:
+    - When `l` is **small**, the fitting function tends to be **less smooth**
+        - Kernel K is more sensitive to $(x-x')^2$
+- One way to set this parameters is to do *cross validation*.
+
+## Noisy GP Regression
+
+-  

@@ -1,6 +1,6 @@
 # Useful keymappings
 - `<C-e><C-o>`: open file folders.
-- <C-p>: change files
+- <C-p>: change files (with search ability!!!)
 - <Alt+NUM>: change open files
 - <C-NUM>: change editor
 - <C-Tab>: change open files

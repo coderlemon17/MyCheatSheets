@@ -1,4 +1,4 @@
-## 保存和加载模型
+# 保存和加载模型
 
 - [see](https://blog.csdn.net/weixin_41680653/article/details/93768559)
 
@@ -25,4 +25,13 @@
 # 随机生成
 
 - `rand`是均匀分布, `randn`是正态分布
-- 
+
+# Multiply
+- *elementwise*:
+    - `x * y || torch.mul(x,y)`
+- *matrixwise*:
+    - `x @ y || torch.matmul(x, y)`
+
+# 关于torch.nn和torch.nn.functional:
+- [Ref](https://blog.csdn.net/GZHermit/article/details/78730856)
+- **所以在定义网络的时候，如果层内有Variable,那么用nn定义，反之，则用nn.functional定义.**

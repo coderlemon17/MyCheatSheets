@@ -71,6 +71,10 @@
         ```
 
         - `--left-of`, `--right-of`, `--above`, `--below`
+- 停止某屏幕
+    - ```
+        xrandr --output DP-1-1 --off
+        ```
 
 ## 网络
 

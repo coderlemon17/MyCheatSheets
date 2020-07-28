@@ -6,4 +6,4 @@
 
 # sheet2:
 - Gaussian Process (UBC)
-- Gaussian Mixture Model (GMM)
+- 
