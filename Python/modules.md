@@ -50,3 +50,36 @@ package/
 - > 需要注意的是使用相对导入后，当前模块就不能直接运行了，会抛出ValueError: Attempted relative import in non-package的错误。这是因为对于解释器来说，它无法理解导入语句中的相对关系，这时候就需要为它说明相对关系了，也就是用python -m A.B.C的方式代替python A/B/C.py来运行模块。
 
     
+
+## Why my custom module dosenot work?
+
+- 当你写了一个module,但是import时会报错:
+
+- ```
+    mygrid  <--- folder1
+    ├── __init__.py
+    ├── mygrid   <---folder2
+    │   ├── __init__.py
+    │   ├── MiniGrid
+    ├── mygrid.egg-info
+    └── setup.py
+    ```
+
+    
+
+- 你在setup.py里假如写的是:
+
+    - ```python
+        from setuptools import setup
+        
+        setup(
+            name='mygrid',
+            version='0.0.1',
+            packages=["mygrid"],
+            install_requires=['gym']
+        )
+        ```
+
+    - **这里的name不是随便写的**: 而应该是你setup.py**所在文件夹中的module的名字**:
+
+        - 可以认为import的时候就是从这个文件夹(folder2)中去import mygrid, 所以你在这个文件夹中必须相应的要有这个文件夹(mygrid), 不然当然会报import error.

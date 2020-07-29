@@ -4,7 +4,7 @@
 
 - $x \sim N(\mu, \Sigma)$ 
   
-    - ![Image for post](/home/lemon/Workspace/myCheatSheet/Math/pic/1_qUy5tdKD3JF8SBpGfN9TpQ.png)
+    - ![Image for post](./pic/1_qUy5tdKD3JF8SBpGfN9TpQ.png)
     
     - $\Sigma$: covariance <-> $\rho$ : correlation 
         - $\rho_{x_1x_2} = \frac{Cov(x_1,x_2)}{\sigma_{x_1}\sigma_{x_2}} $
@@ -13,16 +13,16 @@
 
 ### Joint distribution && Conditional distribution  <--> Marginal distribution
 
-- <img src="/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200716110856952.png" alt="image-20200716110856952" style="zoom:50%;" />]
+- <img src="./pic/image-20200716110856952.png" alt="image-20200716110856952" style="zoom:50%;" />]
 - For Gaussian, $\Sigma$ is **symmetric** and **positive definite**. 
 
-- <img src="/home/lemon/Workspace/myCheatSheet/Math/pic/123123.png" alt="image-20200716111425199" style="zoom:50%;" />
+- <img src="./pic/123123.png" alt="image-20200716111425199" style="zoom:50%;" />
   
 
 ### How to sample Gaussian data from uniform distribution:
 
 - `Inverse Cumulative Sampling`:
-    - <img src="/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200716122325494.png" alt="image-20200716122325494" style="zoom:25%;" />
+    - <img src="./pic/image-20200716122325494.png" alt="image-20200716122325494" style="zoom:25%;" />
     - 绿色的是高斯分布的Cumulative Distribution Function (累积分布函数) $\Phi(x)$, 所以从红色的uniform分布中sample出$x\sim[0,1]$, 然后逆映射$y = \Phi^{-1}(x)$, $y$符合高斯分布.
 
 > Inverse Transfer Learning ([see](https://www2.isye.gatech.edu/~sman/courses/6644/Module07-RandomVariateGenerationSlides_171116.pdf))
@@ -35,7 +35,7 @@
 >
 > Then: Let $U \sim \mathcal{U}(0,1)$, given an arbitrary distribution with c.d.f. $F(x)$, then assign $X = F^{-1}(U)$, $X$ will have the distribution $F(x)$.
 >
-> ![image-20200716133309820](/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200716133309820.png)
+> ![image-20200716133309820](./pic/image-20200716133309820.png)
 
 - $X_i \sim N(0,1)$ <===> $X_i \sim N(\mu,\sigma^2) \sim \mu+\sigma N(0,1)$
 
@@ -71,7 +71,7 @@
 - $\mathbf{K}$ only stands for the **smoothness assumption** in GP, so $N(\mu_{\text{arbitrary}}, \mathbf{K})$ is just a collection of random smooth functions !  --> **GP is a Gaussian distribution over functions!**  
     - You can assume **$f$ is centralized**, i.e. $\mu = 0\text{ for } f, f_*$. (But you have to actually do that, e.g. estimate $\mathbb{E(f(x))}$ then minus it ,otherwise the data you observed won't be centralized)
     - GP defines a **function distribution**, i.e. $f(x) \sim \mathcal{GP}(\mathbb{E}[f(x)], \mathbf{K}$
-- <img src="/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200729164559126.png" alt="image-20200729164559126" style="zoom:50%;" />
+- <img src="./pic/image-20200729164559126.png" alt="image-20200729164559126" style="zoom:50%;" />
 
 #### Meaning 2:
 
@@ -83,11 +83,11 @@
 
 ## Noiseless GP Regression
 
-<img src="/home/lemon/Workspace/myCheatSheet/Math/pic/GP_1.png" alt="image-20200729172117681" style="zoom:67%;" />
+<img src="./pic/GP_1.png" alt="image-20200729172117681" style="zoom:67%;" />
 
 
 
-<img src="/home/lemon/Workspace/myCheatSheet/Math/pic/GP_0.png" alt="image-20200716155438926" style="zoom:67%;" />
+<img src="./pic/GP_0.png" alt="image-20200716155438926" style="zoom:67%;" />
 
 - $\mu'$ and $\mu_*^{'}$ are priors. (Either estimate from training data, or assume to be zero -> for centralized data.)
     - $\mu_*$ and $\Sigma_*$ are para of **conditional distribution!**  
@@ -153,7 +153,7 @@ $$
 
 ### Another interpretation of GP
 
-<img src="/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200729182043660.png" alt="image-20200729182043660" style="zoom:67%;" />
+<img src="./pic/image-20200729182043660.png" alt="image-20200729182043660" style="zoom:67%;" />
 
 - So the mean $\mu_* = \bar{f_*}$ is actually a **linear combination of basis functions** ($k(x_i,x_*)$)
 
@@ -189,6 +189,7 @@ $$
         $$
 
     - Ridge regression is **a GP**.
+        
         - $\delta$ in Ridge is like the $\sigma_y$ we introduce at noisy GP.
 
 ## Learning the kernel parameters 
@@ -205,11 +206,11 @@ $$
 
 - Doing MLE:
 
-    - ![image-20200729123139868](/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200729123139868.png)
+    - ![image-20200729123139868](./pic/image-20200729123139868.png)
     - Where $\theta$ is parameter of your kernel function. 
         - So you actually doing optimization w.r.t data, so this is empirical based. 
 
 ## Numerical computation considerations
 
-<img src="/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200729185219247.png" alt="image-20200729185219247" style="zoom:67%;" />
+<img src="./pic/image-20200729185219247.png" alt="image-20200729185219247" style="zoom:67%;" />
 
