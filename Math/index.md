@@ -5,5 +5,7 @@
 - Laplace Approximation
 
 # sheet2:
-- Gaussian Process (UBC)
-- 
+- Bayesian Optimization and Active Learning.
+
+# sheet3:
+- Papers on Bayesian Optimization

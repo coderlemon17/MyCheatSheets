@@ -107,6 +107,7 @@
 - `the red one is the fitting function, ane the blue is the truth`:
     - When `l` is **small**, the fitting function tends to be **less smooth**
         - Kernel K is more sensitive to $(x-x')^2$
+    - $\sigma_f$ controls the vertical variation of functions drawn from the GP
 - One way to set this parameters is to do *cross validation*.
 
 ## Noisy GP Regression
@@ -189,7 +190,7 @@ $$
         $$
 
     - Ridge regression is **a GP**.
-        
+      
         - $\delta$ in Ridge is like the $\sigma_y$ we introduce at noisy GP.
 
 ## Learning the kernel parameters 
@@ -213,4 +214,87 @@ $$
 ## Numerical computation considerations
 
 <img src="./pic/image-20200729185219247.png" alt="image-20200729185219247" style="zoom:67%;" />
+
+# [Bayesian optimization and multi-armed bandits](https://www.youtube.com/watch?v=vz3D36VXefI&list=PLE6Wd9FR--EdyJ5lbFl8UuGjecvVw66F6&index=10)
+
+## Warning: Don't use GP everywhere.
+
+- GP is just a model (a collection of functions).
+- So you should use GP **if and only if** your target functions are **smooth.**
+- For multi-arm bandit, it's not reasonable to assume that your target functions are smooth, instead, you should model a distribution for each bandit (e.g. beta distribution)
+
+## Preliminaries
+
+- Trade-off between exploration and exploration.
+- Regret = Player reward - Reward of best action.
+- Bayesian Optimization:
+    - Find optimal point $x_t$ for the next query based on utility function / acquisition function $u(x|\mathcal{D}_{1:t-1})$
+    - Then update $u$ with $(x_t, y_t)$ based on Bayes' rule.
+
+## Exploration-exploitation trade-off
+
+$$
+\textbf{Gaussian Prediction}\\
+\begin{aligned}
+p(y_{t+1}|\mathcal{D}_{1:t},x_{t+1}) &= N(\mu_t(x_{t+1}), \sigma^2_t(x_{t+1}))\\
+\mu_t(x_{t+1}) &= \mathbf{k}^T[\mathbf{K}+\sigma^2_{noise}\mathbf{I}]^{-1}y_{1:t}\\
+\sigma^2_t(x_{t+1}) &= k(x_{t+1},x_{t+1}) - \mathbf{k}^T[\mathbf{K}+\sigma^2_{noise}\mathbf{I}]^{-1}\mathbf{k}
+\end{aligned}
+$$
+
+- We should choose next $x$ with high mean (exploit) and high variance (exploration)
+    - e.g. $\mu(x)+\alpha\sigma(x)$
+
+## Acquisition Functions
+
+### Probability of Improvement
+
+- $$
+    \begin{aligned}
+    PI(x) &= p(f(x) \geq \mu^+ + \xi)\\
+    &= \Phi(\frac{\mu(x)-\mu^+-\xi}{\sigma(x)})\\
+    \end{aligned}
+    $$
+
+- The probability of $x$ to be greater than $\mu^+$ (the best result we have observed so far).
+
+### An expected utility criterion
+
+#### Bayes and decision theory
+
+- We need **two** components:
+    - A probabilistic model of the environment: a posterior.
+    - Utilitarian: make decisions based on the posterior. (e.g. acquisition function)
+- e.g.![image-20200730113436499](/home/lemon/Workspace/myCheatSheet/Learn/ML_UCB/pic/image-20200730113436499.png)
+    - The expected utility is : $EU(a) = \sum_{x}u(x,a)P(x|data)$  <-- posterior
+        - Just like RL.
+    - Then your decision might be: $argmax_{a}EU(a)$  <-- decision
+
+#### An expected utility criterion
+
+- We minimize the distance to the optimal point $x^* = argmax_xf(x)$.
+
+- $$
+    \begin{aligned}
+    x_{n+1} &= \arg\min\limits_{x}\mathbb{E}(||f_{n+1}(x)-f(x^*))||\ |\mathcal{D}_n)\\
+    &= \arg\min\limits_x\int||f_{n+1}(x)-f(x^*))||p(f_{n+1}|D_n)df_{n+1}
+    \end{aligned}
+    $$
+
+    - Here we integrate over all possible functions.
+
+- But we don't know $f(x^*)$, so instead:
+    - <img src="/home/lemon/Workspace/myCheatSheet/Learn/ML_UCB/pic/image-20200730114843170.png" alt="image-20200730114843170" style="zoom:67%;" />
+
+### A third criterion: GP-UCB
+
+<img src="/home/lemon/Workspace/myCheatSheet/Learn/ML_UCB/pic/image-20200730115121492.png" alt="image-20200730115121492" style="zoom:67%;" />
+
+- [GP-UCB](https://arxiv.org/abs/0912.3995)
+
+### A fourth criterion: Thompson sampling
+
+## Usage of Bayesian Optimization
+
+<img src="/home/lemon/Workspace/myCheatSheet/Learn/ML_UCB/pic/image-20200730120411656.png" alt="image-20200730120411656" style="zoom:50%;" />
 

@@ -1,215 +1,135 @@
-# [Introduction to Gaussian Process](https://www.youtube.com/watch?v=4vGiHC35j9s&feature=emb_logo)
+# Summary
 
-## Gaussian Basics
+# TODO
 
-- $x \sim N(\mu, \Sigma)$ 
-  
-    - ![Image for post](/home/lemon/Workspace/myCheatSheet/Math/pic/1_qUy5tdKD3JF8SBpGfN9TpQ.png)
-    
-    - $\Sigma$: covariance <-> $\rho$ : correlation 
-        - $\rho_{x_1x_2} = \frac{Cov(x_1,x_2)}{\sigma_{x_1}\sigma_{x_2}} $
-        - $Cov(x_1,x_2) = \mathbb{E}[(X_1-E(X_1))(X_2-E(X_2))]$
-    
-
-### Joint distribution && Conditional distribution  <--> Marginal distribution
-
-- <img src="/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200716110856952.png" alt="image-20200716110856952" style="zoom:50%;" />]
-- For Gaussian, $\Sigma$ is **symmetric** and **positive definite**. 
-
-- <img src="/home/lemon/Workspace/myCheatSheet/Math/pic/123123.png" alt="image-20200716111425199" style="zoom:50%;" />
-  
-
-### How to sample Gaussian data from uniform distribution:
-
-- `Inverse Cumulative Sampling`:
-    - <img src="/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200716122325494.png" alt="image-20200716122325494" style="zoom:25%;" />
-    - 绿色的是高斯分布的Cumulative Distribution Function (累积分布函数) $\Phi(x)$, 所以从红色的uniform分布中sample出$x\sim[0,1]$, 然后逆映射$y = \Phi^{-1}(x)$, $y$符合高斯分布.
-
-> Inverse Transfer Learning ([see](https://www2.isye.gatech.edu/~sman/courses/6644/Module07-RandomVariateGenerationSlides_171116.pdf))
->
-> Theorem: Let $X$ be a continuous random variable with c.d.f. $F(x)$, then $F(X) \sim \mathcal{U}(0,1)$
->
-> Proof: Let $Y = F(X)$ and has a c.d.f. $\mathcal{G}(y)$, then:
->
-> $\mathcal{G}(y) = P(Y \leq y) = P(F(X) \leq y) = P(x \leq F^{-1}(y)) = F(F^{-1}(y)) = y$
->
-> Then: Let $U \sim \mathcal{U}(0,1)$, given an arbitrary distribution with c.d.f. $F(x)$, then assign $X = F^{-1}(U)$, $X$ will have the distribution $F(x)$.
->
-> ![image-20200716133309820](/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200716133309820.png)
-
-- $X_i \sim N(0,1)$ <===> $X_i \sim N(\mu,\sigma^2) \sim \mu+\sigma N(0,1)$
-
-- How to get samples from $X\in\mathbb{R}^n, X\sim N(\mu^n, \Sigma_{n\times n})$?
-    - If each dimension is **independent**, it's easy, we just sample every dimension independently.
-        - Note that: though that $p(x_1) \sim N(\mu_1,\Sigma_{11}), p(x_2) \sim N(\mu_2,\Sigma_{22})$ will always be true, **but only when $x_1, x_2$ are independent**, randomly sample $x_1 \sim N(\mu_1,\Sigma_{11}), x_2 \sim N(\mu_2,\Sigma_{22})$ will equal to sample $\begin{bmatrix}x_1 \\ x_2 \end{bmatrix}$ from the join distribution.
-    - If not, we can still apply the trick in one-dimension case.
-        - $X\sim \mu+L\cdot N(0, I)$. $L$ is the "square root" of $\Sigma$. (Cholesky decomposition, $\Sigma=LL^T$)
-        - For $N(0,I)$, every dimension is independent. 
-
-## Gaussian Process
-
-- An intuitive assumption: 
-    - If $x_i$ and $x_j$ are close to each other, then $y_i$ and $y_j$ should be close too.
-    - We use kernel function to measure the **similarity of $x$ **.
-- If we have two known data $(x_1,f_1), (x_2,f_2)$, let's say it comes from 
-    - $\begin{bmatrix}f_1 \\ f_2 \\\end{bmatrix} \sim N(0, \begin{bmatrix}K_{11} & K_{12} \\ K_{21} & K_{22}\\ \end{bmatrix}) = N(0, \mathbf{K})$ 
-    - :warning: $k$ is all calculated with **kernel function**.
-    -  Then we want to predict $y_*$ given $x_*$, let's **assume it comes from** $y_*\sim N(0,k(x_*,x_*)) = N(0, K_{**})$, where $k(\cdot, \cdot)$ is a kernel function, e.g. $k(x_i, x_j) = \sigma^2 * exp(-\lambda||x_i - x_j||)$
-    - And we think $f_1,f_2$ and $f_*$ are correlated, so we get $\begin{bmatrix}f_1\\f_2\\f_*\\\end{bmatrix} \sim N(0, \begin{bmatrix}\mathbf{K} & & K_{1*} \\ & & K_{2*} \\ K_{*1} & K_{*2} & K_{**}\end{bmatrix})$, let's call $\begin{bmatrix}K_{1*} \\ K_{2*}\\\end{bmatrix} = K_*$ and $f = \begin{bmatrix}f_1 \\ f_2\\\end{bmatrix}$
-
-- Then we can *apply Multivariate Gaussian Theorem* to get **$P(y_* | (x_1,f_1), (x_2,f_2))$**
-    - $\mu_* = K_*^T\mathbf{K}^{-1}f$
-    - $\sigma_* = -K_*^T\mathbf{K}^{-1}K_* + K_{**}$ 
-
-### The core of GP
-
-- The core is assume $\begin{pmatrix}f_1 \\ \vdots \\ f_N\end{pmatrix} \sim N(\mu, \mathbf{K})$, where $\mu = \mathbb{E}[f(x)]$ and $\mathbf{K}_{N\times N} =[k(x_i,x_j)] $.
-
-#### Meaning 1:
-
-- Arbitrary choosing $X_{1:N}$ **and $\mu$**, you get a multi-dimension distribution $N(\mu, \mathbf{K})$, drawing samples from that distribution can get you a line :$(x,f)$.
-- $\mathbf{K}$ only stands for the **smoothness assumption** in GP, so $N(\mu_{\text{arbitrary}}, \mathbf{K})$ is just a collection of random smooth functions !  --> **GP is a Gaussian distribution over functions!**  
-    - You can assume **$f$ is centralized**, i.e. $\mu = 0\text{ for } f, f_*$. (But you have to actually do that, e.g. estimate $\mathbb{E(f(x))}$ then minus it ,otherwise the data you observed won't be centralized)
-    - GP defines a **function distribution**, i.e. $f(x) \sim \mathcal{GP}(\mathbb{E}[f(x)], \mathbf{K}$
-- <img src="/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200729164559126.png" alt="image-20200729164559126" style="zoom:50%;" />
-
-#### Meaning 2:
-
-- Arbitrary choosing $x_*$, using collected data $(x,f)$, you can predict the conditional distribution $p(f_*|x_*, (x,f))$ (Note that $\mu, \mu_* \text{ is related to } \mu(X) \text{ and } \mu(X_*)$)
-
-- Gaussian Posterior: make predictions
-    - $p(f|D) = \frac{p(D|f)p(f)}{P(D)}$
-    - Prior Knowledge: $y_i \text{ and } y_j$ are close when $x_i$ and $x_j$ are close.
-
-## Noiseless GP Regression
-
-<img src="/home/lemon/Workspace/myCheatSheet/Math/pic/GP_1.png" alt="image-20200729172117681" style="zoom:67%;" />
+- the updating part (how to update our model w.r.t. new data)
+- how dose Thompson Sampling actually works
+- Thompson Sampling && GP
+    - https://gdmarmerola.github.io/ts-for-bayesian-optim/
+    - http://katbailey.github.io/post/gaussian-processes-for-dummies/
 
 
 
-<img src="/home/lemon/Workspace/myCheatSheet/Math/pic/GP_0.png" alt="image-20200716155438926" style="zoom:67%;" />
+# [Exploring Bayesian Optimization](https://distill.pub/2020/bayesian-optimization/)
 
-- $\mu'$ and $\mu_*^{'}$ are priors. (Either estimate from training data, or assume to be zero -> for centralized data.)
-    - $\mu_*$ and $\Sigma_*$ are para of **conditional distribution!**  
+### Overview of Active Learning and Bayesian Optimization
 
-# [Gaussian Process](https://www.youtube.com/watch?v=MfHKW5z-OOA&list=PLE6Wd9FR--EdyJ5lbFl8UuGjecvVw66F6&index=9)
+- Active learning: drill at where has **high information**
+- Bayesian optimization: drill at where has **high promise/value**
 
-## Active Learning with GPs
+### Active Learning
 
-- The key in GP is the belief that `Most functions are smooth`
-- Noiseless GP regression:
-    - $\mathcal{k}(x,x') = \sigma^2_fexp(-\frac{1}{2l^2}(x-x')^2)$
+- Minimize labeling **costs** while maximizing modeling **accuracy**.
+- One approach: *uncertainty reduction*:
+    - true value at some points -> formalize a *surrogate model* (e.g. Gaussian Process)
+    - pick points with highest **uncertainty**
+    - update GP w.r.t. new data
 
-## Effect of Kernel with Parameters
+### Bayesian Optimization
 
-<img src="./pic/image-20200726152800951.png" alt="image-20200726152800951" style="zoom:67%;" />
+- Only care about digging **more gold** instead accuracy (so we do not waste time measuring places where clearly has less gold)
+- Balance **places with high uncertainty** && **places we know have more gold**.
+    - places with high certainty might have great gold (as well) 
+- :arrow_down:
+- Acquisition functions: at every step, we determine what the best point to evaluate next is according to the acquisition function by **optimizing it**.
 
-- `the red one is the fitting function, ane the blue is the truth`:
-    - When `l` is **small**, the fitting function tends to be **less smooth**
-        - Kernel K is more sensitive to $(x-x')^2$
-- One way to set this parameters is to do *cross validation*.
+#### General constraints of Bayesian Optimization
 
-## Noisy GP Regression
+- $f$'s feasible set $A$ is simple, e.g. box constraints. (定义域)
+- $f$'s continuous but lacks special structure, e.g., concavity, that would make it easy to optimize.
+- $f$'s is derivative-free: evaluations do **NOT** give gradient information.
+- $f$ is expensive to evaluate.
+- $f$' may be noisy. (if noise is present. we will assume it's independent and normally distributed, with common but unknown variance.)
 
--  $y = f(x) + \epsilon$, where $\epsilon \sim N(0, \sigma^2_{y})$ ($y$ is what we observed , but $f$ is ground truth, or **hidden parameter**)
-    -  $f_i$s are not independent, but $(y_i|f_i)$s are independent.
-    -  $f_i = f(x_i), \text{so } p(\cdot|f,X) = p(\cdot|f(x)) = p(\cdot|f)$
+#### Formalization of Bayesian Optimization:
 
-$$
-p(y|X) = \int p(y,f|X)df = \int p(y|f,X)p(f|X)df\\
-p(f|X) = N(f|0, \mathbf{K}) \text{ # Note: f is centralized, and they're not independent} \\
-p(y|f,X) = p(y|f) = \prod_i N(y_i|f_i,\sigma^2_y)\\ %y_i is independent with each other
-cov[y|X] = \mathbf{K} + \sigma_y^2 \mathbf{I}_N \triangleq \mathbf{K}_y
-$$
+- Choose surrogate model for modeling true function $f$ and define its **prior**.
+- Use Bayes rule for updating and acquire **posterior** w.r.t. **observation**
+- Use an acquisition function $\alpha(x)$, a function of the **posterior**, to decide the next sample point $x_t = argmax_x\alpha(x)$ (?How to do this in continuous?)
+- Add new data to **observation** and do this again.
 
-- Then we acquire GP with noise:
+#### Acquisition Function
 
-$$
-\begin{pmatrix}\mathbf{y}\\f_*\end{pmatrix} \sim N(0, \begin{pmatrix} \mathbf{K_y} & \mathbf{K_{*}} \\ \mathbf{K^T_{*}} & \mathbf{K_{**}} \\ \end{pmatrix}) \\
-\begin{aligned}
-	p(f_*|x_*,X,y) &= N(f_*|\mu_*, \Sigma_*)\\
-	\mu_* &= \mathbf{K_*^T}\mathbf{K_y^{-1}}y\\
-	\Sigma_* &= \mathbf{K_{**}} - \mathbf{K}_*^T\mathbf{K_y}^{-1}\mathbf{K_*} 
-\end{aligned}
-$$
+##### Probability of improvement (PI)
 
-- Only $\mathbf{K}$ becomes $\mathbf{K_y}$:
+- $x_t$: point that has the highest **probability of improvement** over the current max $f(x^{+}) = argmax_{x_i\in x_{1:t}}f(x_i)$
+    - $x_{t+1} = argmax(\alpha_{PI}(x)) = argmax(P(f(x) \geq (f(x^+) +\epsilon)))$
+- NOTE: 原文中的$\Phi$应该是标准正态的CDF所以要归一化
+- Intuition behind $\epsilon$ in **PI**
+    - PI uses *epsilon* to strike a balance between exploration and exploitation.
+    - Increasing $\epsilon$ results in querying locations with larger $\sigma$ (explore more)
+        - as their probability density is spread.
+        - if $\epsilon$ is too large, BO becomes something like AL.
 
-    - $\sigma_y^2$ needs to be **estimates from data**, MLE, cross-validation, Bayesian Learning for example.
+##### Expected Improvement (EI)
 
-    - You need to choose a robust prior for $\sigma_y^2$.
+- PI overlooks *how much* we can improve.
+    - $x_{t+1} = argmin_x \mathbb{E}( ||h_{t+1}(x) - f(x^\star) || \ | \ \mathcal{D}_t)$
+        - where $f$ is the actual ground truth, $h_{t+1}$ is the posterior of the surrogate at ${t+1}^{th}$ timestep, $\mathcal{D}_t$ is the training data, and $x^*$ is the **actual position** where $f$ takes the maximum value.
+        - we want to minimize the distance between selected points and actual global maximum $x^*$. (however we do not know that) 
+- An alternative for that we do not know $x^*$:
+    - $x_{t+1} = argmax_x \mathbb{E} ( {max} \{ 0, \ h_{t+1}(x) - f(x^+) \} \ | \ \mathcal{D}_t)$
+        - where $f(x^+)$ is the maximum value that has been encountered so far
+    - for GP:
+        - ![image-20200708085755217](./pic/image-20200708085755217.png)
+        - w.r.t expectation (the first term) and uncertainty (the second term)
+    - increase $\epsilon$ encourages exploring.
+    - intuitively, $\alpha_{PI}$ denotes the risk and $\alpha_{EI}$ denotes the reward.
 
-    - > 在保留交叉验证（**hand-out cross validation**）中，随机将训练样本集分成训练集（training set）和交叉验证集（cross validation set）,比如分别占70%，30%。然后使用模型在训练集上学习得到假设。最后使用交叉验证集对假设进行验证，看预测的是否准确，选择具有误差小的模型。
-        >
-        > k折交叉验证（**K-fold** **cross validation**），就是把样本集S分成k份，**分别**使用其中的(k-1)份作为训练集，剩下的1份作为交叉验证集，最后取最后的平均误差，来评估这个模型。 (即每一份都需要作为验证集, 训练时间变为了原来的k倍)
-        >
-        > 留一法（**leave one out， LOO**）就是m-fold cross validation，m是样本集的大小，就是只留下一个样本来验证模型的准确性。
-        >
-        > 
-        >
-        > 作者：Chown
-        > 链接：https://www.zhihu.com/question/39259296/answer/91866308
-        > 来源：知乎
+##### Thompson Sampling
 
-### Another interpretation of GP
+- At every step, we **sample a function** from the surrogate's posterior and optimize it.
+- Intuition for Thompson Sampling:
+    - Location's with high uncertainty ($\sigma(x)$) has a non-trivial probability that a sample can take high value in a highly uncertain region (and thus encourage **exploration**)
+    -  Sampled functions must **pass sampled points** (including current maximum point), and thus **exploitation**.
 
-<img src="/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200729182043660.png" alt="image-20200729182043660" style="zoom:67%;" />
+##### Random
 
-- So the mean $\mu_* = \bar{f_*}$ is actually a **linear combination of basis functions** ($k(x_i,x_*)$)
+- random sampling.
 
-### Noisy GP regression and Ridge
+##### Other Acquisition Functions
 
-- Ridge regression $\triangleq$ linear regression with $L_2$ norm.
+- **Upper Confidence Bound (UCB)**
+    - a linear combination of exploitation and exploration
+    - $\alpha(x) = \mu(x) + \lambda \times \sigma(x)$
 
-- $\min\limits_{\theta\in\mathbb{R}^d} ||y-X\theta||^2_2 + \delta^2||\theta||_2^2$, where $X\in\mathbb{R}^{n\times d}$ and $y \in \mathbb{R}^d$ ($n$ is sample numbers, and $d$ is feature numbers)
+- **Probability of Improvement + λ × Expected Improvement (EI-PI)**
+    - $\alpha(x) = \alpha_{PI}(x) + \lambda \times \alpha_{EI}(x)$
 
-- and the solution is $(X^TX+\delta^2\mathbf{I})\theta = X^Ty$
+- **Gaussian Process Upper Confidence Bound (GP-UCB)**
+    - $\alpha_{GP-UCB}(x) = \mu_t(x) + \sqrt{\beta_t}\sigma_t(x)$
+    - Srinivas et. al. developed a schedule for $\beta$ that they theoretically demonstrate to minimize **cumulative regret.** (regret: difference between the actual maximize and the value we receive)
 
-    - i.e. $\theta=X^T\alpha, \text{ where } \alpha=\delta^{-2}(y-X\theta)$   , where $\theta\in\mathbb{R}^{d\times1}$
-    - i.e. $\alpha=(XX^T+\delta^2\mathbf{I}_n)^{-1}y$  , where $\alpha\in\mathbb{R}^{n\times1}$
-        - Whether to compute $\alpha$ or $\theta$ depends on $n$ and $d$ which one is larger.
+#### Hyper-parameter Tuning
 
-- Get back to GP:
+- We can treat *evaluating a model* as *digging a hole* (cost), so hyper-parameter is also a problem for exploration / exploiting with budget.
 
-    - $$
-        \begin{aligned}
-        y^* &= x^*\theta\\
-        &= x^*X^T\alpha\\
-        &= x^*X^T[XX^T+\delta^2\mathbf{I}]^{-1}y\\
-        & \text{ Compared with GP : }{k_*^{T}K_y^{-1}y}
-        \end{aligned}
-        \\
-        \begin{aligned}
-        &\text{where } XX^T = \begin{bmatrix}x_1\\\vdots\\x_n\end{bmatrix}\begin{bmatrix}x_1^T&\cdots&x_n^T\end{bmatrix}\\
-        &\text{where } x_i \in \mathbb{R}^{1\times d} \text{ is a sample.} \\
-        &\\
-        &\text{and the dot product } x_i\cdot x_j \text{ can also be interpreted}\\
-        &\text{as similarity, i.e. it's a linear kernel funciton.}
-        \end{aligned}
-        $$
+### Summary
 
-    - Ridge regression is **a GP**.
-        - $\delta$ in Ridge is like the $\sigma_y$ we introduce at noisy GP.
+- **Bayesian Optimization** for  optimizing a **black-box** function.
+    - surrogate function
+    - Bayes: use data for obtaining posterior.
+    - Acquisition functions.
 
-## Learning the kernel parameters 
+# Multi-armed bandits
 
-- $$
-    p(y|X) = \int p(y,f|X)df = \int p(y|f,X)p(f|X)df\\
-    p(f|X) = N(f|0, \mathbf{K}) \\
-    p(y|f) = \prod_i N(y_i|f_i,\sigma^2_y)\\ %y_i is independent with each other
-    $$
+- Greedy algorithm:
 
-    - Here $f$ is a hidden variable, and $p(y|X)$ is marginal likelihood:
-        - Although what we care about is $f$, but since we can only **acquire $y$,** therefore we need to calculate $p(y|X)$ and maximize it.
-            -  We need to do integration to get ride of $f$, $f$ can be interpreted as hidden parameters.)
+    - compute the expected reward (mean reward), and do $\epsilon-greedy$.
+    - waste resources by failing to write off actions regardless of how unlikely they are to be optimal
 
-- Doing MLE:
+-  Thompson algorithm:
 
-    - ![image-20200729123139868](/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200729123139868.png)
-    - Where $\theta$ is parameter of your kernel function. 
-        - So you actually doing optimization w.r.t data, so this is empirical based. 
+    - not use the expected reward / mean, but use **sampling**.
 
-## Numerical computation considerations
+- Use beta-distribution for surrogate function
 
-<img src="/home/lemon/Workspace/myCheatSheet/Math/pic/image-20200729185219247.png" alt="image-20200729185219247" style="zoom:67%;" />
+    - update rule:
 
+        - $$
+            \alpha \leftarrow \alpha + r \\
+            \beta \leftarrow \beta + 1 - r \\
+            \\r \in [0,1]
+            $$
+
+        - 

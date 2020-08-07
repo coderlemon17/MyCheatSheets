@@ -57,16 +57,15 @@ package/
 
 - ```
     mygrid  <--- folder1
-    ├── __init__.py
     ├── mygrid   <---folder2
     │   ├── __init__.py
     │   ├── MiniGrid
     ├── mygrid.egg-info
     └── setup.py
     ```
-
     
 
+    
 - 你在setup.py里假如写的是:
 
     - ```python
@@ -83,3 +82,5 @@ package/
     - **这里的name不是随便写的**: 而应该是你setup.py**所在文件夹中的module的名字**:
 
         - 可以认为import的时候就是从这个文件夹(folder2)中去import mygrid, 所以你在这个文件夹中必须相应的要有这个文件夹(mygrid), 不然当然会报import error.
+    
+- !注意, 在最外面一层mygrid中**不要写**`__init__.py`, 因为最外面一层mygrid并不是一个包,如果你写了,那么你的工作路径假如又恰好在folder1, 你就只能写`import mygrid.mygrid.MiniGrid`才能工作,因为系统会默认第一个`mygrid`是你工作路径下的包(folder1)而不是真实的site_package中link的包(folder2)
