@@ -3,7 +3,6 @@
 - 在`old`分支上, `git branch -f new`: 注意这里并不是**把old拉到new, 而是把new拉到old**, 所以你如果不记得之前的`new`的commit id,你就完了
     - 应该在`new`的时候`git branch -f old HEAD`
     - 多用`git merge`
-- 
 
 
 
@@ -127,12 +126,10 @@
     # Note that empty commits are commented out
     ```
 
-    
 
 ## git reset
 
 - `git reset`修改的只是当前所在分支的分支指针指向版本树的位置.
-- 
 
 ## git revert
 

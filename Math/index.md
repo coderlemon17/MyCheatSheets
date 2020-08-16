@@ -8,4 +8,4 @@
 - Bayesian Optimization and Active Learning.
 
 # sheet3:
-- Papers on Bayesian Optimization
+- Papers on Bayesian Optimization.

@@ -149,11 +149,12 @@ https://zhuanlan.zhihu.com/p/79764678
 
 ### Laplace Approximation
 
-- Preliminary: works for functions in the class of $\mathcal{L}^2$, which is:
+- Preliminary: this approximation works for functions in the class of $\mathcal{L}^2$, which is:
   - $\int f^2(x)dx < \infty$
 - **The general idea is to take a well-behaved uni-modal function (单峰函数) and approximate it with a Normal density function**
 - ![img](.\pic\unnamed-chunk-3-1.png)
   - Rough Approximation：$\int_{x_0-\epsilon/2}^{x_0+\epsilon/2}f(x)dx \approx f(x_0)\epsilon$
+  - We might approximate it better with Laplace Approximation.
 
 #### Laplace Approximation
 

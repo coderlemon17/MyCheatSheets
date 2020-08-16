@@ -6,7 +6,12 @@
 
 # How to get into the BIG 4
 - Get an interview && do well on that. 
-
+- A good resume:
+    - Measurable results. (quantity)
+    - Personal project.
+    - You might not be satisfied with your project, that's OK.
+- Programming Challenges:
+    - 
 
 
 
