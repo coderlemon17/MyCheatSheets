@@ -539,7 +539,7 @@ Java定义了一种名字空间，称之为包：`package`。一个类总是属�
 - 去除首尾空白字符: 空白字符包括空格，`\t`，`\r`，`\n` (:warning: 不包括" ")
 
     - `trim`; `strip` 
-        
+      
         - `strip`和`trim`不同的是，类似中文的空格字符`\u3000`也会被移除
         
     - 去除头部空白
@@ -662,6 +662,8 @@ Java定义了一种名字空间，称之为包：`package`。一个类总是属�
         sb.delete(sb.length()-1, sb.length()); //delete '!'
         String s = sb.toString();
         
+        ```
+
 // add to front
         sb.insert(0, Integer.toString(i)); //这样会使得StringBuilder没用了.
         ```
@@ -1009,8 +1011,9 @@ enum Weekday {
 ### 基础操作
 
 - `add(E e)`; `add(int index, E e)`; `contains(E e)`; `indexOf(E e)`; `remove(int index)`; `remove(E e)`; `removeAll(E e)`;
-    - 默认加到队尾; `indexOf`不存在返回-1; 
-
+    
+- 默认加到队尾; `indexOf`不存在返回-1; 
+    
 - `List`的创建:
 
     - 直接创建`ArrayList` or `LinkedList`.
@@ -1238,8 +1241,9 @@ enum Weekday {
 ## Queue
 
 - ![image-20200904140827543](/home/lemon/Workspace/myCheatSheet/Leetcode/Java/pic/image-20200904140827543.png)
-    - 注意：**不要把`null`添加到队列中**，否则`poll()`方法返回`null`时，很难确定是取到了`null`元素还是队列为空。
-
+    
+- 注意：**不要把`null`添加到队列中**，否则`poll()`方法返回`null`时，很难确定是取到了`null`元素还是队列为空。
+    
 - `LinkedList`即实现了`List`接口，又实现了`Queue`接口，但是，在使用的时候，如果我们把它当作List，就获取List的引用，如果我们把它当作Queue，就获取Queue的引用：
 
     ```java
@@ -1277,8 +1281,9 @@ enum Weekday {
 ### Deque
 
 - `Deque`是双向队列: (同样的, 避免把`null`添加到队列)
-    - ![image-20200904141828994](/home/lemon/Workspace/myCheatSheet/Leetcode/Java/pic/image-20200904141828994.png)
-
+    
+- ![image-20200904141828994](/home/lemon/Workspace/myCheatSheet/Leetcode/Java/pic/image-20200904141828994.png)
+    
 - **`Deque`是接口不是实现**, 是扩展自`Queue`的接口, 因此，`Queue`提供的`add()`/`offer()`方法在`Deque`中也可以使用，但是，使用`Deque`，最好不要调用`offer()`，而是调用`offerLast()`;
 
 - <font color="red">`Deque`是一个接口，它的实现类有`ArrayDeque`和`LinkedList`。</font>

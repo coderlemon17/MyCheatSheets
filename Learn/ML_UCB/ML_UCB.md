@@ -16,8 +16,8 @@
 - <img src="./pic/image-20200716110856952.png" alt="image-20200716110856952" style="zoom:50%;" />]
 - For Gaussian, $\Sigma$ is **symmetric** and **positive definite**. 
 
-- <img src="./pic/123123.png" alt="image-20200716111425199" style="zoom:50%;" />
-  
+-  
+
 
 ### How to sample Gaussian data from uniform distribution:
 
@@ -284,6 +284,7 @@ $$
     - Here we integrate over all possible functions.
 
 - But we don't know $f(x^*)$, so instead:
+  
     - <img src="/home/lemon/Workspace/myCheatSheet/Learn/ML_UCB/pic/image-20200730114843170.png" alt="image-20200730114843170" style="zoom:67%;" />
 
 ### A third criterion: GP-UCB
