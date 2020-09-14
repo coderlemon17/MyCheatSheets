@@ -16,7 +16,7 @@
 - <img src="./pic/image-20200716110856952.png" alt="image-20200716110856952" style="zoom:50%;" />]
 - For Gaussian, $\Sigma$ is **symmetric** and **positive definite**. 
 
--  
+-  <img src="./pic/123123.png" alt="image-20200716111425199" style="zoom:50%;" />
 
 
 ### How to sample Gaussian data from uniform distribution:
