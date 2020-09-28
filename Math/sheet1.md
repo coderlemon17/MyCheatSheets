@@ -209,4 +209,8 @@ https://zhuanlan.zhihu.com/p/79764678
     >
     > $-\sum_{i=1}^{n} p_{i} \log p_{i} \leq-\sum_{i=1}^{n} p_{i} \log q_{i}$, if and only if $p_i = q_i, \forall i$
 
-#### 
+#### Cross-entropy
+
+- $D_{KL}(P||Q) = H(P) + \underbrace{(-P(x)logQ(x))}_{\text{cross entropy}}$.
+
+- In ML, we often assume the real distribution $P(X)$ is fixed, so try to minimize the KL-divergence between $P$ and $Q$ equals to minimizing the cross entropy between $P$ and $Q$.
