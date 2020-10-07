@@ -92,8 +92,8 @@ $$
 
 - (鸡头比不上凤尾): $d^*=\max\min \leq \min\max = p^*$.
 - Under certain **conditions** we will have $d^*=p^*$, where we can transfer the primary problem to its dual problem.
-  - <img src="D:\Learn\MyCheatSheets\Math\pic\image-20200921151123554.png" alt="image-20200921151123554" style="zoom:60%;" />
-  - ![image-20200921151159627](D:\Learn\MyCheatSheets\Math\pic\image-20200921151159627.png)
+  - <img src=".\pic\image-20200921151123554.png" alt="image-20200921151123554" style="zoom:60%;" />
+  - ![image-20200921151159627](.\pic\image-20200921151159627.png)
 
 # SVM
 
@@ -113,8 +113,8 @@ $$
   s.t.\, g_i(w) = 1 - y^i(w^Tx^i+b) \leq 0,\,i=1,\cdots,m
   $$
 
-  - Note that from **KKT dual complementarity condition**, we will have $\alpha_i>0$ only for training examples that have functional margin exactly equal to one; others $\alpha_i=0$.
-    - <img src="D:\Learn\MyCheatSheets\Math\pic\image-20200921154205176.png" alt="image-20200921154205176" style="zoom:50%;" />
+  - Note that from **KKT dual complementary condition**, we will have $\alpha_i>0$ only for training examples that have functional margin exactly equal to one; others $\alpha_i=0$.
+    - <img src=".\pic\image-20200921154205176.png" alt="image-20200921154205176" style="zoom:50%;" />
     - Those three points are called the **support vectors** in this problem. (The number of support vectors are much smaller than the size of training set.)
 
 -  To write the **dual form** of the problem, we first write $L(w,b,\alpha) = \frac{1}{2}||w||^2+\sum\limits_{i=1}^m\alpha_i[1-y^i(w^Tx^i+b)]$. Then to get $\theta_\mathcal{D}(w,b)=\min\limits_{w,b}L(w,b,\alpha)$:
@@ -141,8 +141,6 @@ $$
 
 # Bias-Variance trade-off
 
-![image-20200922104515679](D:\Learn\MyCheatSheets\Math\pic\image-20200922104515679.png)
+![image-20200922104515679](.\pic\image-20200922104515679.png)
 
-![QQMail_0 (D:\Learn\MyCheatSheets\Math\pic\QQMail_0 (3).png)](C:\Users\lemon\Downloads\QQMail_0 (3).png)
-
-- <img src="D:\Learn\MyCheatSheets\Math\pic\image-20200922104606622.png" alt="image-20200922104606622" style="zoom:50%;" />
+- <img src=".\pic\image-20200922104606622.png" alt="image-20200922104606622" style="zoom:50%;" />
