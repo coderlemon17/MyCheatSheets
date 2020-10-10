@@ -7,7 +7,7 @@
 - $Unsupervised\left \{\begin{aligned}&clustering\\&density\ estimation&\\&visualization&\\&generation\end{aligned} \right.$
 - $Reinforcement\left \{\begin{aligned}&credit\ assignment\\&exploration\\&exploitation\end{aligned} \right.$
   - Credit assignment: the reward must be properly assigned to every move that leads to it.
-- Key ideas and tools: probability; decision; information theory.
+- Key ideas and tools: probability (quantify and manipulate uncertainty); decision (make optimal decisions); information theory.
 
 ### 1.1. Example: Polynomial Curve Fitting
 
@@ -70,26 +70,26 @@
 - $\mathcal{N}(x|\mu,\Sigma)=\frac{1}{(2\pi)^{\frac{D}{2}}}\frac{1}{|\Sigma|^{\frac{1}{2}}}exp\{-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\}$.
   - And we might use $\beta=\frac{1}{\sigma^2}$ to denote the *precision*.
 - For a data set with $N$ observation, MLE is actually maximizing the probability of data given the parameter (not the other way round, but these two criteria are actually related).
-  - The log likelihood: <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201009153643613.png" alt="image-20201009153643613" style="zoom:50%;" />
+  - The log likelihood: <img src="./pic/image-20201009153643613.png" alt="image-20201009153643613" style="zoom:50%;" />
   - $\mu_{ML}=\frac{1}{N}\sum\limits_{n=1}^Nx_n$, $\sigma^2_{ML}=\frac{1}{N}\sum\limits_{n=1}^N(x_n-\mu_{ML})^2$.
-  - But we can see: <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201009153951878.png" alt="image-20201009153951878" style="zoom: 50%;" />, which means MLE is actually **BIASED** on variance estimation (for that it's measured relative to the sample mean rather than the true mean.), and this lies at the **root of the over-fitting problem in earlier polynomial curve fitting**.
+  - But we can see: <img src="./pic/image-20201009153951878.png" alt="image-20201009153951878" style="zoom: 50%;" />, which means MLE is actually **BIASED** on variance estimation (for that it's measured relative to the sample mean rather than the true mean.), and this lies at the **root of the over-fitting problem in earlier polynomial curve fitting**.
 
 #### 1.2.5. Curve Fitting Re-visited
 
 - Bayesian interpretation: **we can express our uncertainty over the value of the target variable using a probability distribution.**
   - $p(t|x,w,\beta)= \mathcal{N}(t|y(x,w), \beta^{-1})$, which is the *predictive distribution*, we use its **expectation** for prediction.
-  - <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201009154620389.png" alt="image-20201009154620389" style="zoom:33%;" />
+  - <img src="./pic/image-20201009154620389.png" alt="image-20201009154620389" style="zoom:33%;" />
 - The (log) likelihoods are:
-  - <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201009154643558.png" alt="image-20201009154643558" style="zoom: 60%;" /> <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201009154726310.png" alt="image-20201009154726310" style="zoom:60%;" />
+  - <img src="./pic/image-20201009154643558.png" alt="image-20201009154643558" style="zoom: 60%;" /> <img src="./pic/image-20201009154726310.png" alt="image-20201009154726310" style="zoom:60%;" />
 - **Maximize the log likelihood** (the probability of data given parameter)
   - Maximize likelihood w.r.t. $w$ is actually **minimize the sum-of-squares error function**. (L2 norm)
-  - Maximize likelihood w.r.t. $\beta$: <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201009155717224.png" alt="image-20201009155717224" style="zoom:67%;" />
+  - Maximize likelihood w.r.t. $\beta$: <img src="./pic/image-20201009155717224.png" alt="image-20201009155717224" style="zoom:67%;" />
     - But we don't actually need it, because we don't use $\beta$ when doing prediction.
 - **Maximize the posterior** (the probability of parameter given data) 
   - Prior: we choose a prior for the coefficients $w$, where $\alpha$ is the precision of the distribution:
-    - <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201009155957824.png" alt="image-20201009155957824" style="zoom:67%;" />
-  - $p(w|x,t,\alpha,\beta)\propto p(t|x,w,\beta)p(w|\alpha)$: maximize the posterior (**MAP**)
-    - It's equivalent to minimize: <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201009160313155.png" alt="image-20201009160313155" style="zoom: 67%;" />. (ridge regression with $\lambda=\frac{\alpha}{\beta}$)
+    - <img src="./pic/image-20201009155957824.png" alt="image-20201009155957824" style="zoom:67%;" />
+  - $p(w|\mathbf{x},\mathbf{t},\alpha,\beta)\propto p(\mathbf{t}|\mathbf{x},w,\beta)p(w|\alpha)$: maximize the posterior (**MAP**)
+    - It's equivalent to minimize: <img src="./pic/image-20201009160313155.png" alt="image-20201009160313155" style="zoom: 67%;" />. (ridge regression with $\lambda=\frac{\alpha}{\beta}$)
 
 ####  1.2.6. Bayesian Curve Fitting
 
@@ -116,3 +116,71 @@
 - Two good properties of real data to conquer the "curse":
   - Only partial dimensions are effective.
   - (At least locally) smoothness properties, we might exploit local interpolation-like (局部插值) techniques.
+
+### 1.5. Decision Theory
+
+- *Inference* (get $p(x,t)$ from the data set) and *decision* (prediction of $t$).
+- In the binary classification problem: $\underbrace{p(C_k|x)}_{\text{posterior}}=\frac{p(x|C_k)\overbrace{p(C_k)}^{\text{prior}}}{p(x)}$ (can all be obtained from $p(x,C_k)$ in *inference*). Intuitively we want to choose $C_k$ with maximum posterior probability, following are some more general criteria. 
+
+#### 1.5.1. Minimizing the Misclassification Rate
+
+- <img src="./pic/image-20201010105914115.png" alt="image-20201010105914115" style="zoom: 50%;" />; which means each $x$ should be assigned to the class $C_k$ that has the largest $p(x,C_k)$, i.e. largest posterior probability $p(C_k|x)$.
+
+#### 1.5.2. Minimizing the Expected Loss 
+
+- Different types of misclassification might have different consequences, which we aim to capture with *loss function* $L_{kj}$ (misclassify $k$ for $j$). The loss function depends on the **true class**, which we don't know, but **the uncertainty in the true class** is expressed through $p(x,C_k)$.
+- Expected loss $\mathbb{E}[L] = \sum\limits_k\sum\limits_j\int_{\mathcal{R}_j}L_{kj}p(x,C_k)dx$, minimizing $\mathbb{E}[L]$ equals to chose $\mathcal{R}_j$ for each $x$ to minimize $\sum\limits_kL_{kj}p(x,C_k) = \sum\limits_kL_{kj}p(C_k|x)$.
+
+#### 1.5.3. The Reject Option
+
+- Sometimes it's better to reject when we are uncertain about class membership (e.g. $\max\limits_{k}p(C_k|x)\leq \underbrace{\theta}_{\text{threshold}}$).
+
+#### 1.5.4. Inference and Decision
+
+Three ways for solving **classification** problems (decreasing complexity):
+
+- (a) Infer class-conditional densities $p(\mathbb{x}|C_k)$; prior class probabilities $p(C_k)$; and normalizer $p(\mathbb{x}) =\sum\limits_k p(\mathbb{x}|C_k)p(C_k)$.
+  - Then we can acquire **posterior probabilities** $p(C_k|\mathbb{x})$, and use *decision theory* to get the prediction.
+  - Equivalently, we can model *joint distribution* $p(\mathbb{x},C_k)$ directly and then normalize to obtain posterior probabilities.
+  - Approaches that explicitly or implicitly model the distribution of *inputs ($p(x)$) as well as outputs ($p(C_k)$)* are known as **generative models**.
+- (b) Infer posterior class probabilities $p(C_k|\mathbb{x})$ and then use decision theory for prediction.
+  - Approaches model the posterior probabilities directly is called **discriminative models**.
+- (c) Find discriminant function $f(x)$ mapping directly to class label.
+
+Pros and Cons of those three methods:
+
+- In method (a):
+  - $p(\mathbb{x})$ can be used for *outlier detection* or *novelty detection* (data point with low probability.)
+- If we only want to make classification decisions, we in fact only need $p(C_k|\mathbb{x})$ from (b) rather than $p(\mathbb{x},C_k)$ from (a) -> we do some redundant work e.g. estimate $p(\mathbb{x}|C_k)$.
+- When applying discriminant function $f(x)$, there are some **pros we no longer have** for that we don't have the posterior probabilities.
+  - Minimize risk: We can manipulate $\sum\limits_kL_{kj}p(C_k|x)$ properly to denote risk.
+  - Reject option.
+  - Compensating for class priors:
+    - E.g. In cancer detection, regular data set might only contains few images with cancer, so we might want to modify the proportion of cancer and non-cancer images to acquire better classification model. After that, when we apply model **to a real data set**: we can divide the learned posterior by prior class probabilities $p(C_k)$ of training data set and then multiply the $p(C_k)$ of the real data set (approximately the class fraction). Finally after normalization we can acquire the posterior for the real data set.
+  - Combining models:
+    - We might want to use different models for handling different subsets of features.
+    - Conditional independence assumption / Naive Bayes model:
+      - $p(\mathbb{x}_I,\mathbb{x}_B|C_k) = p(\mathbb{x}_I|C_k)p(\mathbb{x}_B|C_k)$
+      - <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201010143733703.png" alt="image-20201010143733703" style="zoom:67%;" />
+
+#### 1.5.5. Loss Function for Regression
+
+- In regression problem, the expected loss is:
+  - $\mathbb{E}[L]=\int\int L(t,y(\mathbb{x}))p(\mathbb{x},t)d\mathbb{x}dt \overbrace{\rightarrow}^{Squared \, Error} \int\int \{y(\mathbb{x})-t\}^2p(\mathbb{x},t)d\mathbb{x}dt$.
+- Assume a completely flexible function $y(\mathbb{x})$, we want to minimize the loss for *every $\mathbb{x}$*:
+  - <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201010144448923.png" alt="image-20201010144448923" style="zoom:50%;" />
+  - <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201010144517266.png" alt="image-20201010144517266" style="zoom:50%;" />
+
+- So the optimal prediction is the conditional average $y(\mathbb{x})=\mathbb{E}_t[t|\mathbb{x}]$.
+- Another way to interpret this:  <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201010145030669.png" alt="image-20201010145030669" style="zoom:50%;" />
+  - And we can acquire ([proof(https://stats.stackexchange.com/questions/228561/loss-functions-for-regression-proof?answertab=votes#tab-top)]): <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201010145140228.png" alt="image-20201010145140228" style="zoom:67%;" />
+  - Where the second term represents the intrinsic variability of the target data (noise) and is the irreducible minimum value of the loss function.
+
+- Three ways for solving **regression** problems (decreasing complexity):
+  - Infer $p(\mathbb{x},t)$ and then normalize to get $p(t|\mathbb{x})$ and finally $\mathbb{E}_t[t|\mathbb{x}]$.
+  - Infer $p(t|\mathbb{x})$ and finally $\mathbb{E}_t[t|\mathbb{x}]$.
+  - Model regression function $y(\mathbb{x})$ directly.
+- Different choices of losses:
+  - *Minkowski loss*: <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201010145715872.png" alt="image-20201010145715872" style="zoom:80%;" />
+  - 
+
