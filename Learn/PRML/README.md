@@ -182,5 +182,30 @@ Pros and Cons of those three methods:
   - Model regression function $y(\mathbb{x})$ directly.
 - Different choices of losses:
   - *Minkowski loss*: <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201010145715872.png" alt="image-20201010145715872" style="zoom:80%;" />
-  - 
 
+### 1.6 Information Theory
+
+- How much *information* is received when we observe a specific value for this variable can be viewed through **'degree of surprise'** on learning the value of $x$. (Low probability events contain more information)
+  - The information gain from two unrelated events should be the sum of each information (and probability is $p(x,y)=p(x)p(y)$) so the information matrix should be in the form of **logarithm**. (But the basis is arbitrary, in computer science we use $2$).
+- Interpretations of **entropy**:
+  - Average amount of **information** transferred: $H[x]=\mathop{\mathbb{E}}\limits_{x}[info(x)]=-\sum\limits_{x}p(x)log_2x$. 
+    - e.g. A random variable with 8 possible values ($3$ bits for transferring), then $H(x)=3$.
+  - The **lower bound** on the number of bits needed to transmit the state of a random variable.
+  - A measure of **disorder** in thermodynamics (热力学):
+    - The number of microstate(微观态) in macrostate(宏观态): consider $N$ identical objects to be divided into $m$ bins, such that there are $n_i$ objects in the $i^{th}$ bin.
+    - Multiplicity (the number of microstate): $W=\frac{N!}{\mathop\Pi\limits_in_i!}$
+    - The entropy is $W$ scaled by an appropriate constant (Note: $ln N!\approx NlnN-N, if\ N\rightarrow \infty$)
+      - $H=\frac{1}{N}lnW=-\lim\limits_{N\rightarrow\infty}\sum\limits_i\frac{n_i}{N}ln\frac{n_i}{N}=-\sum\limits_{i}p_ilnp_i$.
+      - <img src="./pic/image-20201014215514110.png" alt="image-20201014215514110" style="zoom:50%;" />
+
+- *Differential* and *discrete* entropy:
+  - For discrete entropy: the maximum entropy is achieved through **uniform distribution**.
+    - Can be proved through Lagrange multiplier.
+  - For differential entropy (continuous entropy, $H[x]=-\int p(x)ln p(x)dx$ ), many distribution (e.g. uniform) will have **unconstrained** entropy without limitations, so the maximum can not be well defined unless we make some constraints.   
+    - <img src="./pic/image-20201014220228153.png" alt="image-20201014220228153" style="zoom: 23%;" />
+    - The maximum entropy is achieved through **Gaussian Distribution** ($H[x]=\frac{1}{2}[1+ln(2\pi\sigma^2)]$), which<font color="red"> can be negative</font>.
+- Additional information:
+  - Conditional entropy of $y$ given $x$: $H[y|x]=-\int\underbrace{\int p(y,x)ln p(y|x)dy}_\text{Given x} dx$.
+    - additional information needed to specify the corresponding value of $y$ given $x$ is $-logp(y|x)$.
+    - $H[x,y]=H[y|x]+H[x]$.
+- 
