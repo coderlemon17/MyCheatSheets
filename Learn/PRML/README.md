@@ -161,19 +161,19 @@ Pros and Cons of those three methods:
     - We might want to use different models for handling different subsets of features.
     - Conditional independence assumption / Naive Bayes model:
       - $p(\mathbb{x}_I,\mathbb{x}_B|C_k) = p(\mathbb{x}_I|C_k)p(\mathbb{x}_B|C_k)$
-      - <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201010143733703.png" alt="image-20201010143733703" style="zoom:67%;" />
+      - <img src="./pic/image-20201010143733703.png" alt="image-20201010143733703" style="zoom:67%;" />
 
 #### 1.5.5. Loss Function for Regression
 
 - In regression problem, the expected loss is:
   - $\mathbb{E}[L]=\int\int L(t,y(\mathbb{x}))p(\mathbb{x},t)d\mathbb{x}dt \overbrace{\rightarrow}^{Squared \, Error} \int\int \{y(\mathbb{x})-t\}^2p(\mathbb{x},t)d\mathbb{x}dt$.
 - Assume a completely flexible function $y(\mathbb{x})$, we want to minimize the loss for *every $\mathbb{x}$*:
-  - <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201010144448923.png" alt="image-20201010144448923" style="zoom:50%;" />
-  - <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201010144517266.png" alt="image-20201010144517266" style="zoom:50%;" />
+  - <img src="./pic/image-20201010144448923.png" alt="image-20201010144448923" style="zoom:50%;" />
+  - <img src="./pic/image-20201010144517266.png" alt="image-20201010144517266" style="zoom:50%;" />
 
 - So the optimal prediction is the conditional average $y(\mathbb{x})=\mathbb{E}_t[t|\mathbb{x}]$.
-- Another way to interpret this:  <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201010145030669.png" alt="image-20201010145030669" style="zoom:50%;" />
-  - And we can acquire ([proof(https://stats.stackexchange.com/questions/228561/loss-functions-for-regression-proof?answertab=votes#tab-top)]): <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201010145140228.png" alt="image-20201010145140228" style="zoom:67%;" />
+- Another way to interpret this:  <img src="./pic/image-20201010145030669.png" alt="image-20201010145030669" style="zoom:50%;" />
+  - And we can acquire ([proof(https://stats.stackexchange.com/questions/228561/loss-functions-for-regression-proof?answertab=votes#tab-top)]): <img src="./pic/image-20201010145140228.png" alt="image-20201010145140228" style="zoom:67%;" />
   - Where the second term represents the intrinsic variability of the target data (noise) and is the irreducible minimum value of the loss function.
 
 - Three ways for solving **regression** problems (decreasing complexity):
@@ -181,7 +181,7 @@ Pros and Cons of those three methods:
   - Infer $p(t|\mathbb{x})$ and finally $\mathbb{E}_t[t|\mathbb{x}]$.
   - Model regression function $y(\mathbb{x})$ directly.
 - Different choices of losses:
-  - *Minkowski loss*: <img src="/home/lemon/Workspace/myCheatSheet/Learn/PRML/pic/image-20201010145715872.png" alt="image-20201010145715872" style="zoom:80%;" />
+  - *Minkowski loss*: <img src="./pic/image-20201010145715872.png" alt="image-20201010145715872" style="zoom:80%;" />
 
 ### 1.6 Information Theory
 
@@ -208,4 +208,17 @@ Pros and Cons of those three methods:
   - Conditional entropy of $y$ given $x$: $H[y|x]=-\int\underbrace{\int p(y,x)ln p(y|x)dy}_\text{Given x} dx$.
     - additional information needed to specify the corresponding value of $y$ given $x$ is $-logp(y|x)$.
     - $H[x,y]=H[y|x]+H[x]$.
-- 
+
+## 2. Probability Distribution
+
+*Density estimation*: model the probability distribution $p(x)$ given a **finite** set.
+
+*Conjugate priors* $\leftrightarrow$ *likelihood*: the posterior will have the same functional form.
+
+$\left\{ \begin{aligned}&\text{Parametric (para that controls distribution will also has distribution in Bayesian)} \\ &\text{Nonparametric (might still have para to control complexity)}\end{aligned}\right .$
+
+### 2.1. Binary Variables
+
+- *Bernoulli distribution:* 
+
+### 2.2. 
