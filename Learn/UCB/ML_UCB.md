@@ -265,7 +265,7 @@ $$
 - We need **two** components:
     - A probabilistic model of the environment: a posterior.
     - Utilitarian: make decisions based on the posterior. (e.g. acquisition function)
-- e.g.![image-20200730113436499](/home/lemon/Workspace/myCheatSheet/Learn/ML_UCB/pic/image-20200730113436499.png)
+- e.g.![image-20200730113436499](./pic/image-20200730113436499.png)
     - The expected utility is : $EU(a) = \sum_{x}u(x,a)P(x|data)$  <-- posterior
         - Just like RL.
     - Then your decision might be: $argmax_{a}EU(a)$  <-- decision
@@ -285,11 +285,11 @@ $$
 
 - But we don't know $f(x^*)$, so instead:
   
-    - <img src="/home/lemon/Workspace/myCheatSheet/Learn/ML_UCB/pic/image-20200730114843170.png" alt="image-20200730114843170" style="zoom:67%;" />
+    - <img src="./pic/image-20200730114843170.png" alt="image-20200730114843170" style="zoom:67%;" />
 
 ### A third criterion: GP-UCB
 
-<img src="/home/lemon/Workspace/myCheatSheet/Learn/ML_UCB/pic/image-20200730115121492.png" alt="image-20200730115121492" style="zoom:67%;" />
+<img src="./pic/image-20200730115121492.png" alt="image-20200730115121492" style="zoom:67%;" />
 
 - [GP-UCB](https://arxiv.org/abs/0912.3995)
 
@@ -297,5 +297,5 @@ $$
 
 ## Usage of Bayesian Optimization
 
-<img src="/home/lemon/Workspace/myCheatSheet/Learn/ML_UCB/pic/image-20200730120411656.png" alt="image-20200730120411656" style="zoom:50%;" />
+<img src="./pic/image-20200730120411656.png" alt="image-20200730120411656" style="zoom:50%;" />
 

@@ -114,7 +114,7 @@
         alias vp=mvp
         ```
 
-- ![image-20200703124436328](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200703124436328.png)
+- ![image-20200703124436328](./pic/image-20200703124436328.png)
 
 - `ls project?`:
   
@@ -199,7 +199,7 @@
     - `^v = Ctrl-v = <C-v>`
 
 -  `buffers | windows | tabs`:
-    - ![image-20200704131634780](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200704131634780.png)
+    - ![image-20200704131634780](./pic/image-20200704131634780.png)
     - one buffer can be related to multiple windows (e.g. working on different sections of a file)
     - `:q` is not actually quit, it's just quit window. (no window then vim will quit)
         - `:qa`
@@ -230,7 +230,7 @@
 
 - `sed`:
     - a stream editor: make change to the stream.
-    - ![image-20200705154126693](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200705154126693.png)
+    - ![image-20200705154126693](./pic/image-20200705154126693.png)
     - Better use `sed -e "{{regex}}"` for it to support modern regex (otherwise it will only match **literal parenthesis**)
         - `"(ab)*"` means `(ab` and `)*`
         - if you want it to act like modern regex: use `\(ab\)*` or `-e "(ab)*"`
@@ -253,7 +253,7 @@
     - `uniq -c`： count as well
     
 - `awk`:
-    - ![image-20200705161758626](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200705161758626.png)
+    - ![image-20200705161758626](./pic/image-20200705161758626.png)
     - e.g. `awk '$1 == 1 && $2 ~ /^hh.*e$/' '{print $1}'`
         - `~` means match regex expression 
         - `!=` for unmatch
@@ -266,7 +266,7 @@
     - `paste -sd,` : paste input (lines) into a single file(`-s`) with delimiter(`-d`) comma.
     
 - `bc`: (calculator)
-    - ![image-20200705162809583](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200705162809583.png)
+    - ![image-20200705162809583](./pic/image-20200705162809583.png)
     - better use `bc -l`
     
 - command line arguments wrangling:
@@ -303,8 +303,8 @@
     - `bg %NUMBER`: restart in the background  (`NUMBER` is job number, not pid)
     - `fg %NUMBER`: recover to the foreground.
     - `kill -STOP %NUMBER` : send `SIGSTOP` (pause)
-- ![image-20200706150919672](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200706150919672.png)
-- ![image-20200706151035581](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200706151035581.png)
+- ![image-20200706150919672](./pic/image-20200706150919672.png)
+- ![image-20200706151035581](./pic/image-20200706151035581.png)
     - if the program does not have a method for dealing with signals, default function will be executed.
     - `SIGKILL`: cannot be captured by captured. (force quit, might have uncontrollable result)
 - `nohup` and` &`:
@@ -335,7 +335,7 @@
 - use `rsync` rather than `scp`:
 
     - `rsync` can restart at where it stops, and can transfer multiple files without entering password each time
-    - ![image-20200706165907471](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200706165907471.png)
+    - ![image-20200706165907471](./pic/image-20200706165907471.png)
 
 - `use ~/.ssh/config`, so you can just `ssh lemon` instead of `ssh lemon@111.111.111.111` (at 51 min)
     ```
@@ -497,15 +497,15 @@
     - `time ls`: to check the time spent on `ls`
 - `tracing profiles` && `sampling profiles`
 - `perf`
-    - ![image-20200707161407913](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200707161407913.png)
+    - ![image-20200707161407913](./pic/image-20200707161407913.png)
 
 - `htop`: a more readable version of `top`
 - `du -h .`: disk usage
     - `ncdu` a interactive version to check disk usage
-    - ![image-20200707161827048](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200707161827048.png)
+    - ![image-20200707161827048](./pic/image-20200707161827048.png)
 
 - `lsof`: check which program is using the port / file
-    - ![image-20200707162012711](/home/lemon/Workspace/myCheatSheet/Learn/pic/image-20200707162012711.png)
+    - ![image-20200707162012711](./pic/image-20200707162012711.png)
 - `hyperfine`: compare two program's preformance
 
 ## Lecture 8: Metaprogrammning
