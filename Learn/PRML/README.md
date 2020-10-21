@@ -208,4 +208,17 @@ Pros and Cons of those three methods:
   - Conditional entropy of $y$ given $x$: $H[y|x]=-\int\underbrace{\int p(y,x)ln p(y|x)dy}_\text{Given x} dx$.
     - additional information needed to specify the corresponding value of $y$ given $x$ is $-logp(y|x)$.
     - $H[x,y]=H[y|x]+H[x]$.
-  - 
+
+## 2. Probability Distribution
+
+*Density estimation*: model the probability distribution $p(x)$ given a **finite** set.
+
+*Conjugate priors* $\leftrightarrow$ *likelihood*: the posterior will have the same functional form.
+
+$\left\{ \begin{aligned}&\text{Parametric (para that controls distribution will also has distribution in Bayesian)} \\ &\text{Nonparametric (might still have para to control complexity)}\end{aligned}\right .$
+
+### 2.1. Binary Variables
+
+- *Bernoulli distribution:* 
+
+### 2.2. 
