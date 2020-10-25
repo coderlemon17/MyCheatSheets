@@ -139,7 +139,7 @@
 
 Three ways for solving **classification** problems (decreasing complexity):
 
-- (a) Infer class-conditional densities $p(\mathbb{x}|C_k)$; prior class probabilities $p(C_k)$; and normalizer $p(\mathbb{x}) =\sum\limits_k p(\mathbb{x}|C_k)p(C_k)$.
+- (a) Infer class-conditional densities $p(\mathbb{x}|C_k)$; prior class probabilities $p(C_k)$; (the normalizer can be obtained then $p(\mathbb{x}) =\sum\limits_k p(\mathbb{x}|C_k)p(C_k)$).
   - Then we can acquire **posterior probabilities** $p(C_k|\mathbb{x})$, and use *decision theory* to get the prediction.
   - Equivalently, we can model *joint distribution* $p(\mathbb{x},C_k)$ directly and then normalize to obtain posterior probabilities.
   - Approaches that explicitly or implicitly model the distribution of *inputs ($p(x)$) as well as outputs ($p(C_k)$)* are known as **generative models**.
@@ -158,7 +158,7 @@ Pros and Cons of those three methods:
   - Compensating for class priors:
     - E.g. In cancer detection, regular data set might only contains few images with cancer, so we might want to modify the proportion of cancer and non-cancer images to acquire better classification model. After that, when we apply model **to a real data set**: we can divide the learned posterior by prior class probabilities $p(C_k)$ of training data set and then multiply the $p(C_k)$ of the real data set (approximately the class fraction). Finally after normalization we can acquire the posterior for the real data set.
   - Combining models:
-    - We might want to use different models for handling different subsets of features.
+    - We might want to use different models for handling **different subsets of features**.
     - Conditional independence assumption / Naive Bayes model:
       - $p(\mathbb{x}_I,\mathbb{x}_B|C_k) = p(\mathbb{x}_I|C_k)p(\mathbb{x}_B|C_k)$
       - <img src="./pic/image-20201010143733703.png" alt="image-20201010143733703" style="zoom:67%;" />
@@ -173,7 +173,7 @@ Pros and Cons of those three methods:
 
 - So the optimal prediction is the conditional average $y(\mathbb{x})=\mathbb{E}_t[t|\mathbb{x}]$.
 - Another way to interpret this:  <img src="./pic/image-20201010145030669.png" alt="image-20201010145030669" style="zoom:50%;" />
-  - And we can acquire ([proof(https://stats.stackexchange.com/questions/228561/loss-functions-for-regression-proof?answertab=votes#tab-top)]): <img src="./pic/image-20201010145140228.png" alt="image-20201010145140228" style="zoom:67%;" />
+  - And we can acquire ([proof](https://stats.stackexchange.com/questions/228561/loss-functions-for-regression-proof?answertab=votes#tab-top)): <img src="./pic/image-20201010145140228.png" alt="image-20201010145140228" style="zoom:67%;" />
   - Where the second term represents the intrinsic variability of the target data (noise) and is the irreducible minimum value of the loss function.
 
 - Three ways for solving **regression** problems (decreasing complexity):
