@@ -13,7 +13,7 @@
 
 ### Joint distribution && Conditional distribution  <--> Marginal distribution
 
-- <img src="./pic/image-20200716110856952.png" alt="image-20200716110856952" style="zoom:50%;" />]
+- <img src="./pic/image-20200716110856952.png" alt="image-20200716110856952" style="zoom:50%;" />
 - For Gaussian, $\Sigma$ is **symmetric** and **positive definite**. 
 
 -  <img src="./pic/123123.png" alt="image-20200716111425199" style="zoom:50%;" />
@@ -69,7 +69,7 @@
 
 - Arbitrary choosing $X_{1:N}$ **and $\mu$**, you get a multi-dimension distribution $N(\mu, \mathbf{K})$, drawing samples from that distribution can get you a line :$(x,f)$.
 - $\mathbf{K}$ only stands for the **smoothness assumption** in GP, so $N(\mu_{\text{arbitrary}}, \mathbf{K})$ is just a collection of random smooth functions !  --> **GP is a Gaussian distribution over functions!**  
-    - You can assume **$f$ is centralized**, i.e. $\mu = 0\text{ for } f, f_*$. (But you have to actually do that, e.g. estimate $\mathbb{E(f(x))}$ then minus it ,otherwise the data you observed won't be centralized)
+    - You can assume **$f$ is centralized**, i.e. $\mu = 0\text{ for } f, f_*$. (But you have to actually do that on real data, e.g. estimate $\mathbb{E(f(x))}$ then minus it ,otherwise the data you observed won't be centralized)
     - GP defines a **function distribution**, i.e. $f(x) \sim \mathcal{GP}(\mathbb{E}[f(x)], \mathbf{K}$
 - <img src="./pic/image-20200729164559126.png" alt="image-20200729164559126" style="zoom:50%;" />
 
