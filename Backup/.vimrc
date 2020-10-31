@@ -22,8 +22,8 @@ set shiftwidth=4
 
 " For cursor
 autocmd VimEnter * silent exec "!echo -ne '\e[1 q'" | redraw!
-autocmd InsertEnter * silent exec "!echo -ne '\e[5 q'" | redraw!
-autocmd InsertLeave * silent exec "!echo -ne '\e[1 q'" | redraw!
+" autocmd InsertEnter * silent exec "!echo -ne '\e[5 q'" | redraw!
+" autocmd InsertLeave * silent exec "!echo -ne '\e[1 q'" | redraw!
 
 
 " For opacity
@@ -81,7 +81,8 @@ Plug 'KeitaNakamura/tex-conceal.vim'
     let g:tex_conceal='abdmg'
     hi Conceal ctermbg=none
     " Latex
-    autocmd Filetype tex setlocal spell | set spelllang=en_us | AutoSaveToggle
+    autocmd BufNewFile,BufRead *.tex setlocal spell | set spelllang=en_us | AutoSaveToggle
+    autocmd BufNewFile,BufRead *.md setlocal spell | set spelllang=en_us 
     "setlocal spell
     "set spelllang=en_us
     " <Ctrl + l> is the shortcuts for auto-correction

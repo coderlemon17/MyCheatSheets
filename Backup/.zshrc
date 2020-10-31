@@ -16,19 +16,17 @@
 
 # <<< conda initialize <<<
 
-export PATH="/home/lemon/Code_apps/Anaconda/anaconda3/bin:$PATH"
+# export PATH="/home/lemon/Code_apps/Anaconda/anaconda3/bin:$PATH"
 
 # for sudo not to reset env
 alias sudo='sudo env PATH=$PATH'
-
-
 
 # for navi widget
 # cannot work, because tab will be used
 # source <(navi widget zsh)
 
 # for qemu
-export PATH=/home/lemon/Code_apps/Qemu/qemu-4.2.0/riscv32-softmmu:/home/lemon/Code_apps/Qemu/qemu-4.2.0/riscv64-softmmu:$PATH
+# export PATH=/home/lemon/Code_apps/Qemu/qemu-4.2.0/riscv32-softmmu:/home/lemon/Code_apps/Qemu/qemu-4.2.0/riscv64-softmmu:$PATH
 
 # for rust
 export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
@@ -36,14 +34,14 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 
 # for CUDA
-export PATH="/usr/local/cuda-10.2/bin:$PATH"
-export LD_LIBRARY_PATH="/usr/local/cuda-10.2/lib64:$LD_LIBRARY_PATH"
+# export PATH="/usr/local/cuda-10.2/bin:$PATH"
+# export LD_LIBRARY_PATH="/usr/local/cuda-10.2/lib64:$LD_LIBRARY_PATH"
 
 #for Java
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
-export JRE_HOME="${JAVA_HOME}/jre"
-export CLASSPATH=".:${JAVA_HOME}/lib:${JRE_HOME}/lib"
-export PATH="${PATH}:${JAVA_HOME}/bin"
+# export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+# export JRE_HOME="${JAVA_HOME}/jre"
+# export CLASSPATH=".:${JAVA_HOME}/lib:${JRE_HOME}/lib"
+# export PATH="${PATH}:${JAVA_HOME}/bin"
 
 ##########################################################
 
@@ -155,10 +153,14 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
+# zsh autosuggestions
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
 #conda activate self-drivingi
 export VVENV="/home/lemon/Environments"
-#source $VVENV/basic_env/bin/activate
-source $VVENV/ugvr_env/bin/activate
+source $VVENV/basic_env/bin/activate
+#source $VVENV/ugvr_env/bin/activate
 
 # encoding
 export LC_ALL=en_US.utf-8 
@@ -169,8 +171,6 @@ export EDITOR=vim
 
 # for vim
 export TERM=xterm-256color
-
-#For vim 
 bindkey -v
 export KEYTIMEOUT=1
 # So delete will always work
@@ -198,16 +198,11 @@ zle -N zle-line-init
 
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
-# _fix_cursor() {
-#   echo -ne '\e[5 q'
-#}
-#precmd_functions+=(zle-keymap-select)
 
 
 # Edit line in vim with ctrl-e:
-#autoload edit-command-line; zle -N edit-command-line
+# autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
-
 
 
 # useful alias
@@ -296,7 +291,7 @@ eval
             }
         
 # for broot
-source /home/lemon/.config/broot/launcher/bash/br
+# source /home/lemon/.config/broot/launcher/bash/br
 
 # for preview help information in vim
 mvp() {
@@ -309,3 +304,22 @@ alias mv="mv -i"
 
 # file explorer
 alias fileexplore="nautilus"
+
+# calendar
+alias cur="cal $(date | cut -d " " -f 2,6)"
+
+# display computer info
+alias info="screenfetch"
+
+# find all lsyncd process
+alias syncs="ps -aux | grep lsyncd"
+
+# kb alias
+alias kbl="kb list"
+alias kbe="kb edit --id"
+alias kba="kb add"
+alias kbv="kb view --id"
+alias kbd="kb delete --id"
+alias kbg="kb grep"
+alias kbt="kb list --tags"
+alias lg="lazygit"
