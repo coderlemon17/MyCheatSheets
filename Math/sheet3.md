@@ -1,4 +1,4 @@
-# Karush-Kuhn-Tucker (KKT)
+Karush-Kuhn-Tucker (KKT)
 
 ## 等式约束优化
 
@@ -144,3 +144,5 @@ $$
 ![image-20200922104515679](.\pic\image-20200922104515679.png)
 
 - <img src=".\pic\image-20200922104606622.png" alt="image-20200922104606622" style="zoom:50%;" />
+- ![my](/home/lemon/Workspace/myCheatSheet/Math/pic/my.png)
+

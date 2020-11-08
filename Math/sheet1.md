@@ -103,7 +103,7 @@ https://zhuanlan.zhihu.com/p/79764678
 ##### Density-Weighted Methods
 
 - 上述Uncertain Strategy 关注的主要是**单个样本**对模型的提升程度，但实际上，很多“模糊”的样本可能是outliers 或 噪声，关注这些样本并不会对模型有很大帮助：
-- ![img](D:\大三春季学期\UGVR\Meeting2\pic\v2-a9ec79e55673f8ee6bd5a29b06e17825_720w.jpg)
+- ![img](.\pic\v2-a9ec79e55673f8ee6bd5a29b06e17825_720w.jpg)
 
 <center><font face="Times New Roman" size="3">Outliers</font></center>
 
