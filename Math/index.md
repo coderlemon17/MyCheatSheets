@@ -13,3 +13,5 @@
 - Lagrange Duality
 - SVM
 - Bias-Variance Tradeoff
+
+# sheet4: Linear Algebra
