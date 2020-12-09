@@ -13,3 +13,5 @@ cp ~/.bashrc ./Backup
 cp ~/.bash_profile ./Backup
 cp ~/.oh-my-zsh/themes/agnoster.zsh-theme ./Backup
 cp ~/.tmux.conf ./Backup
+cp ~/.dwm/autostart.sh ./Backup
+cp ~/.Xresources ./Backup

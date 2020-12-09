@@ -323,3 +323,9 @@ alias kbd="kb delete --id"
 alias kbg="kb grep"
 alias kbt="kb list --tags"
 alias lg="lazygit"
+
+# move files from downloads
+mmfd() {
+    mv ~/Downloads/$1 $2
+}
+alias mfd="mmfd"
