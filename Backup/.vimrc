@@ -35,8 +35,8 @@ call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
 " Use release branch (Recommend)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_disable_startup_warning = 1
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" let g:coc_disable_startup_warning = 1
 
 "Plug 'liuchengxu/vim-which-key'
 
