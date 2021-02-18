@@ -1,4 +1,8 @@
-Karush-Kuhn-Tucker (KKT)
+# Karush-Kuhn-Tucker (KKT)
+
+>  对于一般的任意问题而言，KKT条件是使一组解成为最优解的必要条件，当原问题是凸问题的时候，KKT条件也是充分条件。
+>
+> - KKT条件其实是：先将原问题化为无约束优化问题$\min\limits_{x,\lambda}L(x,\lambda)=f(x)+\lambda g(x)$, 然后转化为对应的最优解条件(必要条件, 因为导数为0不一定是最优解.)
 
 ## 等式约束优化
 
