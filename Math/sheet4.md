@@ -85,17 +85,19 @@
   - 主变量: (图中下划线元素)
 
     - $A= \begin{bmatrix} 1 & 2 & 2 & 2\\ 2 & 4 & 6 & 8\\ 3 & 6 & 8 & 10\\ \end{bmatrix} \underrightarrow{消元} \begin{bmatrix} \underline{1} & 2 & 2 & 2\\ 0 & 0 & \underline{2} & 4\\ 0 & 0 & 0 & 0\\ \end{bmatrix} =U$
-    - 主变量: 2; 秩为2; 自由变量有**2**个. ($\text{列数}n=4 - \text{主变量}=2$)
+    - 主变量: 2; 秩为2; 自由变量有**2**个. ($\text{列数}n - \text{主变量}=2$)
     - 主变量所在的列为主列 (pivot column), 其余列为自由列 (free column). 自由列对应的变量为自由变量 (free variable).
 
   - 求特解的方式:
 
     - 1. 给自由列变量赋值，去求主列变量的值, 如设$x_2=1, x_4=0$, 得$x=c_1\begin{bmatrix}-2\\1\\0\\0\\\end{bmatrix}$, 再设$x_2=0, x_4=1$, 得$x=c_1\begin{bmatrix}2\\0\\-2\\1\\\end{bmatrix}$.
 
-    - <font color="red">零空间的维度仍为4, 但是其维数/秩为2, 即自由变量个数.</font> 原因是, 零空间相当于是自由变量可以任意取值, 之后主变量对应的$x$有唯一值; 故零空间的维数其实是由自由变量的个数决定的. 同时如果想要张成整个零空间, **选取的不同自由变量的组合组成的向量要相互正交**.
+    - <font color="red">零空间的维度仍为4, 但是其维数/秩为2, 即自由变量个数.</font> 原因是, 零空间相当于是自由变量可以任意取值, 之后主变量对应的$x$有唯一值; 故零空间的维数其实是由自由变量的个数决定的. 同时如果想要张成整个零空间, **选取的不同自由变量组成的向量要相互正交** (如上面$\begin{bmatrix}0\\1\end{bmatrix}$和$\begin{bmatrix}1\\0\end{bmatrix}$正交).
 
-    - 2. 利用简化行阶梯形式$R$ (Reduced row echelon form):
+      - 因为自由列和主列线性相关, 所以自由列的任意组合都可以被主列的组合唯一表示.
 
+    - 2. 利用简化行阶梯形式$R$ (Reduced row echelon form): 主元上下元素都为0, 且主元为1, 且主元放在一起
+    
       - <img src=".\pic\image-20210217183550495.png" alt="image-20210217183550495" style="zoom: 80%;" />
 
 # 第08集 [求解Ax=b：可解性和解的结构](https://github.com/zlotus/notes-linear-algebra/blob/master/chapter08.ipynb)
@@ -115,9 +117,25 @@
 
 # 第09集 [线性相关性、基、维数](https://github.com/zlotus/notes-linear-algebra/blob/master/chapter09.ipynb)
 
+- $A=[v_1, \cdots, v_n]$:
+  - $A$可逆 = $v_i$是一组基 = $v_i$线性无关	 = $rank(A)=n$ = $A$的零空间只有$\bf0$向量 ($dim N(A)=n-rank(A)$)
+
 # 第10集 [四个基本子空间](https://github.com/zlotus/notes-linear-algebra/blob/master/chapter10.ipynb)
 
-# 第11集 [矩阵空间、秩1矩阵和小世界图](https://github.com/zlotus/notes-linear-algebra/blob/master/chapter11.ipynb)
+- 行空间: $C(A^T) \in \mathbb{R}^n, dim C(A^T)=r$.
+  - 对矩阵进行初等行变换不改变列空间, 但改变行空间.
+- 列空间: $C(A) \in \mathbb{R}^m, dim C(A)=r$.
+  - 矩阵的行秩等于列秩.
+- 零空间: $N(A) \in \mathbb{R}^n, dim N(A)=n-r$.
+- 左零空间: $N(A^T) \in \mathbb{R}^m, dim N(A^T)=m-r$.
+  - $A^Ty=0$.
+
+# 第11集 [矩阵空间、秩1矩阵](https://github.com/zlotus/notes-linear-algebra/blob/master/chapter11.ipynb)
+
+- 矩阵空间:
+  - $dim S + dim U=12=dim(S \cup U) + dim(S \cap U)$.
+- 秩一矩阵:
+  - <img src="D:\Workspace\MyCheatSheets\Math\pic\image-20210221142607521.png" alt="image-20210221142607521" style="zoom:67%;" />
 
 # 第12集 [图和网络](https://github.com/zlotus/notes-linear-algebra/blob/master/chapter12.ipynb)
 
