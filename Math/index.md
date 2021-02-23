@@ -14,4 +14,7 @@
 - SVM
 - Bias-Variance Tradeoff
 
-# sheet4: Linear Algebra
+# sheet4: YouTube [Essence of linear algebra](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_abhttps://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab)
+
+
+
