@@ -148,5 +148,5 @@ $$
 ![image-20200922104515679](.\pic\image-20200922104515679.png)
 
 - <img src=".\pic\image-20200922104606622.png" alt="image-20200922104606622" style="zoom:50%;" />
-- ![my](/home/lemon/Workspace/myCheatSheet/Math/pic/QQMail_0_1.png)
+- <img src="./pic/QQMail_0_1.png" alt="my" style="zoom:50%;" />
 
