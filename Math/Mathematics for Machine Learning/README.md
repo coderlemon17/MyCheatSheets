@@ -28,6 +28,8 @@
 
 ### 2.2. Matrices
 
+<font color="red">Matrices是matrix的复数; matric是尺度/标尺</font>
+
 #### 2.2.1. Matrix Addition and Multiplication
 
 - Matrix multiplication (*dot product*) $\Leftrightarrow$ Element-wise production i.e. $c_{ij}=a_{ij}b_{ij}$ (*Hadamard product*)
@@ -98,6 +100,8 @@
 
 #### 2.4.2. Vector Spaces
 
+<img src=".\pic\image-20210304101911015.png" alt="image-20210304101911015" style="zoom:50%;" />
+
 - We consider addition $+$ as inner operation and scaling $\cdot$ as outer operation.
 - $a^Tb\in \mathbb R$: inner/scalar/dot product; $ab^T\in\mathbb R$: outer product.
 
@@ -126,7 +130,9 @@
   - $dim(V)$: the number of basis vectors. There's no unique basis, but the number is fixed for given vector space.
 - Finding the maximal L.I. vector group in the generating set is to find the basis.
 
-#### 2.6.2. Rank $A\in\mathbb R^{m\times n}$
+#### 2.6.2. Rank
+
+$A\in\mathbb R^{m\times n}$
 
 - 列空间: $U\subseteq\mathbb{R}^m$: image / range $\Leftrightarrow$ 行空间: $W\subseteq\mathbb R^n$.
 - $Ax=b$ can be solved if and only if $rk(A)=rk(A|b)$, where $A|b$ is the augmented system.
@@ -139,10 +145,10 @@
   - <img src=".\pic\image-20210228133945377.png" alt="image-20210228133945377" style="zoom: 50%;" />
 
 - Injective; Surjective; Bijective:
-  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210228134611067.png" alt="image-20210228134611067" style="zoom: 50%;" />
-- Special linear mappings:
-  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210228135024270.png" alt="image-20210228135024270" style="zoom:33%;" />
-    - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210228135107131.png" alt="image-20210228135107131" style="zoom: 33%;" />
+  - <img src=".\pic\image-20210228134611067.png" alt="image-20210228134611067" style="zoom: 50%;" />
+- <span id='automorphism'>Special linear mappings:</span>
+  - <img src=".\pic\image-20210228135024270.png" alt="image-20210228135024270" style="zoom:33%;" />
+    - <img src=".\pic\image-20210228135107131.png" alt="image-20210228135107131" style="zoom: 33%;" />
 - `Remark`:
   - For linear mapping $\Phi, \Psi$, $\Phi\text{o}\Psi$ is also linear mapping.
 
@@ -155,7 +161,7 @@
   - $\{\bf{b}_1, \cdots, \bf b_n\}$: unordered basis.
   - $[\bf{b}_1, \cdots, \bf b_n]$: matrix.
 - Transformation Matrix:
-  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\QQMail_0 (4).png" alt="QQMail_0 (4)" style="zoom:30%;" />
+  - <img src=".\pic\QQMail_0 (4).png" alt="QQMail_0 (4)" style="zoom:30%;" />
   - For linear mapping between vector spaces / basis:
     - $(\bf b_1, \cdots, \bf b_n) = (\bf c_1,\cdots,\bf c_n)\cdot A_\Phi$
       - 记法: 你试图去表示$b$, 所以是把coordinate从$b$转到$c$.
@@ -172,17 +178,225 @@
 
 #### 2.7.2. Basis Change
 
-- 注意, 在思考线性映射的时候, 如果不是自同态/自映射; 则就是两个不同的向量空间映射, 那就不仅仅是单纯换基而使得向量不变了, 因为不同的向量空间中的向量本身就不是一个东西.
+- `Remark`:
+  - 在思考线性映射的时候, 如果不是自同态/自映射; 则就是两个不同的向量空间映射, 那就不仅仅是单纯换基而使得向量不变了, 因为不同的向量空间中的向量本身就不是一个东西.
 - 定理:
-  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210228162427422.png" alt="image-20210228162427422" style="zoom:50%;" />
+  - <img src=".\pic\image-20210228162427422.png" alt="image-20210228162427422" style="zoom:50%;" />
   - Intuitive interpretation:
-    - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210228162533422.png" alt="image-20210228162533422" style="zoom:50%;" />
+    - <img src=".\pic\image-20210228162533422.png" alt="image-20210228162533422" style="zoom:50%;" />
 - *Equivalent* and *Similar*:
-  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210228162648463.png" alt="image-20210228162648463" style="zoom:40%;" />
+  - <img src=".\pic\image-20210228162648463.png" alt="image-20210228162648463" style="zoom:40%;" />
 
-TODO 只看完了Similarity.
+#### 2.7.3. Image and Kernel
+
+- <img src=".\pic\image-20210304102620030.png" alt="image-20210304102620030" style="zoom: 50%;" />
+- `Remark`:
+  - Null space is **NERVER** empty, for that $\Phi(\bf 0_V)=\bf 0_W$ always holds.
+  - $\text{Im}(\Phi)\subseteq W$ is a subspace of $W$; $\text{ker}(\Phi)\subseteq V$ is a subspace of $V$;
+  - Consider $\Phi:\mathbb R^n\rightarrow \mathbb R^m, x\mapsto Ax, A\in\mathbb R^{m\times n}$.
+    - $\text{Im}(\Phi)=\text{span}[a_1,\cdots,a_n]\subseteq \mathbb R^m$. Image/column space is subspace of $\mathbb R^m$, and $\text{rk}(A)=\text{dim}(\text{Im}(\Phi))$
+    - Kernel space is a subspace of $\mathbb R^n$. 
+- **Rank-Nullity Theorem**:
+  - <img src=".\pic\image-20210304103536186.png" alt="image-20210304103536186" style="zoom:50%;" /> $\Leftarrow$ 即非主列的个数+主列的个数=列数.
+  - `Remark`:
+    - If $\dim (\text{Im}(\Phi)) < \dim(V)$, then $\text{ker}(\Phi)$ is non-trivial, i.e. it contains more than $\bf 0_V$ / $\dim(\text{ker}(\Phi))\geq1$ / $A_\Phi(x)=\bf 0$ has infinitely solutions.
+    - If  $\dim(V)=\dim(W)$, then $\Phi$ is **injective**, **surjective**, **bijective**.
+
+### 2.8. Affine Spaces
+
+> Affine space: spaces that are offset from the origin, which means they are no longer vector subspace. (vector space + offset.)
+
+#### 2.8.1. Affine Subspaces
+
+<img src=".\pic\image-20210304142917434.png" alt="image-20210304142917434" style="zoom: 50%;" />
+
+- `Remark`:
+  - If $x_0\notin U$, then the affine subspace $L$ excludes $\bf 0$, and thus is not a (linear) subspace (vector subspace). of $V$.
+  - *Parametric equation:*
+    - Consider a $k$-dimensional affine space $L=x_0+U$ of $V$. If $(b_1,\cdots,b_k)$ is an ordered basis of $U$, then every $x\in L$ can be uniquely described as:
+      - $\bf x= \bf x_0 + \lambda_1\bf b_1 + \cdots + \lambda_k\bf b_k$, where $\lambda_1,\cdots,\lambda_k\in\mathbb R$. It's called the *parametric equation* of $L$ with directional vectors $\bf b_1,\cdots,\bf b_k$ and parameters $\lambda_1,\cdots,\lambda_k$.
+  - Examples of affine space:
+    - 1-dimensional: line; 2-dimensional: plane
+      - In $\mathbb R^n$, the $n-1$-dimensional affine subspace are called ***hyperplanes***.
+  - The solution of $Ax=b$ is either the empty set or an affine subspace of $\mathbb R^n$ of dimension $n-\text{rk}(A)$.
+
+#### 2.8.2. Affine Mappings
+
+- Affine Mappings:
+  - Given two vector space $V,W$, a linear mapping $\Phi: V\mapsto W$, and $\bf a\in W$, then mapping $\phi$:
+    - $\phi:V\mapsto W$; $\bf x\mapsto \bf a + \Phi(x)$ is an *affine mapping* from $V$ to $W$. Vector $\bf a$ is called *translation vector* of $\phi$,
+- `Remark`:
+  - <img src=".\pic\image-20210304144211094.png" alt="image-20210304144211094" style="zoom:67%;" />
 
 
+
+## 3. Analytic Geometry
+
+<img src=".\pic\image-20210305110331427.png" alt="image-20210305110331427" style="zoom:50%;" />
+
+<center><font color="black" face="Times New Roman">Mindmap of this chapter.</font></center>
+
+### 3.1. Norms
+
+> The length of the vector.
+
+- <img src=".\pic\image-20210305110623430.png" alt="image-20210305110623430" style="zoom:50%;" /> 
+
+### 3.2. Inner Products
+
+> Allow some intuitive geometrical concepts, such the length or the angle or the distance between vectors.
+
+#### 3.2.1. Dot Products
+
+*Scalar product / dot product*: $\bf{x}^T \bf{y}$$=\sum\limits_{i=1}^n x_i y_i$.
+
+#### 3.2.2. General Inner Products
+
+- Prerequisite:
+  - *Bilinear mapping $\Omega$*: a linear mapping with two arguments, and it's linear in each argument.
+    - For $\bf x,y,z\in$ vector space $V$ and $\lambda,\psi\in\mathbb R$ that: <img src=".\pic\image-20210305135948468.png" alt="image-20210305135948468" style="zoom:50%;" />
+  - *Symmetric* and *positive definite*:
+    -  <img src=".\pic\image-20210305140030165.png" alt="image-20210305140030165" style="zoom: 50%;" /> 
+- *Inner product*:
+  - <img src=".\pic\image-20210305140110184.png" alt="image-20210305140110184" style="zoom:50%;" /> 
+
+#### 3.2.3. Symmetric, Positive Definite Matrices
+
+> The symmetric positive definite matrices is actually defined via the inner product.
+
+- For vector space $V$ with inner product and an ordered basis $\mathcal B=\bf(b_1,\cdots,b_n)$ of $V$: (Note: inner product is bilinear mapping)
+  - <img src=".\pic\image-20210305141240766.png" alt="image-20210305141240766" style="zoom: 50%;" />, where $A_{ij}:=<\mathbf b_i,\mathbf b_j>$ and $\hat x$, $\hat y$ are the coordinates of $\mathbf x$ and $\bf y$ w.r.t. basis $\mathcal B$.
+  - Which implies that **that the inner product $<.,\ .>$is uniquely determined through $A$**.
+    - Therefore, according to the positive definiteness of the inner product: $\forall \mathbf x\in V\backslash \{\mathbf 0\}:\mathbf x^TA\mathbf x>0$.
+    - Accordingly we can define symmetric, positive/semipositive definite matrices.
+- `Remark`:
+  - <img src=".\pic\image-20210305141922364.png" alt="image-20210305141922364" style="zoom:50%;" /> 
+  - If $A$ is symmetric and positive definite, then:
+    - The null space (kernel) of $A$ consist only of $\mathbf 0$ $\mathbf x^tA\mathbf x > 0$ if $\mathbf \neq 0$; the diagonal elements $a_{ii}$ of $A$ are always positive ($e_i^TAe_i>0$).
+
+### 3.3. Lengths and Distances
+
+- Any **inner product** introduces a **norm**: $||x||:=\sqrt{<x,x>}$; but **NOT** every norm is induced by an inner product, e.g. Manhattan norm.
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210305143909361.png" alt="image-20210305143909361" style="zoom:50%;" /> 
+- *Distance and Metric*:
+  - $d(x,y):=||x-y||=\sqrt {<x-y,x-y>}$ is called *distance*, and mapping <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210305144028326.png" alt="image-20210305144028326" style="zoom:50%;" /> is called *metric*.
+    - **Metric $\neq$ Metrices**.
+  - Note that metric doesn't always require inner product, a **norm** is sufficient.
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210305144219825.png" alt="image-20210305144219825" style="zoom:50%;" /> 
+
+### 3.4. Angles and Orthonormal
+
+> Using inner product, by Cauchy-Schwarz inequality we can define the **angle $\omega$** in inner product spaces between vectors.
+>
+> <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210305151733963.png" alt="image-20210305151733963" style="zoom:33%;" /> <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210305151741869.png" alt="image-20210305151741869" style="zoom:33%;" />
+
+-  *Orthogonal* and *orthonormal*:
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210305151843869.png" alt="image-20210305151843869" style="zoom:50%;" /> 
+- *Orthogonal Matrix*:
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210305151940838.png" alt="image-20210305151940838" style="zoom:50%;" /> 
+  - Which means: $A^T=A^{-1}$.
+  - Transformations (linear mapping) with orthogonal matrices **preserve distances and angle.**
+    - Actually they define **rotations** (with the possibility of [flips](翻转)).
+
+### 3.5. Orthonormal Basis
+
+- *Orthonormal basis* (ONB):
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210305152457811.png" alt="image-20210305152457811" style="zoom:50%;" />.
+  - If only (3.33) satisfies, it's called orthogonal basis.
+- For any basis, we can conduct ***Gram-Schmidt process***:
+  - It's general idea is:
+    - $b_1$: $b_1'=b_1$
+    - Eliminate $b_2$'s projection on $b_1$: $b_2' = b_2-\frac{<b_1',b_2>}{||b_1'||^2}$.
+    - Keep going...
+  - If you want to get ONB, add normalization after every step.
+
+### 3.6. Orthogonal Complement
+
+> Now we look at vector spaces that are orthogonal to each other.
+
+- Consider a $D$-dimensional vector space $V$ and an $M$-dimensional subspace $U\subseteq V$. Then its *orthogonal complement* $U^{\perp}$ is a $D-M$-dimensional subspace of $V$, which contains all vectors in $V$ that are orthogonal to **every** vector in $U$.
+  - Also, for that $U\cap U^{\perp}=\mathbf{0}$, so that $\forall \mathbf{x}\in V$, it can be uniquely decomposed into:
+    - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210306153831026.png" alt="image-20210306153831026" style="zoom:50%;" /> 
+- In a three dimensional space, for vector $\omega$ with $||\omega||=1$, there is a plane $U$ which $\omega$ is orthogonal to. Then $\omega$ is called the **normal** vector of $U$.
+
+### 3.7. Inner Product of Functions
+
+> We can think a vector $\mathbb{x}\in\mathbb{R}^n$ **as a function with $n$ function values.**
+
+- As the dot product sums over individual components of vectors, an inner product of two functions $u$ and $v$ can be defined as:
+  - $<u,b>:=\int\limits_a^bu(x)v(x)dx$.
+- `Remark`:
+  - For a more mathematically precise definition, one might need the definition integrals, Hilbert space and ...
+  - $\{1,\cos(x),\cos(2x),\cos(3x),\cdots\}$ is a very special collection of functions, where *any pair of functions* are orthogonal to each other (if integrate from $-\pi$ to $\pi$). 
+
+### 3.8. Orthogonal Projections
+
+> Projections are an important class of **linear** transformation (besides rotations and reflections). One common use of this in ML is data compression, which is very useful in high-dimensional data processing, because usually only a few dimensions contain most information. Therefore, we want to extract the most valuable dimensions while minimizing information loss.
+
+- **Projection**:
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210307151518899.png" alt="image-20210307151518899" style="zoom:50%;" /> 
+    - Since linear transformation can be expressed as matrices, the projection matrices $\mathbf{P}_\pi$ satisfies $\mathbf{P}_\pi^2=\mathbb{P}_\pi$.
+
+In the following sections we will talk about projection of vectors in $<\mathbb{R}^n,<.,.>$ onto subspaces.
+
+#### 3.8.1. Projection onto One-Dimensional Subspaces (Lines) 
+
+Consider a line (one-dimensional subspace) $\underbrace{\textbf{through the origin}}_{\text{because it's subspace!}}$ with basis vector $\mathbb{b}\in\R^n$, which we denote as $U$. For any $\mathbb{x}\in\R^n$, we use $\pi_U(\mathbb{x})\in U$ as its projection.
+
+- `Remark`:
+  - The projection is closest vector to $\mathbb{x}$ in $U$, where closest means the distance $||\mathbb{x}-\pi_U(\mathbb{x})||$. And it also means $\pi_U(x)-x$ is orthogonal to $U$.
+  - Since $\pi_U(\mathbb{x})\in U$, there exists $\pi_U(\mathbb{x})=\lambda\mathbb{b}$, for some $\lambda\in\R$.
+    - Using $<\pi_U(\mathbb{x})-\mathbb{x},\mathbb{b}>=0$ and $\pi_U(\mathbb{x})=\lambda\mathbb{b}$, we can derive that $\lambda=\frac{<\mathbb{x},\mathbb{b}>}{<\mathbb{b},\mathbb{b}>}=\frac{<\mathbb{b},\mathbb{x}>}{||\mathbb{b}||^2}$.
+  - The length of $\pi_U(\mathbb{x})$ is <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210307154455177.png" alt="image-20210307154455177" style="zoom:50%;" />
+  - The projection matrix $\mathbf{P}_\pi$ in dot product:
+    - Since $\pi_U(\mathbf{x}) = \lambda\mathbf{b}=\frac{\mathbf{b}\mathbf{b}^T}{||b||^2}\mathbf{x}$, $\mathbf{P}_\pi=\frac{\mathbf{b}\mathbf{b}^T}{||b||^2}$, which means it's symmetric matrix of rank $1$.
+    - Also because $\mathbf{P}_\pi^2\mathbf{x}=\mathbf{P}_\pi\mathbf{x}$, we can show that $\pi_U(\mathbf{x})=\mathbf{P}_\pi\mathbf{x}$ is an eigenvector of $\mathbf{P}_\pi$ with eigenvalue $1$.
+
+#### 3.8.2 Projection onto General Subspaces
+
+Consider a subspace $U\subseteq\R^n$ with $\dim(U)=m\geq1$, and $(\mathbf{b}_1,\cdots,\mathbf{b}_m)$ is an ordered basis, we can thus assume $\pi_U(\mathbf{x})=\sum\limits_{i=1}^m\lambda_i\mathbf{b}_i$
+
+- <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210307164305747.png" alt="image-20210307164305747" style="zoom:50%;" />
+- Since projection is the closest vector in $U$, which implies that $x-\pi_U(\mathbf{x})$ must be orthogonal to all basis vectors of $U$:
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210307164440230.png" alt="image-20210307164440230" style="zoom:50%;" />$\Rightarrow$ <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210307164450736.png" alt="image-20210307164450736" style="zoom:50%;" />$\Rightarrow$ <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210307164528057.png" alt="image-20210307164528057" style="zoom:50%;" />
+  - Since $(\mathbf{b}_1,\cdots,\mathbf{b}_m)$ are basis, $B^TB$ is regular, and thus $\mathbf{\lambda}=(B^TB)^{-1}B^T\mathbf{x}$.
+    - $(B^TB)^{-1}B^T$ is also called the *pseudo-inverse* of $B$ (doesn't require $B$ to be square). It only requires $B$ to be full rank, and thus $B^TB$ will be positive definite.
+  - We can derive that: 
+    - $\pi_U(\mathbf{x})=B\lambda=B(B^TB)^{-1}B^T\mathbf{x}$.
+    - $\mathbf{P}_\pi=B(B^TB)^{-1}B^T$.
+- `Remark`:
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210307165143499.png" alt="image-20210307165143499" style="zoom:50%;" /> 
+  - Projection can also be helpful when we look at linear system $A\mathbf{x}=\mathbf{b}$ without a solution. We can find a *approximate solution* by projecting $\mathbf{b}$ onto the subspace spanned by $A$'s column vectors.
+  - Specially, if $(\mathbf{b}_1,\cdots,\mathbf{b}_m)$ is ONB, which means $B^TB=I$, then $\pi_U(\mathbf{x})=BB^T\mathbf{x}$, and $\lambda=B^T\mathbf{x}$.
+
+#### 3.8.3. Gram-Schmidt Orthogonalization
+
+- If we want to transform any **basis** into orthogonal/orthonormal basis, we can use Gram-Schmidt orthogonalization. The general principle is:
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210307165842623.png" alt="image-20210307165842623" style="zoom:50%;" />
+    - If we want ONB, we need to add normalization ($u_k=\frac{u_k}{||u_k||}$) after each step.
+
+#### 3.8.4. Projection onto Affine Subspaces
+
+Consider an affine subspace $L=x_0+U$, the general principle for considering projection onto $L$ is:
+
+<img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210307170401527.png" alt="image-20210307170401527" style="zoom:50%;" />
+
+- So the problem becomes: $\pi_L(\mathbf{x})=\mathbf{x_0}+\pi_U(\mathbf{x}-\mathbf{x_0})$, and the distance between $\mathbf{x}$ and $L$ is identical to the distance between $\mathbf{x-x_0}$ and $U$. (<img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210307170648376.png" alt="image-20210307170648376" style="zoom:33%;" />).
+
+### 3.9. Rotations
+
+> Linear mapping with orthogonal transformation matrices will preserve length and angle, which is actually rotation.
+
+- A rotation is a linear mapping (more specifically, an [automorphism](#automorphism) of rotation a Euclidean vector space) that rotates a plane by an angle $θ$ about the origin.
+
+#### 3.9.1 Rotations in $\R^2$
+
+- Consider the standard basis $\mathbf{e_1}=\begin{bmatrix}1\\0\end{bmatrix}; \mathbf{e_2}=\begin{bmatrix}0\\1\end{bmatrix}$, we can define a rotation matrix $R(\theta)$ ($\theta$ is positive considering *counterclockwise*):
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210307172710131.png" alt="image-20210307172710131" style="zoom:50%;" />
+  - It can be perceived as a *basis change*, which means it changes the standard basis to the rotated basis, **but the coordinates are still based on the standard basis!!!**.
+    - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210307173125445.png" alt="image-20210307173125445" style="zoom:50%;" />
+
+#### 3.9.2. 
 
 # Central Machine Learning Problems
 
