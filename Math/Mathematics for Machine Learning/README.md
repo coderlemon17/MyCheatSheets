@@ -393,10 +393,38 @@ Consider an affine subspace $L=x_0+U$, the general principle for considering pro
 
 - Consider the standard basis $\mathbf{e_1}=\begin{bmatrix}1\\0\end{bmatrix}; \mathbf{e_2}=\begin{bmatrix}0\\1\end{bmatrix}$, we can define a rotation matrix $R(\theta)$ ($\theta$ is positive considering *counterclockwise*):
   - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210307172710131.png" alt="image-20210307172710131" style="zoom:50%;" />
-  - It can be perceived as a *basis change*, which means it changes the standard basis to the rotated basis, **but the coordinates are still based on the standard basis!!!**.
+  - It can be perceived as a *basis change*, which means it changes the standard basis to the rotated basis, **but the coordinates (e.g. $\begin{bmatrix}cos\theta\\sin\theta\end{bmatrix}$) are still based on the standard basis!!!**.
     - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210307173125445.png" alt="image-20210307173125445" style="zoom:50%;" />
+    - $[\Phi(\mathbf{e_1}),\Phi(\mathbf{e_2})]=[\mathbf{e_1},\mathbf{e_2}]\mathbf{R}(\theta)$
 
-#### 3.9.2. 
+#### 3.9.2. Rotations in $\R^3$
+
+- In $\R^3$ we can rotate any **two-dimensional plane** about a **one-dimensional axis**.
+  - And we need to specify what's *counterclockwise* rotation:
+    - It refers to a rotation about an axis when we look the axis "head on, from the end toward the origin" $\rightarrow$ [detail](这个axis指向你的眼睛时, 从这个axis的end向origin看的时候, 是counterclockwise的旋转.); 
+      - e.g. <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210308125341916.png" alt="image-20210308125341916" style="zoom:33%;" />
+- Rotation matrix in $\R^3$ ($\theta$ degree, counterclockwise:
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210308125436423.png" alt="image-20210308125436423" style="zoom:50%;" /> 
+  -  <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210308125445639.png" alt="image-20210308125445639" style="zoom:50%;" /> 
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210308125453111.png" alt="image-20210308125453111" style="zoom:50%;" /> 
+
+#### 3.9.3. Rotations in n Dimensions
+
+- The generalization of rotations in $n$-dimensional Euclidean vector space can be expressed as **fixing $n-2$ dimensions and restrict the rotation to a two-dimensional plane.**
+
+-  Definition (*Givens Rotation*):
+  - For an $n$-dimensional Euclidean vector space $V$ and $\Phi:V\mapsto V$ as an automorphism with transformation matrix:
+    - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210308165310364.png" alt="image-20210308165310364" style="zoom:50%;" /> 
+
+#### 3.9.4. Properties of Rotations
+
+- It preserves distance and angles.
+- Rotations in three (or more) dimensions are generally **NOT** [commutative][可交换次序的].
+
+## 4. Matrix Decompositions
 
 # Central Machine Learning Problems
 
+
+
+[可交换次序的]: 
