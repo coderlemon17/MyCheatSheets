@@ -154,33 +154,50 @@ $A\in\mathbb R^{m\times n}$
 
 #### 2.7.1. Matrix Representation of Linear Mappings
 
-- Any basis defines a valid coordinate system. But to acquire coordinate, we need to define **ordered basis**, which accordingly defines the coordinates.
-  - For **ordered basis $\mathcal B=(\bf{b}_1, \cdots, \bf b_n)$**, $\bf x	= \alpha_1\bf b_1+\cdots+\alpha_n\bf b_n$ so $\bf\alpha=\begin{bmatrix}\alpha_1\\\vdots\\\alpha_n\end{bmatrix}$ is the *coordinates / coordinate vector / coordinate representation* of $\bf x$ w.r.t. $\mathcal B$.
-- `Remark`:
-  - $(\bf{b}_1, \cdots, \bf b_n)$: ordered basis.
-  - $\{\bf{b}_1, \cdots, \bf b_n\}$: unordered basis.
-  - $[\bf{b}_1, \cdots, \bf b_n]$: matrix.
-- Transformation Matrix:
+- **Coordinate:**
+  
+  - Any basis defines a valid coordinate system. But to acquire coordinate, we need to define **ordered basis**, which accordingly defines the coordinates.
+    - For **ordered basis $\mathcal B=(\bf{b}_1, \cdots, \bf b_n)$**, $\bf x	= \alpha_1\bf b_1+\cdots+\alpha_n\bf b_n$ so $\bf\alpha=\begin{bmatrix}\alpha_1\\\vdots\\\alpha_n\end{bmatrix}$ is the *coordinates / coordinate vector / coordinate representation* of $\bf x$ w.r.t. $\mathcal B$.
+  - `Remark`:
+    - $(\bf{b}_1, \cdots, \bf b_n)$: ordered basis.
+    - $\{\bf{b}_1, \cdots, \bf b_n\}$: unordered basis.
+    - $[\bf{b}_1, \cdots, \bf b_n]$: matrix.
+  
+- **The connection between matrices and <font color="red">linear mappings</font>**: (Transformation Matrix):
   - <img src=".\pic\QQMail_0 (4).png" alt="QQMail_0 (4)" style="zoom:30%;" />
   - For linear mapping between vector spaces / basis:
-    - $(\bf b_1, \cdots, \bf b_n) = (\bf c_1,\cdots,\bf c_n)\cdot A_\Phi$
-      - 记法: 你试图去表示$b$, 所以是把coordinate从$b$转到$c$.
-    - And the relationship between coordinates is:
-      - $(\bf b_1, \cdots, \bf b_n) = (\bf c_1,\cdots,\bf c_n)\cdot A_\Phi \Rightarrow (\bf b_1, \cdots, \bf b_n)\bf x = (\bf c_1,\cdots,\bf c_n)\cdot A_\Phi \bf x \Rightarrow$ 在新的$c$下的coordinate是$\tilde x=A_\Phi x$.
-
-- One example: 
+    - $(\bf \Phi(b_1), \cdots, \Phi(b_n)) = (\bf c_1,\cdots,\bf c_n)\cdot A_\Phi$
+      
+      - 记法: 你试图去表示$b$, 所以是把向量从$b$的空间里mapping到$c$的空间里.
+  - And the relationship between coordinates is:
+    
+      - $
+        \begin{aligned}
+        &(\bf \Phi(b_1), \cdots, \Phi(b_n)) = (\bf c_1,\cdots,\bf c_n)\cdot A_\Phi \\&\Rightarrow \Phi[(\bf b_1, \cdots, \bf b_n)\bf x] = (\bf \Phi(b_1), \cdots, \Phi(b_n))x  = (\bf c_1,\cdots,\bf c_n)\cdot A_\Phi \bf x \end{aligned}$ $\Rightarrow$ 在像空间$c$下的coordinate是$\tilde x=A_\Phi x$
+  - `Note:`the transformation matrix of linear mapping $\Phi$ is $A$ under canonical basis equals to <font color="red">*$\Phi$ maps any coordinate $x$ to $Ax$*</font>.
+  
+- **Linear mapping matrices w.r.t. basis change**: 
   - 在canonical basis下某transformation matrix $A=\begin{bmatrix}2, 1\\1, 2\end{bmatrix}$. 请问在新的基$\begin{bmatrix}1\\1\end{bmatrix}$, $\begin{bmatrix}1\\-1\end{bmatrix}$下的矩阵为?
-    - **注意这里的transformation matrix并不是上面的两组基之间的transform矩阵**, 而是应该被理解为是某线性变换在canonical基下对应的矩阵.
-    - canonical 和 新的基之间的变换矩阵: $I = \begin{bmatrix}&1, &1\\&1, &-1\end{bmatrix}\cdot\Phi$.
-    - $\hat x=Ax\Rightarrow \Phi \hat y = A\Phi y\Rightarrow \hat y = \Phi^{-1}A\Phi y$:
-      - 所以$A$在新的基下的线性变换矩阵为$\Phi^{-1}A\Phi$, 结果为$\begin{bmatrix}3, 0\\0, 1\end{bmatrix}$, 为对角阵.
+    - **注意这里的transformation matrix是某线性变换在canonical基下对应的矩阵**, we consider how basis change effects the matrices of linear mappings.
+    - Denote canonical 和 新的基之间的变换矩阵 as $B_\Phi$: i.e. $I = \begin{bmatrix}&1, &1\\&1, &-1\end{bmatrix}\cdot B_\Phi$.
+      - <font color="red">Basis change can also be perceived as linear mapping.</font>
+      - $\hat x=Ax\Rightarrow \Phi(\hat x) = \Phi(Ax) \Rightarrow B_\Phi\hat x = B_\Phi AB_\Phi^{-1}\ B_\Phi x \Rightarrow \hat y = B_\Phi AB_\Phi^{-1} y$:
+      - 所以$A$在新的基下的线性变换矩阵为$\tilde A = B_\Phi AB_\Phi^{-1}$, 结果为$\begin{bmatrix}3, 0\\0, 1\end{bmatrix}$, 为对角阵.
+        - I.e. $A=B_\Phi^{-1}\tilde AB_\Phi$.
       - **故如果要计算某向量对于A的线性变换(的若干次幂), 最好的方法是先转换到新的基下进行运算, 之后再转换回去.**
 
 #### 2.7.2. Basis Change
 
+> Don't confuse **basis** with **coordinates/vectors**.
+
 - `Remark`:
-  - 在思考线性映射的时候, 如果不是自同态/自映射; 则就是两个不同的向量空间映射, 那就不仅仅是单纯换基而使得向量不变了, 因为不同的向量空间中的向量本身就不是一个东西.
-- 定理:
+  - Basis change: the vector space stays the same, we just use different basis, and the coordinates change.
+    - Can be perceived as a special linear mapping. (automorphism)
+    - $(\bf b_1, \cdots, b_n) = (\bf c_1,\cdots,\bf c_n)\cdot A_\Phi$
+  - Linear mapping: the vector space doesn't necessarily stay the same, we map the basis to new basis, and the coordinate change. 
+    - $(\bf \Phi(b_1), \cdots, \Phi(b_n)) = (\bf c_1,\cdots,\bf c_n)\cdot A_\Phi$.
+    - In common cases, if we only say linear transformation $\Phi$ over ordered basis $(\bf b_1, \cdots, b_n)$, we refer to mapping $\Phi: (\bf b_1, \cdots, b_n)\mapsto(\bf b_1, \cdots, b_n)$
+- ,定理:
   - <img src=".\pic\image-20210228162427422.png" alt="image-20210228162427422" style="zoom:50%;" />
   - Intuitive interpretation:
     - <img src=".\pic\image-20210228162533422.png" alt="image-20210228162533422" style="zoom:50%;" />
@@ -423,8 +440,48 @@ Consider an affine subspace $L=x_0+U$, the general principle for considering pro
 
 ## 4. Matrix Decompositions
 
+> We consider three aspects of matrices: how to **summarize** matrices, how matrices can be **decomposed**, and how these
+> decompositions can be used for **matrix approximations**.
+
+<img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210309110019623.png" alt="image-20210309110019623" style="zoom:50%;" />
+
+### 4.2. Determinant and Trace
+
+**Determinant:**
+
+- The determinant $\det(A)$ is the **signed volume** of an n-dimensional parallelepiped formed **by columns of the matrix A**.
+  - Or: determinant is the scaling factor of linear mappings.
+  - The sign of the determinant indicates the orientation of the spanning vectors (of A's column space) w.r.t. the standard basis.
+- Laplace Expansion:
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210313161835848.png" alt="image-20210313161835848" style="zoom:50%;" />
+- Properties of determinants:
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210313161915466.png" alt="image-20210313161915466" style="zoom:50%;" />
+  - From the last three properties, we can deduct that $\det(A)=0\Leftrightarrow rk(A)=n$.
+
+**Trace:**
+
+- The trace of linear mapping $\Phi$ is the trace of corresponding matrix $A_{\Phi}$ (under given ordered basis).
+
+- Properties of trace:
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210313162139367.png" alt="image-20210313162139367" style="zoom:50%;" /> 
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210313162208835.png" alt="image-20210313162208835" style="zoom:50%;" /> 
+    - $\Leftrightarrow$ $tr(B)=tr(S^{-1}AS)=tr(ASS^{-1})=tr(A)$: although matrix representation of linear mappings are basis dependent, the trace of a linear mapping $Φ$ is **independent** of the basis.
+
+- Characteristic Polynomial:
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210313162546568.png" alt="image-20210313162546568" style="zoom:50%;" /> $\Leftrightarrow$ $\left\{\begin{aligned}c_0&=\det(A)\\c_{n-1}&=(-1)^{n-1}tr(A)\end{aligned}\right.$
+  - <font color="grey">$c_{n-1}$可以理解为，对于$\det(A-\lambda I)$做展开的时候, 排列组合, 含有n-1个lambda项一定会乘以一个$a_{ii}$的项.</font>
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Central Machine Learning Problems
 
-
-
-[可交换次序的]: 
