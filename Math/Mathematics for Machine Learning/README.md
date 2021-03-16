@@ -173,8 +173,10 @@ $A\in\mathbb R^{m\times n}$
     
       - $
         \begin{aligned}
-        &(\bf \Phi(b_1), \cdots, \Phi(b_n)) = (\bf c_1,\cdots,\bf c_n)\cdot A_\Phi \\&\Rightarrow \Phi[(\bf b_1, \cdots, \bf b_n)\bf x] = (\bf \Phi(b_1), \cdots, \Phi(b_n))x  = (\bf c_1,\cdots,\bf c_n)\cdot A_\Phi \bf x \end{aligned}$ $\Rightarrow$ 在像空间$c$下的coordinate是$\tilde x=A_\Phi x$
-  - `Note:`the transformation matrix of linear mapping $\Phi$ is $A$ under canonical basis equals to <font color="red">*$\Phi$ maps any coordinate $x$ to $Ax$*</font>.
+        &(\bf \Phi(b_1), \cdots, \Phi(b_n)) = (\bf c_1,\cdots,\bf c_n)\cdot A_\Phi \\&\Rightarrow \Phi[(\bf b_1, \cdots, \bf b_n)\bf x] = (\bf \Phi(b_1), \cdots, \Phi(b_n))x  = (\bf c_1,\cdots,\bf c_n)\cdot A_\Phi \bf x \end{aligned}$ $\Rightarrow$ 在像空间$c$下的coordinate是$\tilde x=A_\Phi x$.
+  - `Note:`
+      - the transformation matrix of linear mapping $\Phi$ is $A$ under an ordered basis equals to <font color="red">*$\Phi$ maps any coordinate $x$  under the ordered basis to $Ax$*</font>.
+      - $\tilde x=A_\Phi x\Rightarrow$ 在YouTube `Essence of linear algebra`里, 如果你assume $(\bf b_1, \cdots, b_n) \approx (\bf c_1,\cdots,\bf c_n)$[detail](≈的意思是画图时你把他们都当作正常的正交基去画) , 那么你也可以认为此线性变换相当于把原来的标准基$I$换成了$[A_1,\cdots,A_n]=A_\Phi$.
   
 - **Linear mapping matrices w.r.t. basis change**: 
   - 在canonical basis下某transformation matrix $A=\begin{bmatrix}2, 1\\1, 2\end{bmatrix}$. 请问在新的基$\begin{bmatrix}1\\1\end{bmatrix}$, $\begin{bmatrix}1\\-1\end{bmatrix}$下的矩阵为?
