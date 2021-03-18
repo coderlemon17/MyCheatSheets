@@ -1,25 +1,22 @@
-# [Introduction to Gaussian Process](https://www.youtube.com/watch?v=4vGiHC35j9s&feature=emb_logo)
+# Lecture 8. [Introduction to Gaussian Process](https://www.youtube.com/watch?v=4vGiHC35j9s&feature=emb_logo)
 
-## Gaussian Basics
+## 8.1. Gaussian Basics
 
 - $x \sim N(\mu, \Sigma)$ 
   
-    - ![Image for post](./pic/1_qUy5tdKD3JF8SBpGfN9TpQ.png)
+    - <img src="./pic/1_qUy5tdKD3JF8SBpGfN9TpQ.png" alt="Image for post" style="zoom:67%;" />
     
-    - $\Sigma$: covariance <-> $\rho$ : correlation 
+    - $\Sigma$: covariance [|=|](For Gaussian, Σ is symmetric and positive definite. ) <-> $\rho$ : correlation 
         - $\rho_{x_1x_2} = \frac{Cov(x_1,x_2)}{\sigma_{x_1}\sigma_{x_2}} $
         - $Cov(x_1,x_2) = \mathbb{E}[(X_1-E(X_1))(X_2-E(X_2))]$
     
 
-### Joint distribution && Conditional distribution  <--> Marginal distribution
+-  Joint distribution && Conditional distribution *versus* Marginal distribution
+  - <img src="./pic/image-20200716110856952.png" alt="image-20200716110856952" style="zoom:20%;" /> 
+- Multivariate Gaussian Theorem:
+  - <img src="D:\Workspace\MyCheatSheets\Learn\UCB\pic\image-20210317113219820.png" alt="image-20210317113219820" style="zoom:50%;" />
 
-- <img src="./pic/image-20200716110856952.png" alt="image-20200716110856952" style="zoom:50%;" />
-- For Gaussian, $\Sigma$ is **symmetric** and **positive definite**. 
-
--  <img src="./pic/123123.png" alt="image-20200716111425199" style="zoom:50%;" />
-
-
-### How to sample Gaussian data from uniform distribution:
+## 8.2 How to sample Gaussian data from uniform distribution:
 
 - `Inverse Cumulative Sampling`:
     - <img src="./pic/image-20200716122325494.png" alt="image-20200716122325494" style="zoom:25%;" />
@@ -35,18 +32,16 @@
 >
 > Then: Let $U \sim \mathcal{U}(0,1)$, given an arbitrary distribution with c.d.f. $F(x)$, then assign $X = F^{-1}(U)$, $X$ will have the distribution $F(x)$.
 >
-> ![image-20200716133309820](./pic/image-20200716133309820.png)
-
-- $X_i \sim N(0,1)$ <===> $X_i \sim N(\mu,\sigma^2) \sim \mu+\sigma N(0,1)$
 
 - How to get samples from $X\in\mathbb{R}^n, X\sim N(\mu^n, \Sigma_{n\times n})$?
+    - For one-dimensional case: $X_i \sim N(0,1)$ <===> $X_i \sim N(\mu,\sigma^2) \sim \mu+\sigma N(0,1)$.
     - If each dimension is **independent**, it's easy, we just sample every dimension independently.
         - Note that: though that $p(x_1) \sim N(\mu_1,\Sigma_{11}), p(x_2) \sim N(\mu_2,\Sigma_{22})$ will always be true, **but only when $x_1, x_2$ are independent**, randomly sample $x_1 \sim N(\mu_1,\Sigma_{11}), x_2 \sim N(\mu_2,\Sigma_{22})$ will equal to sample $\begin{bmatrix}x_1 \\ x_2 \end{bmatrix}$ from the join distribution.
     - If not, we can still apply the trick in one-dimension case.
         - $X\sim \mu+L\cdot N(0, I)$. $L$ is the "square root" of $\Sigma$. (Cholesky decomposition, $\Sigma=LL^T$)
         - For $N(0,I)$, every dimension is independent. 
 
-## Gaussian Process
+## 8.3. Gaussian Process
 
 - An intuitive assumption: 
     - If $x_i$ and $x_j$ are close to each other, then $y_i$ and $y_j$ should be close too.
@@ -55,7 +50,7 @@
     - $\begin{bmatrix}f_1 \\ f_2 \\\end{bmatrix} \sim N(0, \begin{bmatrix}K_{11} & K_{12} \\ K_{21} & K_{22}\\ \end{bmatrix}) = N(0, \mathbf{K})$ 
     - :warning: $k$ is all calculated with **kernel function**.
     -  Then we want to predict $y_*$ given $x_*$, let's **assume it comes from** $y_*\sim N(0,k(x_*,x_*)) = N(0, K_{**})$, where $k(\cdot, \cdot)$ is a kernel function, e.g. $k(x_i, x_j) = \sigma^2 * exp(-\lambda||x_i - x_j||)$
-    - And we think $f_1,f_2$ and $f_*$ are correlated, so we get $\begin{bmatrix}f_1\\f_2\\f_*\\\end{bmatrix} \sim N(0, \begin{bmatrix}\mathbf{K} & & K_{1*} \\ & & K_{2*} \\ K_{*1} & K_{*2} & K_{**}\end{bmatrix})$, let's call $\begin{bmatrix}K_{1*} \\ K_{2*}\\\end{bmatrix} = K_*$ and $f = \begin{bmatrix}f_1 \\ f_2\\\end{bmatrix}$
+    - And we think $f_1,f_2$ and $f_*$ are correlated, so we get $\begin{bmatrix}f_1\\f_2\\f_*\\\end{bmatrix} \sim N(0, \begin{bmatrix}\mathbf{K} & & K_{1*} \\ & & K_{2*} \\ K_{*1} & K_{*2} & K_{**}\end{bmatrix})$, let's call $\begin{bmatrix}K_{1*} \\ K_{2*}\\\end{bmatrix} = K_*$ and $f = \begin{bmatrix}f_1 \\ f_2\\\end{bmatrix}$.
 
 - Then we can *apply Multivariate Gaussian Theorem* to get **$P(y_* | (x_1,f_1), (x_2,f_2))$**
     - $\mu_* = K_*^T\mathbf{K}^{-1}f$

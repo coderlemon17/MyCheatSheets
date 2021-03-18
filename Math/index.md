@@ -18,5 +18,5 @@
 
 # sheet5:
 
-- PCA; ICA
-- 
+- GAN
+- VAE
