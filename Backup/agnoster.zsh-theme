@@ -203,6 +203,7 @@ prompt_hg() {
 }
 
 # Dir: current working directory
+# ADD by me
 prompt_dir() {
   prompt_segment blue $CURRENT_FG '%2~'
 }
