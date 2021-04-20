@@ -286,12 +286,11 @@ $A\in\mathbb R^{m\times n}$
 - For vector space $V$ with inner product and an ordered basis $\mathcal B=\bf(b_1,\cdots,b_n)$ of $V$: (Note: inner product is bilinear mapping)
   - <img src=".\pic\image-20210305141240766.png" alt="image-20210305141240766" style="zoom: 50%;" />, where $A_{ij}:=<\mathbf b_i,\mathbf b_j>$ and $\hat x$, $\hat y$ are the coordinates of $\mathbf x$ and $\bf y$ w.r.t. basis $\mathcal B$.
   - Which implies that **that the inner product $<.,\ .>$is uniquely determined through $A$**.
-    - Therefore, according to the positive definiteness of the inner product: $\forall \mathbf x\in V\backslash \{\mathbf 0\}:\mathbf x^TA\mathbf x>0$.
-    - Accordingly we can define symmetric, positive/semipositive definite matrices.
+    - Therefore, according to the positive definiteness of the inner product $\forall \mathbf x\in V\backslash \{\mathbf 0\}:\mathbf x^TA\mathbf x>0$,  we can thus define symmetric, positive/semipositive definite matrices.
 - `Remark`:
   - <img src=".\pic\image-20210305141922364.png" alt="image-20210305141922364" style="zoom:50%;" /> 
   - If $A$ is symmetric and positive definite, then:
-    - The null space (kernel) of $A$ consist only of $\mathbf 0$ $\mathbf x^tA\mathbf x > 0$ if $\mathbf \neq 0$; the diagonal elements $a_{ii}$ of $A$ are always positive ($e_i^TAe_i>0$).
+    - The null space (kernel) of $A$ consist only of $\mathbf 0$, i.e.  $\mathbf x^tA\mathbf x > 0$ if $\mathbf x \neq 0$; the diagonal elements $a_{ii}$ of $A$ are always positive ($e_i^TAe_i>0$).
 
 ### 3.3. Lengths and Distances
 
@@ -447,18 +446,18 @@ Consider an affine subspace $L=x_0+U$, the general principle for considering pro
 
 <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210309110019623.png" alt="image-20210309110019623" style="zoom:50%;" />
 
-### 4.2. Determinant and Trace
+### 4.1. Determinant and Trace
 
 **Determinant:**
 
 - The determinant $\det(A)$ is the **signed volume** of an n-dimensional parallelepiped formed **by columns of the matrix A**.
-  - Or: determinant is the scaling factor of linear mappings.
-  - The sign of the determinant indicates the orientation of the spanning vectors (of A's column space) w.r.t. the standard basis.
+  - Or: determinant is the *scaling factor* of linear mappings.
+  - The sign of the determinant indicates the orientation of the spanning vectors (of A's column space) *w.r.t.* the standard basis.
 - Laplace Expansion:
   - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210313161835848.png" alt="image-20210313161835848" style="zoom:50%;" />
 - Properties of determinants:
   - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210313161915466.png" alt="image-20210313161915466" style="zoom:50%;" />
-  - From the last three properties, we can deduct that $\det(A)=0\Leftrightarrow rk(A)=n$.
+  - From the last three properties, we can deduct that $\det(A)\neq 0\Leftrightarrow rk(A)=n$. (Hint: *row-echelon form*)
 
 **Trace:**
 
@@ -472,6 +471,54 @@ Consider an affine subspace $L=x_0+U$, the general principle for considering pro
 - Characteristic Polynomial:
   - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210313162546568.png" alt="image-20210313162546568" style="zoom:50%;" /> $\Leftrightarrow$ $\left\{\begin{aligned}c_0&=\det(A)\\c_{n-1}&=(-1)^{n-1}tr(A)\end{aligned}\right.$
   - <font color="grey">$c_{n-1}$可以理解为，对于$\det(A-\lambda I)$做展开的时候, 排列组合, 含有n-1个lambda项一定会乘以一个$a_{ii}$的项.</font>
+
+### 4.2. Eigenvalues and Eigenvectors
+
+<img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210318194319189.png" alt="image-20210318194319189" style="zoom:50%;" />$\Rightarrow$ the stretch of eigenvectors.
+
+- Definitions:
+
+  - Two vectors that point in the *same direction* are called **codirected**. Two vectors are **collinear** if they point in the *same or the opposite direction.*
+  - **Algebraic multiplicity** of $\lambda_i$: the number of times the root appears in the characteristic polynomial.
+  - **Geometric multiplicity** of $\lambda_i$: the dimensionality of the eigenspace spanned by the eigenvectors associated with $λ_i$.
+  - Eigenspace w.r.t. $\lambda_i$: the subspace spanned by the eigenvectors of $A$ w.r.t. $\lambda_i$.
+  - Eigenspectrum: the set of all eigenvalues of $A$.
+  - Defective: A square matrix $A ∈ \R^{n×n}$ is defective if it possesses **fewer than $n$** linearly independent eigenvectors.
+
+- Useful properties:
+
+  - $Ax=\lambda x, x\in\R^n\backslash\{\mathbf{0}\} \Leftrightarrow rk(A-\lambda I_n)<n\Leftrightarrow det(A-\lambda I_n)=0$.
+
+  - If $x$ is eigenvector, then $cx,c\in\R\backslash\{\mathbf{0}\}$ is eigenvector. (non-uniqueness)
+
+  - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210318195728458.png" alt="image-20210318195728458" style="zoom:50%;" /> 
+
+  - **Similar matrices** possess the same eigenvalues.
+
+    - <font color="red">Trace; determiant; egienvalues are basis-independent.</font>
+
+  - **Symmetric matrices**:
+
+    - The eigenvectors $x_1, \cdots, x_n$ of a matrix $A ∈ \R^n×n$ with $n$ distinct eigenvalues $λ_1, \cdots , λ_n$ are linearly independent.
+
+      - If $A$ is symmetric, then $x_1,\cdots,x_n$ are **orthogonal**.
+
+    - Symmetric matrices always have real eigenvalues, and they are **never defective**.
+
+      - Proof: [link1](https://math.stackexchange.com/questions/1517539/if-a-real-symmetric-matrix-has-repeated-eigenvalues-why-does-it-still-have-n-li); [link2](https://www.quora.com/Why-is-symmetric-matrix-never-defective-has-a-full-set-of-independent-eigenvectors-Can-you-give-intuitive-proof)
+
+        > - Basic idea: If $x$ is $A$'s eigenvector of $\lambda_i$, and $y$ is orthogonal to $x$, then $y$ is orthogonal to $Ax$. Therefore, let $\Zeta$ denote the space orthogonal to $\lambda_i$'s eigenspace. Easy to know, $y\in \Zeta$, and $A$ is a symmetric endomorphism in $\Zeta$, we can thus find another eigenvector and eigenvalue. And .....
+
+      - For any symmetric matrices, there exists a set of orthonormal basis of eigenvectors space such that $A=PDP^T$, where $D$ is diagonal and the columns of $P$ contain the eigenvectors.
+
+    - Symmetric, (semi)positive matrices always have real, (non-negative) positive eigenvalues.
+
+  - An eigenvalue’s geometric multiplicity <font color="red">$\leq$</font> its algebraic multiplicity.
+
+  - Graph interpretation: <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210318203701064.png" alt="image-20210318203701064" style="zoom:50%;" />
+
+    - <img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210318203343937.png" alt="image-20210318203343937" style="zoom: 50%;" /><img src="D:\Workspace\MyCheatSheets\Math\Mathematics for Machine Learning\pic\image-20210318203358387.png" alt="image-20210318203358387" style="zoom:50%;" />
+    - <font color="grey">Linear transition can be seen as stretch of eigenvectors: $\det$ stands for space; $tr$ stands for perimeter.</font>
 
 
 
