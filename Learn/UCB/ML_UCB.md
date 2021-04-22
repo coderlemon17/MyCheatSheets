@@ -4,22 +4,21 @@
 
 - $x \sim N(\mu, \Sigma)$ 
   
-    - <img src="./pic/1_qUy5tdKD3JF8SBpGfN9TpQ.png" alt="Image for post" style="zoom:67%;" />
+    - <img src="./assets/1_qUy5tdKD3JF8SBpGfN9TpQ.png" alt="Image for post" style="zoom:67%;" />
     
     - $\Sigma$: covariance [|=|](For Gaussian, Σ is symmetric and positive definite. ) <-> $\rho$ : correlation 
         - $\rho_{x_1x_2} = \frac{Cov(x_1,x_2)}{\sigma_{x_1}\sigma_{x_2}} $
         - $Cov(x_1,x_2) = \mathbb{E}[(X_1-E(X_1))(X_2-E(X_2))]$
     
-
 -  Joint distribution && Conditional distribution *versus* Marginal distribution
-  - <img src="./pic/image-20200716110856952.png" alt="image-20200716110856952" style="zoom:20%;" /> 
+  - <img src="./assets/image-20200716110856952.png" alt="image-20200716110856952" style="zoom:20%;" /> 
 - Multivariate Gaussian Theorem:
-  - <img src="D:\Workspace\MyCheatSheets\Learn\UCB\pic\image-20210317113219820.png" alt="image-20210317113219820" style="zoom:50%;" />
+  - <img src="D:\Workspace\MyCheatSheets\Learn\UCB\assets\image-20210317113219820.png" alt="image-20210317113219820" style="zoom:50%;" />
 
 ## 8.2 How to sample Gaussian data from uniform distribution:
 
 - `Inverse Cumulative Sampling`:
-    - <img src="./pic/image-20200716122325494.png" alt="image-20200716122325494" style="zoom:25%;" />
+    - <img src="./assets/image-20200716122325494.png" alt="image-20200716122325494" style="zoom:25%;" />
     - 绿色的是高斯分布的Cumulative Distribution Function (累积分布函数) $\Phi(x)$, 所以从红色的uniform分布中sample出$x\sim[0,1]$, 然后逆映射$y = \Phi^{-1}(x)$, $y$符合高斯分布.
 
 > Inverse Transfer Learning ([see](https://www2.isye.gatech.edu/~sman/courses/6644/Module07-RandomVariateGenerationSlides_171116.pdf))
@@ -66,7 +65,7 @@
 - $\mathbf{K}$ only stands for the **smoothness assumption** in GP, so $N(\mu_{\text{arbitrary}}, \mathbf{K})$ is just a collection of random smooth functions !  --> **GP is a Gaussian distribution over functions!**  
     - You can assume **$f$ is centralized**, i.e. $\mu = 0\text{ for } f, f_*$. (But you have to actually do that on real data, e.g. estimate $\mathbb{E(f(x))}$ then minus it ,otherwise the data you observed won't be centralized)
     - GP defines a **function distribution**, i.e. $f(x) \sim \mathcal{GP}(\mathbb{E}[f(x)], \mathbf{K}$
-- <img src="./pic/image-20200729164559126.png" alt="image-20200729164559126" style="zoom:50%;" />
+- <img src="./assets/image-20200729164559126.png" alt="image-20200729164559126" style="zoom:50%;" />
 
 #### Meaning 2:
 
@@ -78,11 +77,11 @@
 
 ## Noiseless GP Regression
 
-<img src="./pic/GP_1.png" alt="image-20200729172117681" style="zoom:67%;" />
+<img src="./assets/GP_1.png" alt="image-20200729172117681" style="zoom:67%;" />
 
 
 
-<img src="./pic/GP_0.png" alt="image-20200716155438926" style="zoom:67%;" />
+<img src="./assets/GP_0.png" alt="image-20200716155438926" style="zoom:67%;" />
 
 - $\mu'$ and $\mu_*^{'}$ are priors. (Either estimate from training data, or assume to be zero -> for centralized data.)
     - $\mu_*$ and $\Sigma_*$ are para of **conditional distribution!**  
@@ -97,7 +96,7 @@
 
 ## Effect of Kernel with Parameters
 
-<img src="./pic/image-20200726152800951.png" alt="image-20200726152800951" style="zoom:67%;" />
+<img src="./assets/image-20200726152800951.png" alt="image-20200726152800951" style="zoom:67%;" />
 
 - `the red one is the fitting function, ane the blue is the truth`:
     - When `l` is **small**, the fitting function tends to be **less smooth**
@@ -149,7 +148,7 @@ $$
 
 ### Another interpretation of GP
 
-<img src="./pic/image-20200729182043660.png" alt="image-20200729182043660" style="zoom:67%;" />
+<img src="./assets/image-20200729182043660.png" alt="image-20200729182043660" style="zoom:67%;" />
 
 - So the mean $\mu_* = \bar{f_*}$ is actually a **linear combination of basis functions** ($k(x_i,x_*)$)
 
@@ -202,13 +201,13 @@ $$
 
 - Doing MLE:
 
-    - ![image-20200729123139868](./pic/image-20200729123139868.png)
+    - ![image-20200729123139868](./assets/image-20200729123139868.png)
     - Where $\theta$ is parameter of your kernel function. 
         - So you actually doing optimization w.r.t data, so this is empirical based. 
 
 ## Numerical computation considerations
 
-<img src="./pic/image-20200729185219247.png" alt="image-20200729185219247" style="zoom:67%;" />
+<img src="./assets/image-20200729185219247.png" alt="image-20200729185219247" style="zoom:67%;" />
 
 # [Bayesian optimization and multi-armed bandits](https://www.youtube.com/watch?v=vz3D36VXefI&list=PLE6Wd9FR--EdyJ5lbFl8UuGjecvVw66F6&index=10)
 
@@ -260,7 +259,7 @@ $$
 - We need **two** components:
     - A probabilistic model of the environment: a posterior.
     - Utilitarian: make decisions based on the posterior. (e.g. acquisition function)
-- e.g.![image-20200730113436499](./pic/image-20200730113436499.png)
+- e.g.![image-20200730113436499](./assets/image-20200730113436499.png)
     - The expected utility is : $EU(a) = \sum_{x}u(x,a)P(x|data)$  <-- posterior
         - Just like RL.
     - Then your decision might be: $argmax_{a}EU(a)$  <-- decision
@@ -280,11 +279,11 @@ $$
 
 - But we don't know $f(x^*)$, so instead:
   
-    - <img src="./pic/image-20200730114843170.png" alt="image-20200730114843170" style="zoom:67%;" />
+    - <img src="./assets/image-20200730114843170.png" alt="image-20200730114843170" style="zoom:67%;" />
 
 ### A third criterion: GP-UCB
 
-<img src="./pic/image-20200730115121492.png" alt="image-20200730115121492" style="zoom:67%;" />
+<img src="./assets/image-20200730115121492.png" alt="image-20200730115121492" style="zoom:67%;" />
 
 - [GP-UCB](https://arxiv.org/abs/0912.3995)
 
@@ -292,5 +291,5 @@ $$
 
 ## Usage of Bayesian Optimization
 
-<img src="./pic/image-20200730120411656.png" alt="image-20200730120411656" style="zoom:50%;" />
+<img src="./assets/image-20200730120411656.png" alt="image-20200730120411656" style="zoom:50%;" />
 
