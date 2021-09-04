@@ -7,4 +7,4 @@ pkill compton ; compton -b --config /home/lemon/.config/compton/compton.conf
 # mate-power-manager
 dwmstatus 2>&1 >/dev/null &
 sh -c "exec ~/.nutstore/dist/bin/nutstore-pydaemon.py" 1>/dev/null 2>&1 &
-xrandr --output eDP-1-1 --brightness 0.95
+xrandr --output eDP-1-1 --brightness 0.5

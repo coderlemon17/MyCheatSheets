@@ -1,4 +1,4 @@
-########################################################## #Setting from bashrc
+##########################################################
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 
@@ -29,20 +29,31 @@ alias sudo='sudo env PATH=$PATH'
 # export PATH=/home/lemon/Code_apps/Qemu/qemu-4.2.0/riscv32-softmmu:/home/lemon/Code_apps/Qemu/qemu-4.2.0/riscv64-softmmu:$PATH
 
 # for rust
-export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
-export PATH="$HOME/.cargo/bin:$PATH"
+# export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+# export PATH="$HOME/.cargo/bin:$PATH"
 
 
 # for CUDA
-# export PATH="/usr/local/cuda-10.2/bin:$PATH"
-# export LD_LIBRARY_PATH="/usr/local/cuda-10.2/lib64:$LD_LIBRARY_PATH"
+export PATH="/usr/local/cuda-11.2/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda-11.2/lib64:$LD_LIBRARY_PATH"
 
-#for Java
+# for Java
 # export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 # export JRE_HOME="${JAVA_HOME}/jre"
 # export CLASSPATH=".:${JAVA_HOME}/lib:${JRE_HOME}/lib"
 # export PATH="${PATH}:${JAVA_HOME}/bin"
 
+# Load pyenv automatically by adding
+# the following to ~/.bashrc:
+
+export PATH="/home/lemon/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# for free_mjc: https://github.com/Lemoners/free_mjc
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.mujoco/mujoco200/bin
+# for mujoco
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so
 ##########################################################
 
 
@@ -159,8 +170,9 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 #conda activate self-drivingi
 export VVENV="/home/lemon/Environments"
-source $VVENV/basic_env/bin/activate
-#source $VVENV/ugvr_env/bin/activate
+#source $VVENV/basic_env/bin/activate
+source $VVENV/spinning_env/bin/activate
+#source $VVENV/atla_env/bin/activate
 
 # encoding
 export LC_ALL=en_US.utf-8 
@@ -246,22 +258,20 @@ alias xc="xsel --clipboard"
 
 # for i3wm
 alias lk="i3lock-fancy 2>/dev/null"
-alias f="ranger"
-alias net="nmtui"
-#alias sound="alsamixer"
-alias psound="alsamixer"
+# alias f="ranger"
+# alias net="nmtui"
+# alias psound="alsamixer"
 alias sound="pavucontrol"
-alias xm="xmodmap ~/Workspace/myCheatSheet/i3wm/Scripts/Xmodmap"
-alias minit="bash ~/Workspace/myCheatSheet/i3wm/Scripts/startup.sh"
-alias ldown="sudo light -U 20"
-alias lup="sudo light -A 20"
+# alias xm="xmodmap ~/Workspace/myCheatSheet/i3wm/Scripts/Xmodmap"
+# alias minit="bash ~/Workspace/myCheatSheet/i3wm/Scripts/startup.sh"
+# alias ldown="sudo light -U 20"
+# alias lup="sudo light -A 20"
 
 # vritualenvironment
 alias vv="virtualenv"
 msvv() {
     source $VVENV/$1/bin/activate;
 }
-# !no space
 alias svv="msvv"
 alias dvv="deactivate"
 
@@ -329,3 +339,6 @@ mmfd() {
     mv ~/Downloads/$1 $2
 }
 alias mfd="mmfd"
+
+# brightness controller
+alias br="brightness-controller"
